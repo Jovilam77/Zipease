@@ -1,0 +1,1057 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title data-i18n="meta.title">Zipease · 使用教程</title>
+  <meta name="description" data-i18n="meta.description" content="Zipease 使用教程：从预览解压、加密压缩、批量处理、格式关联、密码管理、测试修复到 Pro 版激活，零基础也能 5 分钟上手。" />
+  <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="assets/appicon-512.png" />
+  <style>
+    :root {
+      --bg: #fafbff;
+      --fg: #0d1030;
+      --muted: #5a5f7a;
+      --card: #ffffff;
+      --line: rgba(13, 16, 48, .08);
+      --accent-a: #6366f1;
+      --accent-b: #8b5cf6;
+      --accent-c: #ec4899;
+      --grad: linear-gradient(135deg, var(--accent-a) 0%, var(--accent-b) 50%, var(--accent-c) 100%);
+      --radius: 16px;
+      --shadow: 0 10px 40px -20px rgba(99, 102, 241, .35);
+      --maxw: 1040px;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, Inter, sans-serif;
+      background: radial-gradient(1200px 600px at 10% -10%, rgba(139, 92, 246, .12), transparent 60%),
+                  radial-gradient(900px 500px at 100% 0%, rgba(236, 72, 153, .10), transparent 55%),
+                  var(--bg);
+      color: var(--fg);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    .container { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+    /* Header */
+    header.site {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: saturate(180%) blur(14px);
+      -webkit-backdrop-filter: saturate(180%) blur(14px);
+      background: rgba(250, 251, 255, .7);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; text-decoration: none; letter-spacing: .2px; }
+    .brand-logo {
+      width: 34px; height: 34px; border-radius: 9px;
+      box-shadow: 0 2px 6px rgba(20, 20, 60, .12), 0 0 0 .5px rgba(0,0,0,.04) inset;
+      object-fit: cover; display: block;
+    }
+    .nav-right { display: flex; align-items: center; gap: 12px; }
+    .lang-switcher {
+      display: inline-flex; background: #fff; border: 1px solid var(--line); border-radius: 999px;
+      padding: 3px; box-shadow: 0 1px 2px rgba(0,0,0,.03);
+    }
+    .lang-switcher button {
+      border: 0; background: transparent; cursor: pointer; padding: 5px 12px;
+      border-radius: 999px; font-size: 13px; font-weight: 600; color: var(--muted);
+      transition: all .18s ease;
+    }
+    .lang-switcher button.active {
+      background: var(--grad); color: #fff; box-shadow: 0 2px 10px -4px rgba(99,102,241,.6);
+    }
+    .back-home {
+      text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+      color: var(--muted); font-weight: 600; font-size: 14px;
+    }
+    .back-home:hover { color: var(--fg); }
+
+    /* Hero */
+    .page-hero { padding: 56px 0 36px; }
+    .page-hero .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--accent-b); margin-bottom: 14px;
+    }
+    .page-hero .eyebrow .dot { width: 8px; height: 8px; border-radius: 999px; background: var(--grad); }
+    .page-hero h1 {
+      font-size: 40px; line-height: 1.15; margin: 0 0 14px; letter-spacing: -.02em;
+    }
+    .page-hero h1 .accent {
+      background: var(--grad); -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: transparent;
+    }
+    .page-hero p.lead { font-size: 17px; color: var(--muted); max-width: 760px; margin: 0; }
+    .hero-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #fff; border: 1px solid var(--line); border-radius: 999px;
+      padding: 10px 16px; font-size: 14px; color: var(--muted);
+      box-shadow: 0 6px 20px -16px rgba(99,102,241,.5);
+      margin-top: 18px;
+    }
+    .hero-pill strong { color: var(--fg); }
+
+    /* Layout */
+    main.layout { display: grid; grid-template-columns: 240px 1fr; gap: 44px; padding: 24px 0 80px; }
+    aside.toc {
+      position: sticky; top: 88px; align-self: start;
+      border: 1px solid var(--line); background: var(--card); border-radius: var(--radius);
+      padding: 18px 16px; box-shadow: 0 8px 24px -24px rgba(0,0,0,.25);
+    }
+    aside.toc h4 { margin: 0 0 10px; font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+    aside.toc ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+    aside.toc a {
+      display: block; padding: 8px 10px; border-radius: 9px; text-decoration: none;
+      color: var(--muted); font-weight: 600; font-size: 14px;
+    }
+    aside.toc a:hover { background: #f3f4ff; color: var(--fg); }
+
+    .content section { scroll-margin-top: 96px; margin-bottom: 36px; }
+    .content h2 {
+      font-size: 24px; margin: 0 0 14px; letter-spacing: -.01em;
+      padding-bottom: 10px; border-bottom: 1px solid var(--line);
+    }
+    .content h3 { font-size: 17px; margin: 22px 0 8px; }
+    .content p { color: #343852; margin: 10px 0; }
+    .content p a { color: var(--accent-a); text-decoration: none; border-bottom: 1px dashed rgba(99,102,241,.45); }
+    .content ul { padding-left: 22px; }
+    .content ol { padding-left: 22px; }
+    .content li { margin: 6px 0; color: #343852; }
+    .content code {
+      background: #eef0ff; color: #4338ca; padding: 1.5px 6px; border-radius: 5px; font-size: 13px;
+      font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, monospace;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 22px; box-shadow: var(--shadow);
+    }
+    .card + .card { margin-top: 16px; }
+
+    /* Steps */
+    .steps { display: grid; gap: 14px; margin-top: 10px; }
+    .step { display: grid; grid-template-columns: 36px 1fr; gap: 14px; align-items: start; }
+    .step .n {
+      width: 36px; height: 36px; border-radius: 10px; background: #eef0ff; color: var(--accent-a);
+      display: grid; place-items: center; font-weight: 800; font-size: 15px;
+    }
+    .step p { margin: 0; }
+
+    /* Pro / Tip callout */
+    .callout {
+      display: grid; grid-template-columns: 32px 1fr; gap: 14px; align-items: start;
+      padding: 16px 18px; border-radius: 14px;
+      border: 1px solid var(--line); background: var(--card);
+      margin: 14px 0;
+    }
+    .callout .ico {
+      width: 32px; height: 32px; border-radius: 10px; display: grid; place-items: center;
+      font-size: 16px;
+    }
+    .callout.tip    { background: linear-gradient(180deg, #EEF2FF, #FFFFFF); border-color: rgba(99,102,241,.22); }
+    .callout.tip .ico { background: linear-gradient(135deg,#6366f1,#8b5cf6); color:#fff; box-shadow: 0 6px 16px -8px rgba(99,102,241,.7); }
+    .callout.pro    { background: linear-gradient(180deg, #FEF3C7, #FFFFFF); border-color: rgba(234,179,8,.28); }
+    .callout.pro .ico { background: linear-gradient(135deg,#F59E0B,#F97316); color:#fff; box-shadow: 0 6px 16px -8px rgba(249,115,22,.7); }
+    .callout.lock   { background: linear-gradient(180deg, #ECFDF5, #FFFFFF); border-color: rgba(16,185,129,.22); }
+    .callout.lock .ico{ background: linear-gradient(135deg,#10B981,#059669); color:#fff; box-shadow: 0 6px 16px -8px rgba(16,185,129,.7); }
+    .callout p     { margin: 0; font-size: 14.5px; color: #3b3f5d; }
+    .callout strong{ color: #0d1030; }
+
+    /* Feature grid */
+    .feat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 8px; }
+    .feat {
+      border: 1px solid var(--line); background: var(--card); border-radius: 14px; padding: 16px;
+      text-decoration: none; transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .feat:hover { transform: translateY(-2px); box-shadow: 0 14px 28px -22px rgba(99,102,241,.45); border-color: rgba(99,102,241,.35); }
+    .feat .ic {
+      width: 40px; height: 40px; border-radius: 11px; flex: none;
+      background: var(--grad); color: #fff; display: grid; place-items: center; margin-bottom: 10px;
+      box-shadow: 0 6px 16px -8px rgba(99,102,241,.7);
+    }
+    .feat h4 { margin: 0 0 4px; font-size: 15px; }
+    .feat p { margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+    /* Table: Shortcuts */
+    table.shortcuts {
+      width: 100%; border-collapse: separate; border-spacing: 0;
+      border: 1px solid var(--line); border-radius: 14px; overflow: hidden;
+      background: #fff;
+    }
+    table.shortcuts th, table.shortcuts td {
+      text-align: left; padding: 11px 14px; font-size: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+    table.shortcuts th {
+      background: linear-gradient(180deg, #f3f4ff, #eef0ff);
+      color: #4338ca; font-size: 13px; letter-spacing: .02em;
+    }
+    table.shortcuts tr:last-child td { border-bottom: 0; }
+    table.shortcuts td kbd {
+      display: inline-block; padding: 2px 7px; border-radius: 6px;
+      background: #EEF2FF; color: #4338CA; border: 1px solid rgba(99,102,241,.2);
+      font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, monospace;
+      font-size: 12.5px; font-weight: 600; margin-right: 3px;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--muted); font-size: 13.5px;
+      background: rgba(255,255,255,.55);
+    }
+    .foot-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .foot-links { display: flex; gap: 18px; flex-wrap: wrap; }
+    .foot-links a { color: var(--muted); text-decoration: none; font-weight: 600; }
+    .foot-links a:hover { color: var(--fg); }
+
+    /* Responsive */
+    @media (max-width: 860px) {
+      main.layout { grid-template-columns: 1fr; }
+      aside.toc { position: static; }
+      .feat-grid { grid-template-columns: 1fr; }
+      .page-hero h1 { font-size: 30px; }
+      .back-home span { display: none; }
+    }
+    @media (max-width: 480px) {
+      .lang-switcher button { padding: 5px 9px; font-size: 12px; }
+      .page-hero h1 { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+<header class="site">
+  <div class="container nav">
+    <a href="index.html" class="brand" aria-label="Zipease">
+      <img class="brand-logo" src="assets/appicon-512.png" alt="Zipease icon" />
+      <span data-i18n="brand">Zipease (易解)</span>
+    </a>
+    <div class="nav-right">
+      <div class="lang-switcher" role="tablist" aria-label="Language">
+        <button data-lang="zh-Hans" class="active" role="tab" aria-selected="true">简体</button>
+        <button data-lang="zh-Hant" role="tab" aria-selected="false">繁體</button>
+        <button data-lang="en" role="tab" aria-selected="false">EN</button>
+      </div>
+      <a class="back-home" href="index.html">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        <span data-i18n="nav.back">返回首页</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="eyebrow"><span class="dot"></span><span data-i18n="hero.eyebrow">使用教程</span></div>
+    <h1 data-i18n-html="hero.title">从零开始，<span class="accent">5 分钟</span>掌握 Zipease 全能力</h1>
+    <p class="lead" data-i18n="hero.lead">本教程覆盖 Zipease 全部核心功能：预览解压、加密压缩、批量处理、格式关联、密码钥匙串、损坏文件修复，以及 Pro 版激活与恢复购买。按目录跳转你想了解的章节即可。</p>
+    <div class="hero-pill" data-i18n-html="hero.pill">
+      ⚡️ 适用版本：<strong>Zipease 1.0+</strong> ｜ 纯本地运行，无任何网络操作
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <main class="layout">
+    <aside class="toc">
+      <h4 data-i18n="toc.title">目录</h4>
+      <ul>
+        <li><a href="#quick"   data-i18n="toc.quick">🚀 快速入门</a></li>
+        <li><a href="#extract" data-i18n="toc.extract">📂 预览与解压</a></li>
+        <li><a href="#pack"    data-i18n="toc.pack">🔐 创建与加密</a></li>
+        <li><a href="#batch"   data-i18n="toc.batch">📦 批量处理</a></li>
+        <li><a href="#settings"data-i18n="toc.settings">⚙️ 设置与关联</a></li>
+        <li><a href="#pwd"     data-i18n="toc.pwd">🔑 密码管理</a></li>
+        <li><a href="#advanced"data-i18n="toc.advanced">🛠 高级：测试/修复</a></li>
+        <li><a href="#pro"     data-i18n="toc.pro">💎 Pro 版说明</a></li>
+        <li><a href="#keys"    data-i18n="toc.keys">⌨️ 快捷键索引</a></li>
+      </ul>
+    </aside>
+
+    <article class="content">
+
+      <!-- QUICK -->
+      <section id="quick">
+        <h2 data-i18n="quick.title">🚀 快速入门：30 秒上手</h2>
+        <div class="feat-grid">
+          <div class="feat">
+            <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07L11.5 4.36"/><path d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07L12.5 19.64"/></svg></div>
+            <h4 data-i18n="quick.way1.title">① 拖拽打开</h4>
+            <p data-i18n="quick.way1.desc">把任意压缩包拖到 Zipease 主窗口或 Dock 图标，立即预览内容。</p>
+          </div>
+          <div class="feat">
+            <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="4"/><path d="M3 9h18"/></svg></div>
+            <h4 data-i18n="quick.way2.title">② 双击打开</h4>
+            <p data-i18n="quick.way2.desc">在 Finder 中双击任意格式归档（需先在设置里关联格式）。</p>
+          </div>
+          <div class="feat">
+            <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg></div>
+            <h4 data-i18n="quick.way3.title">③ 一键解压</h4>
+            <p data-i18n="quick.way3.desc">预览窗口右上角「解压」按钮一键导出，或右键选中单独文件。</p>
+          </div>
+        </div>
+
+        <div class="callout tip" style="margin-top:18px">
+          <div class="ico">💡</div>
+          <div data-i18n-html="quick.tip">
+            <p><strong>小提示：</strong>首次使用建议先打开 <strong>Zipease → 设置…</strong>（⌘,）把常用格式关联为默认打开方式，之后 Finder 中双击即可直接预览。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- EXTRACT -->
+      <section id="extract">
+        <h2 data-i18n="extract.title">📂 一、预览与解压压缩包</h2>
+        <p data-i18n-html="extract.lead">Zipease 支持 <strong>ZIP / 7Z / RAR / TAR / GZ / BZ2 / XZ / LZMA / CAB / ISO / WIM / APK</strong> 等 15+ 种主流格式预览与解压。</p>
+
+        <div class="card">
+          <h3 style="margin-top:0" data-i18n="extract.preview.title">1.1 浏览归档内容</h3>
+          <div class="steps">
+            <div class="step"><div class="n">1</div><p data-i18n-html="extract.preview.s1">将压缩包拖入主窗口 / Dock 图标，或直接使用「文件 → 打开…」（<kbd>⌘ O</kbd>）。</p></div>
+            <div class="step"><div class="n">2</div><p data-i18n-html="extract.preview.s2">进入预览面板后，左上搜索框（<kbd>⌘ F</kbd>）可按文件名快速过滤，右上角可切换<strong>列表/图标</strong>视图。</p></div>
+            <div class="step"><div class="n">3</div><p data-i18n-html="extract.preview.s3">单击选中文件后，点击「眼睛图标 👁」即可<strong>直接在内嵌面板预览</strong>（支持图片 / 文本 / PDF / 音视频 / 代码等），无需先解压。</p></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 style="margin-top:0" data-i18n="extract.all.title">1.2 解压全部 / 解压选中项</h3>
+          <div class="steps">
+            <div class="step"><div class="n">1</div><p data-i18n-html="extract.all.s1">点击预览面板顶部「解压」按钮（快捷键 <kbd>⌘ E</kbd>）解压整个归档；或右键选中多个文件后选<strong>「解压选中项」</strong>。</p></div>
+            <div class="step"><div class="n">2</div><p data-i18n-html="extract.all.s2">在弹出的目标位置选择器中：「同目录」解压到压缩包所在文件夹；「桌面」直达桌面；「选择解压到…」自定义任意路径。</p></div>
+            <div class="step"><div class="n">3</div><p data-i18n-html="extract.all.s3">遇到同名文件会弹出<strong>冲突处理</strong>面板，可单选「覆盖 / 跳过 / 重命名」或「全部覆盖」，全程不丢失文件。</p></div>
+          </div>
+        </div>
+
+        <div class="callout lock">
+          <div class="ico">🔒</div>
+          <div data-i18n-html="extract.pwd">
+            <p><strong>加密压缩包？</strong>打开时会自动弹出密码输入框。如果之前保存过相同归档的密码，会自动从系统<strong>钥匙串</strong>填充。输错密码会即时提示而不产生损坏文件。密码可点击「💾 保存到钥匙串」复选框记住（详见第六节）。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- PACK -->
+      <section id="pack">
+        <h2 data-i18n="pack.title">🔐 二、创建加密压缩包</h2>
+        <div class="card">
+          <h3 style="margin-top:0" data-i18n="pack.basic.title">2.1 通过「压缩文件」功能创建</h3>
+          <div class="steps">
+            <div class="step"><div class="n">1</div><p data-i18n-html="pack.basic.s1">点击主界面「压缩文件」卡片 / 菜单栏<strong>文件 → 新建压缩包…</strong>（<kbd>⌘ N</kbd>），打开压缩面板。</p></div>
+            <div class="step"><div class="n">2</div><p data-i18n-html="pack.basic.s2">点击「添加文件」加入任意文件/文件夹，或直接拖入。右下角可设置：<strong>压缩格式</strong>（ZIP / 7Z / TAR 系列）、<strong>压缩级别</strong>（仅存储 / 快速 / 标准 / 最大压缩）。</p></div>
+            <div class="step"><div class="n">3</div><p data-i18n-html="pack.basic.s3">下方「保存位置」可更改输出目录，文件名会自动按主文件名补扩展名。</p></div>
+          </div>
+        </div>
+
+        <div class="callout pro">
+          <div class="ico">💎</div>
+          <div data-i18n-html="pack.pro">
+            <p><strong>Pro 版独享功能：</strong>AES-256 加密压缩、7Z 格式压缩、<strong>文件名加密（-mhe=on）</strong>——即使是文件列表也需要密码才能查看，全面保护敏感数据。</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 style="margin-top:0" data-i18n="pack.enc.title">2.2 加密选项详解</h3>
+          <ul>
+            <li data-i18n-html="pack.enc.zip"><strong>ZIP 加密：</strong>默认使用传统 ZipCrypto（兼容性最好，支持跨平台打开）。对兼容性不敏感的用户，建议选<strong> 7Z 格式 + AES-256</strong>。</li>
+            <li data-i18n-html="pack.enc.aes"><strong>7Z 加密：</strong>使用 AES-256 强度加密，并额外支持「加密文件名」开关——开启后他人看不到压缩包内部有哪些文件。</li>
+            <li data-i18n-html="pack.enc.pwd"><strong>密码强度指示：</strong>输入密码时下方会实时显示「弱 / 中等 / 强」三档，强烈建议长度 ≥ 10 位，混合字母数字和特殊符号。</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- BATCH -->
+      <section id="batch">
+        <h2 data-i18n="batch.title">📦 三、批量处理（Pro 版）</h2>
+        <div class="card">
+          <h3 style="margin-top:0" data-i18n="batch.extract.title">3.1 批量解压</h3>
+          <div class="steps">
+            <div class="step"><div class="n">1</div><p data-i18n-html="batch.extract.s1">点击主界面「批量处理 → 批量解压」，拖入或选择多个压缩包（支持混合格式）。</p></div>
+            <div class="step"><div class="n">2</div><p data-i18n-html="batch.extract.s2">选择输出模式：「各自解压到同名文件夹」或「全部解压到同一文件夹」，路径可选当前目录/指定文件夹。</p></div>
+            <div class="step"><div class="n">3</div><p data-i18n-html="batch.extract.s3">点击「开始处理」，进度条实时显示每项状态；失败项会单独标红，结束后可单独重试。</p></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0" data-i18n="batch.compress.title">3.2 批量压缩</h3>
+          <p data-i18n="batch.compress.desc">多个文件/文件夹可一次批量打包为独立归档或统一一个大归档；支持同样的加密、格式与级别选项，适合周期性备份场景。</p>
+        </div>
+      </section>
+
+      <!-- SETTINGS -->
+      <section id="settings">
+        <h2 data-i18n="settings.title">⚙️ 四、设置与文件格式关联</h2>
+        <p data-i18n-html="settings.lead">打开 <strong>Zipease → 设置…</strong>（<kbd>⌘ ,</kbd>），面板含「通用 / 格式关联 / 关于」三个标签页。</p>
+
+        <div class="card">
+          <h3 style="margin-top:0" data-i18n="settings.general.title">4.1 通用标签页</h3>
+          <ul>
+            <li data-i18n-html="settings.general.extract"><strong>默认解压位置：</strong>压缩包所在目录 / 桌面 / 下载 / 每次询问，可根据使用习惯提前选定。</li>
+            <li data-i18n-html="settings.general.open"><strong>解压后自动打开文件夹：</strong>开启则解压完成会弹出 Finder 定位结果。</li>
+            <li data-i18n-html="settings.general.overwrite"><strong>覆盖前确认：</strong>关闭后同名冲突将默认覆盖，仅推荐熟悉的用户使用。</li>
+            <li data-i18n-html="settings.general.encoding"><strong>文件名编码：</strong>遇到中文/日文乱码时，可切换 GBK / GB18030 / Shift-JIS / EUC-JP / Latin1 等重新加载。</li>
+            <li data-i18n-html="settings.general.lang"><strong>应用语言：</strong>支持跟随系统 / 简中 / 繁中 / English 等 18 种语言，切换后重启生效。</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3 style="margin-top:0" data-i18n="settings.formats.title">4.2 格式关联</h3>
+          <ul>
+            <li data-i18n-html="settings.formats.setDefault">单击任一格式右侧的<strong>「设为默认」</strong>，系统会弹出一次确认框，同意后 Finder 双击该格式即会用 Zipease 打开。</li>
+            <li data-i18n-html="settings.formats.restore">点「恢复默认」可还原为 macOS 原先的默认处理程序（如 Archive Utility / BOMArchiveHelper）。</li>
+          </ul>
+        </div>
+
+        <div class="callout tip">
+          <div class="ico">💡</div>
+          <div data-i18n-html="settings.tip">
+            <p><strong>关于系统确认弹窗：</strong>macOS 出于安全原因，每种格式的「设为默认」都会单独弹一次系统对话框，请点<strong>「确定」</strong>。这是系统层的强制机制，任何 App 都无法绕过。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- PWD -->
+      <section id="pwd">
+        <h2 data-i18n="pwd.title">🔑 五、密码管理（系统钥匙串）</h2>
+        <div class="card">
+          <ul>
+            <li data-i18n-html="pwd.save">在密码输入面板勾选「💾 保存到钥匙串」，Zipease 会使用 macOS 原生 <strong>Keychain（钥匙串）</strong>加密保存，加密密钥由 Apple <strong>Secure Enclave</strong> 硬件保护。</li>
+            <li data-i18n-html="pwd.view">到「设置 → 通用 → 管理保存的密码」可查看 / 删除已保存的条目。</li>
+            <li data-i18n-html="pwd.privacy">即使启用 iCloud 钥匙串同步，开发者也<strong>无法读取任何内容</strong>——这是系统的隔离保障（详见<a href="privacy.html">隐私政策</a>）。</li>
+            <li data-i18n-html="pwd.filename">启用 7Z「文件名加密」的归档，预览列表本身也需要密码才会显示。这是最高强度的保护。</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ADVANCED -->
+      <section id="advanced">
+        <h2 data-i18n="advanced.title">🛠 六、高级：损坏归档的测试与修复</h2>
+        <p data-i18n-html="advanced.lead">当你遇到解压报错或怀疑压缩包损坏时，可直接使用 Zipease 内置的<strong>测试</strong>与<strong>修复</strong>功能，无需另装工具。</p>
+
+        <div class="card">
+          <h3 style="margin-top:0" data-i18n="advanced.test.title">6.1 测试归档完整性</h3>
+          <p data-i18n-html="advanced.test.desc">在预览面板顶部工具栏点击「测试」，Zipease 会逐文件做 CRC 与解包校验并汇总「通过 / 损坏 / 密码错误」三项统计，对大归档非常实用。</p>
+        </div>
+
+        <div class="card">
+          <h3 style="margin-top:0" data-i18n="advanced.repair.title">6.2 修复损坏压缩包</h3>
+          <div class="steps">
+            <div class="step"><div class="n">1</div><p data-i18n-html="advanced.repair.s1">预览面板点「修复」，或菜单「工具 → 修复压缩包…」。</p></div>
+            <div class="step"><div class="n">2</div><p data-i18n-html="advanced.repair.s2">选择修复强度：仅检测 / 检测并修复。7Z/ZIP 会尝试恢复可用数据，RAR 转 7Z 结构重建。</p></div>
+            <div class="step"><div class="n">3</div><p data-i18n-html="advanced.repair.s3">修复完成后选择「保存修复后的文件」写入目标位置，可直接打开检查恢复出的内容。</p></div>
+          </div>
+        </div>
+
+        <div class="callout tip">
+          <div class="ico">💡</div>
+          <div data-i18n-html="advanced.split">
+            <p><strong>关于分卷包（<code>.zip.001</code> / <code>.7z.001</code> / <code>.part1.rar</code>）：</strong>请确保所有分片齐全、处于同一文件夹、命名方式与原始完全一致，然后<strong>直接打开首片</strong>即可自动识别并处理。缺片时会给出「分卷缺失」提示。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- PRO -->
+      <section id="pro">
+        <h2 data-i18n="pro.title">💎 七、Pro 版：购买、恢复与已购买状态</h2>
+        <div class="card">
+          <h3 style="margin-top:0" data-i18n="pro.features.title">7.1 Pro 版解锁能力</h3>
+          <ul>
+            <li data-i18n-html="pro.features.f1">🔐 <strong>加密压缩</strong>（ZIP ZipCrypto / 7Z AES-256）</li>
+            <li data-i18n-html="pro.features.f2">🗂 <strong>7Z 格式压缩 + 文件名加密</strong></li>
+            <li data-i18n-html="pro.features.f3">📦 <strong>批量处理</strong>（批量解压 + 批量压缩）</li>
+            <li data-i18n-html="pro.features.f4">🩹 <strong>损坏归档修复</strong> 与编码乱码修复</li>
+            <li data-i18n-html="pro.features.f5">🔑 <strong>密码钥匙串管理</strong>（保存 + 自动填充）</li>
+          </ul>
+        </div>
+
+        <div class="callout pro">
+          <div class="ico">⚡️</div>
+          <div data-i18n-html="pro.license">
+            <p><strong>一次性买断 · 终身授权 · 无自动扣费</strong>：购买后终身免费升级后续所有新格式、新功能。可在 App Store「订阅」中核实无任何续订记录。</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 style="margin-top:0" data-i18n="pro.buy.title">7.2 购买流程</h3>
+          <div class="steps">
+            <div class="step"><div class="n">1</div><p data-i18n-html="pro.buy.s1">打开任一 Pro 功能（加密压缩、批量处理等），会弹出「升级 Pro」窗口，或进入<strong>设置 → 通用</strong>底部点「立即购买」。</p></div>
+            <div class="step"><div class="n">2</div><p data-i18n-html="pro.buy.s2">点击「购买 Pro 永久版」按钮，按 Apple 标准流程使用 Face ID / Touch ID / 密码完成支付。</p></div>
+            <div class="step"><div class="n">3</div><p data-i18n-html="pro.buy.s3">支付成功后，应用会<strong>立即解锁</strong>所有高级功能，底部按钮变为「✅ 已购买」。</p></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 style="margin-top:0" data-i18n="pro.restore.title">7.3 恢复购买（换机 / 重装 / 审核关键）</h3>
+          <ul>
+            <li data-i18n-html="pro.restore.s1">进入<strong>设置 → 通用</strong>，在主按钮下方始终可见「恢复购买」按钮（Guideline 3.1.1 强制要求，即使已解锁也会显示）。</li>
+            <li data-i18n="pro.restore.s2">点击后会使用当前登录的 App Store 账号查询历史交易记录，找到对应买断订单后自动恢复 Pro 状态。</li>
+            <li data-i18n-html="pro.restore.s3">换机、重装、从家庭共享迁移时，请先使用<strong>当时购买的 Apple ID</strong>登录 App Store 再执行恢复。</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- SHORTCUTS -->
+      <section id="keys">
+        <h2 data-i18n="keys.title">⌨️ 快捷键索引</h2>
+        <p data-i18n="keys.lead">熟记这些快捷键可显著提升日常效率：</p>
+        <div class="card" style="padding:0; overflow:hidden; box-shadow:none">
+          <table class="shortcuts">
+            <thead>
+              <tr>
+                <th data-i18n="keys.h.action">操作</th>
+                <th data-i18n="keys.h.shortcut">快捷键</th>
+                <th data-i18n="keys.h.where">作用位置</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-i18n="keys.r1.a">打开压缩包 / 文件</td>
+                <td><kbd>⌘</kbd><kbd>O</kbd></td>
+                <td data-i18n="keys.r1.w">主窗口 / 预览窗口</td>
+              </tr>
+              <tr>
+                <td data-i18n="keys.r2.a">新建压缩包</td>
+                <td><kbd>⌘</kbd><kbd>N</kbd></td>
+                <td data-i18n="keys.r2.w">全局</td>
+              </tr>
+              <tr>
+                <td data-i18n="keys.r3.a">解压归档 / 选中项</td>
+                <td><kbd>⌘</kbd><kbd>E</kbd></td>
+                <td data-i18n="keys.r3.w">预览窗口</td>
+              </tr>
+              <tr>
+                <td data-i18n="keys.r4.a">在预览中搜索文件</td>
+                <td><kbd>⌘</kbd><kbd>F</kbd></td>
+                <td data-i18n="keys.r4.w">预览窗口</td>
+              </tr>
+              <tr>
+                <td data-i18n="keys.r5.a">打开设置</td>
+                <td><kbd>⌘</kbd><kbd>,</kbd></td>
+                <td data-i18n="keys.r5.w">全局</td>
+              </tr>
+              <tr>
+                <td data-i18n="keys.r6.a">显示主窗口</td>
+                <td><kbd>⌘</kbd><kbd>0</kbd></td>
+                <td data-i18n="keys.r6.w">全局（关闭窗口后仍可呼出）</td>
+              </tr>
+              <tr>
+                <td data-i18n="keys.r7.a">关闭当前窗口</td>
+                <td><kbd>⌘</kbd><kbd>W</kbd></td>
+                <td data-i18n="keys.r7.w">全局</td>
+              </tr>
+              <tr>
+                <td data-i18n="keys.r8.a">最小化</td>
+                <td><kbd>⌘</kbd><kbd>M</kbd></td>
+                <td data-i18n="keys.r8.w">全局</td>
+              </tr>
+              <tr>
+                <td data-i18n="keys.r9.a">退出应用</td>
+                <td><kbd>⌘</kbd><kbd>Q</kbd></td>
+                <td data-i18n="keys.r9.w">全局</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </article>
+  </main>
+</div>
+
+<footer>
+  <div class="container foot-inner">
+    <div>© 2026 Vonce. <span data-i18n="foot.rights">保留所有权利。</span></div>
+    <div class="foot-links">
+      <a href="support.html" data-i18n="foot.support">技术支持</a>
+      <a href="privacy.html" data-i18n="foot.privacy">隐私政策</a>
+      <a href="terms.html" data-i18n="foot.terms">使用条款</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ===================== I18N DICT ===================== */
+const I18N = {
+  "zh-Hans": {
+    "meta.title": "Zipease · 使用教程",
+    "meta.description": "Zipease 使用教程：从预览解压、加密压缩、批量处理、格式关联、密码管理、测试修复到 Pro 版激活，零基础也能 5 分钟上手。",
+    "brand": "Zipease (易解)",
+    "nav.back": "返回首页",
+    "hero.eyebrow": "使用教程",
+    "hero.title": "从零开始，<span class=\"accent\">5 分钟</span>掌握 Zipease 全能力",
+    "hero.lead": "本教程覆盖 Zipease 全部核心功能：预览解压、加密压缩、批量处理、格式关联、密码钥匙串、损坏文件修复，以及 Pro 版激活与恢复购买。按目录跳转你想了解的章节即可。",
+    "hero.pill": "⚡️ 适用版本：<strong>Zipease 1.0+</strong> ｜ 纯本地运行，无任何网络操作",
+    "toc.title": "目录",
+    "toc.quick": "🚀 快速入门",
+    "toc.extract": "📂 预览与解压",
+    "toc.pack": "🔐 创建与加密",
+    "toc.batch": "📦 批量处理",
+    "toc.settings": "⚙️ 设置与关联",
+    "toc.pwd": "🔑 密码管理",
+    "toc.advanced": "🛠 高级：测试/修复",
+    "toc.pro": "💎 Pro 版说明",
+    "toc.keys": "⌨️ 快捷键索引",
+
+    "quick.title": "🚀 快速入门：30 秒上手",
+    "quick.way1.title": "① 拖拽打开",
+    "quick.way1.desc": "把任意压缩包拖到 Zipease 主窗口或 Dock 图标，立即预览内容。",
+    "quick.way2.title": "② 双击打开",
+    "quick.way2.desc": "在 Finder 中双击任意格式归档（需先在设置里关联格式）。",
+    "quick.way3.title": "③ 一键解压",
+    "quick.way3.desc": "预览窗口右上角「解压」按钮一键导出，或右键选中单独文件。",
+    "quick.tip": "<p><strong>小提示：</strong>首次使用建议先打开 <strong>Zipease → 设置…</strong>（⌘,）把常用格式关联为默认打开方式，之后 Finder 中双击即可直接预览。</p>",
+
+    "extract.title": "📂 一、预览与解压压缩包",
+    "extract.lead": "Zipease 支持 <strong>ZIP / 7Z / RAR / TAR / GZ / BZ2 / XZ / LZMA / CAB / ISO / WIM / APK</strong> 等 15+ 种主流格式预览与解压。",
+    "extract.preview.title": "1.1 浏览归档内容",
+    "extract.preview.s1": "将压缩包拖入主窗口 / Dock 图标，或直接使用「文件 → 打开…」（<kbd>⌘ O</kbd>）。",
+    "extract.preview.s2": "进入预览面板后，左上搜索框（<kbd>⌘ F</kbd>）可按文件名快速过滤，右上角可切换<strong>列表/图标</strong>视图。",
+    "extract.preview.s3": "单击选中文件后，点击「眼睛图标 👁」即可<strong>直接在内嵌面板预览</strong>（支持图片 / 文本 / PDF / 音视频 / 代码等），无需先解压。",
+    "extract.all.title": "1.2 解压全部 / 解压选中项",
+    "extract.all.s1": "点击预览面板顶部「解压」按钮（快捷键 <kbd>⌘ E</kbd>）解压整个归档；或右键选中多个文件后选<strong>「解压选中项」</strong>。",
+    "extract.all.s2": "在弹出的目标位置选择器中：「同目录」解压到压缩包所在文件夹；「桌面」直达桌面；「选择解压到…」自定义任意路径。",
+    "extract.all.s3": "遇到同名文件会弹出<strong>冲突处理</strong>面板，可单选「覆盖 / 跳过 / 重命名」或「全部覆盖」，全程不丢失文件。",
+    "extract.pwd": "<p><strong>加密压缩包？</strong>打开时会自动弹出密码输入框。如果之前保存过相同归档的密码，会自动从系统<strong>钥匙串</strong>填充。输错密码会即时提示而不产生损坏文件。密码可点击「💾 保存到钥匙串」复选框记住（详见第六节）。</p>",
+
+    "pack.title": "🔐 二、创建加密压缩包",
+    "pack.basic.title": "2.1 通过「压缩文件」功能创建",
+    "pack.basic.s1": "点击主界面「压缩文件」卡片 / 菜单栏<strong>文件 → 新建压缩包…</strong>（<kbd>⌘ N</kbd>），打开压缩面板。",
+    "pack.basic.s2": "点击「添加文件」加入任意文件/文件夹，或直接拖入。右下角可设置：<strong>压缩格式</strong>（ZIP / 7Z / TAR 系列）、<strong>压缩级别</strong>（仅存储 / 快速 / 标准 / 最大压缩）。",
+    "pack.basic.s3": "下方「保存位置」可更改输出目录，文件名会自动按主文件名补扩展名。",
+    "pack.pro": "<p><strong>Pro 版独享功能：</strong>AES-256 加密压缩、7Z 格式压缩、<strong>文件名加密（-mhe=on）</strong>——即使是文件列表也需要密码才能查看，全面保护敏感数据。</p>",
+    "pack.enc.title": "2.2 加密选项详解",
+    "pack.enc.zip": "<strong>ZIP 加密：</strong>默认使用传统 ZipCrypto（兼容性最好，支持跨平台打开）。对兼容性不敏感的用户，建议选<strong> 7Z 格式 + AES-256</strong>。",
+    "pack.enc.aes": "<strong>7Z 加密：</strong>使用 AES-256 强度加密，并额外支持「加密文件名」开关——开启后他人看不到压缩包内部有哪些文件。",
+    "pack.enc.pwd": "<strong>密码强度指示：</strong>输入密码时下方会实时显示「弱 / 中等 / 强」三档，强烈建议长度 ≥ 10 位，混合字母数字和特殊符号。",
+
+    "batch.title": "📦 三、批量处理（Pro 版）",
+    "batch.extract.title": "3.1 批量解压",
+    "batch.extract.s1": "点击主界面「批量处理 → 批量解压」，拖入或选择多个压缩包（支持混合格式）。",
+    "batch.extract.s2": "选择输出模式：「各自解压到同名文件夹」或「全部解压到同一文件夹」，路径可选当前目录/指定文件夹。",
+    "batch.extract.s3": "点击「开始处理」，进度条实时显示每项状态；失败项会单独标红，结束后可单独重试。",
+    "batch.compress.title": "3.2 批量压缩",
+    "batch.compress.desc": "多个文件/文件夹可一次批量打包为独立归档或统一一个大归档；支持同样的加密、格式与级别选项，适合周期性备份场景。",
+
+    "settings.title": "⚙️ 四、设置与文件格式关联",
+    "settings.lead": "打开 <strong>Zipease → 设置…</strong>（<kbd>⌘ ,</kbd>），面板含「通用 / 格式关联 / 关于」三个标签页。",
+    "settings.general.title": "4.1 通用标签页",
+    "settings.general.extract": "<strong>默认解压位置：</strong>压缩包所在目录 / 桌面 / 下载 / 每次询问，可根据使用习惯提前选定。",
+    "settings.general.open": "<strong>解压后自动打开文件夹：</strong>开启则解压完成会弹出 Finder 定位结果。",
+    "settings.general.overwrite": "<strong>覆盖前确认：</strong>关闭后同名冲突将默认覆盖，仅推荐熟悉的用户使用。",
+    "settings.general.encoding": "<strong>文件名编码：</strong>遇到中文/日文乱码时，可切换 GBK / GB18030 / Shift-JIS / EUC-JP / Latin1 等重新加载。",
+    "settings.general.lang": "<strong>应用语言：</strong>支持跟随系统 / 简中 / 繁中 / English 等 18 种语言，切换后重启生效。",
+    "settings.formats.title": "4.2 格式关联",
+    "settings.formats.setDefault": "单击任一格式右侧的<strong>「设为默认」</strong>，系统会弹出一次确认框，同意后 Finder 双击该格式即会用 Zipease 打开。",
+    "settings.formats.restore": "点「恢复默认」可还原为 macOS 原先的默认处理程序（如 Archive Utility / BOMArchiveHelper）。",
+    "settings.tip": "<p><strong>关于系统确认弹窗：</strong>macOS 出于安全原因，每种格式的「设为默认」都会单独弹一次系统对话框，请点<strong>「确定」</strong>。这是系统层的强制机制，任何 App 都无法绕过。</p>",
+
+    "pwd.title": "🔑 五、密码管理（系统钥匙串）",
+    "pwd.save": "在密码输入面板勾选「💾 保存到钥匙串」，Zipease 会使用 macOS 原生 <strong>Keychain（钥匙串）</strong>加密保存，加密密钥由 Apple <strong>Secure Enclave</strong> 硬件保护。",
+    "pwd.view": "到「设置 → 通用 → 管理保存的密码」可查看 / 删除已保存的条目。",
+    "pwd.privacy": "即使启用 iCloud 钥匙串同步，开发者也<strong>无法读取任何内容</strong>——这是系统的隔离保障（详见<a href=\"privacy.html\">隐私政策</a>）。",
+    "pwd.filename": "启用 7Z「文件名加密」的归档，预览列表本身也需要密码才会显示。这是最高强度的保护。",
+
+    "advanced.title": "🛠 六、高级：损坏归档的测试与修复",
+    "advanced.lead": "当你遇到解压报错或怀疑压缩包损坏时，可直接使用 Zipease 内置的<strong>测试</strong>与<strong>修复</strong>功能，无需另装工具。",
+    "advanced.test.title": "6.1 测试归档完整性",
+    "advanced.test.desc": "在预览面板顶部工具栏点击「测试」，Zipease 会逐文件做 CRC 与解包校验并汇总「通过 / 损坏 / 密码错误」三项统计，对大归档非常实用。",
+    "advanced.repair.title": "6.2 修复损坏压缩包",
+    "advanced.repair.s1": "预览面板点「修复」，或菜单「工具 → 修复压缩包…」。",
+    "advanced.repair.s2": "选择修复强度：仅检测 / 检测并修复。7Z/ZIP 会尝试恢复可用数据，RAR 转 7Z 结构重建。",
+    "advanced.repair.s3": "修复完成后选择「保存修复后的文件」写入目标位置，可直接打开检查恢复出的内容。",
+    "advanced.split": "<p><strong>关于分卷包（<code>.zip.001</code> / <code>.7z.001</code> / <code>.part1.rar</code>）：</strong>请确保所有分片齐全、处于同一文件夹、命名方式与原始完全一致，然后<strong>直接打开首片</strong>即可自动识别并处理。缺片时会给出「分卷缺失」提示。</p>",
+
+    "pro.title": "💎 七、Pro 版：购买、恢复与已购买状态",
+    "pro.features.title": "7.1 Pro 版解锁能力",
+    "pro.features.f1": "🔐 <strong>加密压缩</strong>（ZIP ZipCrypto / 7Z AES-256）",
+    "pro.features.f2": "🗂 <strong>7Z 格式压缩 + 文件名加密</strong>",
+    "pro.features.f3": "📦 <strong>批量处理</strong>（批量解压 + 批量压缩）",
+    "pro.features.f4": "🩹 <strong>损坏归档修复</strong> 与编码乱码修复",
+    "pro.features.f5": "🔑 <strong>密码钥匙串管理</strong>（保存 + 自动填充）",
+    "pro.license": "<p><strong>一次性买断 · 终身授权 · 无自动扣费</strong>：购买后终身免费升级后续所有新格式、新功能。可在 App Store「订阅」中核实无任何续订记录。</p>",
+    "pro.buy.title": "7.2 购买流程",
+    "pro.buy.s1": "打开任一 Pro 功能（加密压缩、批量处理等），会弹出「升级 Pro」窗口，或进入<strong>设置 → 通用</strong>底部点「立即购买」。",
+    "pro.buy.s2": "点击「购买 Pro 永久版」按钮，按 Apple 标准流程使用 Face ID / Touch ID / 密码完成支付。",
+    "pro.buy.s3": "支付成功后，应用会<strong>立即解锁</strong>所有高级功能，底部按钮变为「✅ 已购买」。",
+    "pro.restore.title": "7.3 恢复购买（换机 / 重装 / 审核关键）",
+    "pro.restore.s1": "进入<strong>设置 → 通用</strong>，在主按钮下方始终可见「恢复购买」按钮（Guideline 3.1.1 强制要求，即使已解锁也会显示）。",
+    "pro.restore.s2": "点击后会使用当前登录的 App Store 账号查询历史交易记录，找到对应买断订单后自动恢复 Pro 状态。",
+    "pro.restore.s3": "换机、重装、从家庭共享迁移时，请先使用<strong>当时购买的 Apple ID</strong>登录 App Store 再执行恢复。",
+
+    "keys.title": "⌨️ 快捷键索引",
+    "keys.lead": "熟记这些快捷键可显著提升日常效率：",
+    "keys.h.action": "操作",
+    "keys.h.shortcut": "快捷键",
+    "keys.h.where": "作用位置",
+    "keys.r1.a": "打开压缩包 / 文件",
+    "keys.r1.w": "主窗口 / 预览窗口",
+    "keys.r2.a": "新建压缩包",
+    "keys.r2.w": "全局",
+    "keys.r3.a": "解压归档 / 选中项",
+    "keys.r3.w": "预览窗口",
+    "keys.r4.a": "在预览中搜索文件",
+    "keys.r4.w": "预览窗口",
+    "keys.r5.a": "打开设置",
+    "keys.r5.w": "全局",
+    "keys.r6.a": "显示主窗口",
+    "keys.r6.w": "全局（关闭窗口后仍可呼出）",
+    "keys.r7.a": "关闭当前窗口",
+    "keys.r7.w": "全局",
+    "keys.r8.a": "最小化",
+    "keys.r8.w": "全局",
+    "keys.r9.a": "退出应用",
+    "keys.r9.w": "全局",
+
+    "foot.rights": "保留所有权利。",
+    "foot.support": "技术支持",
+    "foot.privacy": "隐私政策",
+    "foot.terms": "使用条款"
+  },
+  "zh-Hant": {
+    "meta.title": "Zipease · 使用教程",
+    "meta.description": "Zipease 使用教程：從預覽解壓、加密壓縮、批次處理、格式關聯、密碼管理、測試修復到 Pro 版啟用，零基礎也能 5 分鐘上手。",
+    "brand": "Zipease (易解)",
+    "nav.back": "返回首頁",
+    "hero.eyebrow": "使用教程",
+    "hero.title": "從零開始，<span class=\"accent\">5 分鐘</span>掌握 Zipease 全能力",
+    "hero.lead": "本教程涵蓋 Zipease 全部核心功能：預覽解壓、加密壓縮、批次處理、格式關聯、密碼鑰匙圈、損毀檔案修復，以及 Pro 版啟用與恢復購買。按目錄跳轉你想了解的章節即可。",
+    "hero.pill": "⚡️ 適用版本：<strong>Zipease 1.0+</strong> ｜ 純本機執行，無任何網路操作",
+    "toc.title": "目錄",
+    "toc.quick": "🚀 快速入門",
+    "toc.extract": "📂 預覽與解壓",
+    "toc.pack": "🔐 建立與加密",
+    "toc.batch": "📦 批次處理",
+    "toc.settings": "⚙️ 設定與關聯",
+    "toc.pwd": "🔑 密碼管理",
+    "toc.advanced": "🛠 進階：測試/修復",
+    "toc.pro": "💎 Pro 版說明",
+    "toc.keys": "⌨️ 快速鍵索引",
+
+    "quick.title": "🚀 快速入門：30 秒上手",
+    "quick.way1.title": "① 拖曳打開",
+    "quick.way1.desc": "把任意壓縮包拖到 Zipease 主視窗或 Dock 圖示，立即預覽內容。",
+    "quick.way2.title": "② 雙擊打開",
+    "quick.way2.desc": "在 Finder 中雙擊任意格式存檔（需先在設定裡關聯格式）。",
+    "quick.way3.title": "③ 一鍵解壓",
+    "quick.way3.desc": "預覽視窗右上角「解壓」按鈕一鍵匯出，或右鍵選取單獨檔案。",
+    "quick.tip": "<p><strong>小提示：</strong>首次使用建議先打開 <strong>Zipease → 設定…</strong>（⌘,）把常用格式關聯為預設開啟方式，之後 Finder 中雙擊即可直接預覽。</p>",
+
+    "extract.title": "📂 一、預覽與解壓壓縮包",
+    "extract.lead": "Zipease 支援 <strong>ZIP / 7Z / RAR / TAR / GZ / BZ2 / XZ / LZMA / CAB / ISO / WIM / APK</strong> 等 15+ 種主流格式預覽與解壓。",
+    "extract.preview.title": "1.1 瀏覽存檔內容",
+    "extract.preview.s1": "將壓縮包拖入主視窗 / Dock 圖示，或直接使用「檔案 → 打開…」（<kbd>⌘ O</kbd>）。",
+    "extract.preview.s2": "進入預覽面板後，左上搜尋框（<kbd>⌘ F</kbd>）可按檔名快速過濾，右上角可切換<strong>清單/圖示</strong>檢視。",
+    "extract.preview.s3": "單擊選中檔案後，點擊「眼睛圖示 👁」即可<strong>直接在內嵌面板預覽</strong>（支援圖片 / 文字 / PDF / 影音 / 程式碼等），無需先解壓。",
+    "extract.all.title": "1.2 解壓全部 / 解壓選中項",
+    "extract.all.s1": "點擊預覽面板頂部「解壓」按鈕（快速鍵 <kbd>⌘ E</kbd>）解壓整個存檔；或右鍵選取多個檔案後選<strong>「解壓選中項」</strong>。",
+    "extract.all.s2": "在彈出的目標位置選擇器中：「同目錄」解壓到壓縮包所在資料夾；「桌面」直達桌面；「選擇解壓到…」自訂任意路徑。",
+    "extract.all.s3": "遇到同名檔案會彈出<strong>衝突處理</strong>面板，可單選「覆蓋 / 跳過 / 重新命名」或「全部覆蓋」，全程不遺失檔案。",
+    "extract.pwd": "<p><strong>加密壓縮包？</strong>打開時會自動彈出密碼輸入框。如果之前儲存過相同存檔的密碼，會自動從系統<strong>鑰匙圈</strong>填充。輸錯密碼會即時提示而不產生損毀檔案。密碼可點擊「💾 儲存到鑰匙圈」核取方塊記住（詳見第六節）。</p>",
+
+    "pack.title": "🔐 二、建立加密壓縮包",
+    "pack.basic.title": "2.1 透過「壓縮檔案」功能建立",
+    "pack.basic.s1": "點擊主介面「壓縮檔案」卡片 / 選單列<strong>檔案 → 新建壓縮包…</strong>（<kbd>⌘ N</kbd>），打開壓縮面板。",
+    "pack.basic.s2": "點擊「加入檔案」加入任意檔案/資料夾，或直接拖入。右下角可設定：<strong>壓縮格式</strong>（ZIP / 7Z / TAR 系列）、<strong>壓縮級別</strong>（僅儲存 / 快速 / 標準 / 最大壓縮）。",
+    "pack.basic.s3": "下方「儲存位置」可變更輸出目錄，檔名會自動按主檔名補副檔名。",
+    "pack.pro": "<p><strong>Pro 版獨享功能：</strong>AES-256 加密壓縮、7Z 格式壓縮、<strong>檔名加密（-mhe=on）</strong>——即使是檔案清單也需要密碼才能檢視，全面保護敏感資料。</p>",
+    "pack.enc.title": "2.2 加密選項詳解",
+    "pack.enc.zip": "<strong>ZIP 加密：</strong>預設使用傳統 ZipCrypto（相容性最好，支援跨平台打開）。對相容性不敏感的使用者，建議選<strong> 7Z 格式 + AES-256</strong>。",
+    "pack.enc.aes": "<strong>7Z 加密：</strong>使用 AES-256 強度加密，並額外支援「加密檔名」開關——開啟後他人看不到壓縮包內部有哪些檔案。",
+    "pack.enc.pwd": "<strong>密碼強度指示：</strong>輸入密碼時下方會即時顯示「弱 / 中等 / 強」三檔，強烈建議長度 ≥ 10 位，混合字母數字和特殊符號。",
+
+    "batch.title": "📦 三、批次處理（Pro 版）",
+    "batch.extract.title": "3.1 批次解壓",
+    "batch.extract.s1": "點擊主介面「批次處理 → 批次解壓」，拖入或選擇多個壓縮包（支援混合格式）。",
+    "batch.extract.s2": "選擇輸出模式：「各自解壓到同名資料夾」或「全部解壓到同一資料夾」，路徑可選目前目錄/指定資料夾。",
+    "batch.extract.s3": "點擊「開始處理」，進度列即時顯示每項狀態；失敗項會單獨標紅，結束後可單獨重試。",
+    "batch.compress.title": "3.2 批次壓縮",
+    "batch.compress.desc": "多個檔案/資料夾可一次批次打包為獨立存檔或統一個大存檔；支援同樣的加密、格式與級別選項，適合週期性備份場景。",
+
+    "settings.title": "⚙️ 四、設定與檔案格式關聯",
+    "settings.lead": "打開 <strong>Zipease → 設定…</strong>（<kbd>⌘ ,</kbd>），面板含「通用 / 格式關聯 / 關於」三個分頁。",
+    "settings.general.title": "4.1 通用分頁",
+    "settings.general.extract": "<strong>預設解壓位置：</strong>壓縮包所在目錄 / 桌面 / 下載 / 每次詢問，可根據使用習慣提前選定。",
+    "settings.general.open": "<strong>解壓後自動打開資料夾：</strong>開啟則解壓完成會彈出 Finder 定位結果。",
+    "settings.general.overwrite": "<strong>覆蓋前確認：</strong>關閉後同名衝突將預設覆蓋，僅推薦熟悉的使用者使用。",
+    "settings.general.encoding": "<strong>檔名編碼：</strong>遇到中文/日文亂碼時，可切換 GBK / GB18030 / Shift-JIS / EUC-JP / Latin1 等重新載入。",
+    "settings.general.lang": "<strong>應用語言：</strong>支援跟隨系統 / 簡中 / 繁中 / English 等 18 種語言，切換後重啟生效。",
+    "settings.formats.title": "4.2 格式關聯",
+    "settings.formats.setDefault": "單擊任一格式右側的<strong>「設為預設」</strong>，系統會彈出一次確認框，同意後 Finder 雙擊該格式即會用 Zipease 打開。",
+    "settings.formats.restore": "點「恢復預設」可還原為 macOS 原先的預設處理程式（如 Archive Utility / BOMArchiveHelper）。",
+    "settings.tip": "<p><strong>關於系統確認彈窗：</strong>macOS 出於安全原因，每種格式的「設為預設」都會單獨彈一次系統對話框，請點<strong>「確定」</strong>。這是系統層的強制機制，任何 App 都無法繞過。</p>",
+
+    "pwd.title": "🔑 五、密碼管理（系統鑰匙圈）",
+    "pwd.save": "在密碼輸入面板勾選「💾 儲存到鑰匙圈」，Zipease 會使用 macOS 原生 <strong>Keychain（鑰匙圈）</strong>加密儲存，加密金鑰由 Apple <strong>Secure Enclave</strong> 硬體保護。",
+    "pwd.view": "到「設定 → 通用 → 管理儲存的密碼」可檢視 / 刪除已儲存的項目。",
+    "pwd.privacy": "即使啟用 iCloud 鑰匙圈同步，開發者也<strong>無法讀取任何內容</strong>——這是系統的隔離保障（詳見<a href=\"privacy.html\">隱私政策</a>）。",
+    "pwd.filename": "啟用 7Z「檔名加密」的存檔，預覽清單本身也需要密碼才會顯示。這是最高強度的保護。",
+
+    "advanced.title": "🛠 六、進階：損毀存檔的測試與修復",
+    "advanced.lead": "當你遇到解壓報錯或懷疑壓縮包損毀時，可直接使用 Zipease 內建的<strong>測試</strong>與<strong>修復</strong>功能，無需另裝工具。",
+    "advanced.test.title": "6.1 測試存檔完整性",
+    "advanced.test.desc": "在預覽面板頂部工具列點擊「測試」，Zipease 會逐檔做 CRC 與解包校驗並彙總「通過 / 損毀 / 密碼錯誤」三項統計，對大存檔非常實用。",
+    "advanced.repair.title": "6.2 修復損毀壓縮包",
+    "advanced.repair.s1": "預覽面板點「修復」，或選單「工具 → 修復壓縮包…」。",
+    "advanced.repair.s2": "選擇修復強度：僅偵測 / 偵測並修復。7Z/ZIP 會嘗試恢復可用資料，RAR 轉 7Z 結構重建。",
+    "advanced.repair.s3": "修復完成後選擇「儲存修復後的檔案」寫入目標位置，可直接打開檢查恢復出的內容。",
+    "advanced.split": "<p><strong>關於分卷包（<code>.zip.001</code> / <code>.7z.001</code> / <code>.part1.rar</code>）：</strong>請確保所有分片齊全、處於同一資料夾、命名方式與原始完全一致，然後<strong>直接打開首片</strong>即可自動識別並處理。缺片時會給出「分卷缺失」提示。</p>",
+
+    "pro.title": "💎 七、Pro 版：購買、恢復與已購買狀態",
+    "pro.features.title": "7.1 Pro 版解鎖能力",
+    "pro.features.f1": "🔐 <strong>加密壓縮</strong>（ZIP ZipCrypto / 7Z AES-256）",
+    "pro.features.f2": "🗂 <strong>7Z 格式壓縮 + 檔名加密</strong>",
+    "pro.features.f3": "📦 <strong>批次處理</strong>（批次解壓 + 批次壓縮）",
+    "pro.features.f4": "🩹 <strong>損毀存檔修復</strong> 與編碼亂碼修復",
+    "pro.features.f5": "🔑 <strong>密碼鑰匙圈管理</strong>（儲存 + 自動填充）",
+    "pro.license": "<p><strong>一次性買斷 · 終身授權 · 無自動扣費</strong>：購買後終身免費升級後續所有新格式、新功能。可在 App Store「訂閱」中核實無任何續訂記錄。</p>",
+    "pro.buy.title": "7.2 購買流程",
+    "pro.buy.s1": "打開任一 Pro 功能（加密壓縮、批次處理等），會彈出「升級 Pro」視窗，或進入<strong>設定 → 通用</strong>底部點「立即購買」。",
+    "pro.buy.s2": "點擊「購買 Pro 永久版」按鈕，按 Apple 標準流程使用 Face ID / Touch ID / 密碼完成支付。",
+    "pro.buy.s3": "支付成功後，應用會<strong>立即解鎖</strong>所有進階功能，底部按鈕變為「✅ 已購買」。",
+    "pro.restore.title": "7.3 恢復購買（換機 / 重灌 / 審核關鍵）",
+    "pro.restore.s1": "進入<strong>設定 → 通用</strong>，在主按鈕下方始終可見「恢復購買」按鈕（Guideline 3.1.1 強制要求，即使已解鎖也會顯示）。",
+    "pro.restore.s2": "點擊後會使用目前登入的 App Store 帳號查詢歷史交易記錄，找到對應買斷訂單後自動恢復 Pro 狀態。",
+    "pro.restore.s3": "換機、重灌、從家庭共享遷移時，請先使用<strong>當時購買的 Apple ID</strong>登入 App Store 再執行恢復。",
+
+    "keys.title": "⌨️ 快速鍵索引",
+    "keys.lead": "熟記這些快速鍵可顯著提升日常效率：",
+    "keys.h.action": "操作",
+    "keys.h.shortcut": "快速鍵",
+    "keys.h.where": "作用位置",
+    "keys.r1.a": "打開壓縮包 / 檔案",
+    "keys.r1.w": "主視窗 / 預覽視窗",
+    "keys.r2.a": "新建壓縮包",
+    "keys.r2.w": "全域",
+    "keys.r3.a": "解壓存檔 / 選中項",
+    "keys.r3.w": "預覽視窗",
+    "keys.r4.a": "在預覽中搜尋檔案",
+    "keys.r4.w": "預覽視窗",
+    "keys.r5.a": "打開設定",
+    "keys.r5.w": "全域",
+    "keys.r6.a": "顯示主視窗",
+    "keys.r6.w": "全域（關閉視窗後仍可喚出）",
+    "keys.r7.a": "關閉目前視窗",
+    "keys.r7.w": "全域",
+    "keys.r8.a": "最小化",
+    "keys.r8.w": "全域",
+    "keys.r9.a": "離開應用",
+    "keys.r9.w": "全域",
+
+    "foot.rights": "保留所有權利。",
+    "foot.support": "技術支援",
+    "foot.privacy": "隱私政策",
+    "foot.terms": "使用條款"
+  },
+  "en": {
+    "meta.title": "Zipease · User Guide",
+    "meta.description": "Zipease user manual covers everything: preview & extract, encrypted archives, batch jobs, format associations, keychain password manager, repair tools, Pro upgrade and purchase restore.",
+    "brand": "Zipease",
+    "nav.back": "Home",
+    "hero.eyebrow": "User Guide",
+    "hero.title": "Master <span class=\"accent\">all of Zipease</span> in under 5 minutes",
+    "hero.lead": "A complete walkthrough of every Zipease feature — archive preview, encrypted compression, batch workflows, default-app associations, Keychain password manager, archive repair, Pro lifetime license and purchase restore. Jump to any section via the TOC.",
+    "hero.pill": "⚡️ Applies to: <strong>Zipease 1.0+</strong> ｜ 100% local-first, no network required",
+    "toc.title": "Contents",
+    "toc.quick": "🚀 Quick start",
+    "toc.extract": "📂 Preview & extract",
+    "toc.pack": "🔐 Create & encrypt",
+    "toc.batch": "📦 Batch mode",
+    "toc.settings": "⚙️ Settings & associations",
+    "toc.pwd": "🔑 Passwords & Keychain",
+    "toc.advanced": "🛠 Advanced: test & repair",
+    "toc.pro": "💎 Pro lifetime",
+    "toc.keys": "⌨️ Keyboard shortcuts",
+
+    "quick.title": "🚀 Quick start in 30 seconds",
+    "quick.way1.title": "① Drop it in",
+    "quick.way1.desc": "Drag any archive onto the Zipease main window or Dock icon to instantly preview contents.",
+    "quick.way2.title": "② Double-click",
+    "quick.way2.desc": "Double-click any supported file in Finder — after you associate formats in Settings.",
+    "quick.way3.title": "③ Extract",
+    "quick.way3.desc": "Click Extract in the preview toolbar, or right-click individual files to extract only those.",
+    "quick.tip": "<p><strong>Tip:</strong> First launch — open <strong>Zipease → Settings…</strong> (⌘,) and <strong>Set as Default</strong> for formats you use daily. Afterwards every Finder double-click opens directly in Zipease.</p>",
+
+    "extract.title": "📂 1. Previewing & extracting archives",
+    "extract.lead": "Zipease supports preview and extraction for <strong>ZIP, 7Z, RAR, TAR, GZ, BZ2, XZ, LZMA, CAB, ISO, WIM, APK</strong> and 15+ more mainstream formats.",
+    "extract.preview.title": "1.1 Browsing an archive",
+    "extract.preview.s1": "Drop the archive onto Zipease / the Dock icon, or use <strong>File → Open…</strong> (<kbd>⌘ O</kbd>).",
+    "extract.preview.s2": "Inside the preview panel, use the search field (<kbd>⌘ F</kbd>) to filter by filename, and the top-right view switcher to toggle <strong>List / Icon</strong> mode.",
+    "extract.preview.s3": "Select a file and click the <strong>👁 eye</strong> icon to preview it inline — images, plain text, PDF, audio/video and code work without prior extraction.",
+    "extract.all.title": "1.2 Extract all or selected items",
+    "extract.all.s1": "Hit the <strong>Extract</strong> button in the toolbar (shortcut <kbd>⌘ E</kbd>) to unpack the whole archive, or right-click a multi-file selection and choose <strong>Extract Selected</strong>.",
+    "extract.all.s2": "Pick a destination: <strong>Same folder as archive</strong>, <strong>Desktop</strong>, or <strong>Extract to…</strong> for any custom path.",
+    "extract.all.s3": "If naming conflicts exist, the <strong>Conflict Resolution</strong> dialog lets you Overwrite / Skip / Rename per-file or Overwrite All — nothing is ever lost by surprise.",
+    "extract.pwd": "<p><strong>Password-protected?</strong> Zipease prompts on open. If you previously saved a matching password, it auto-fills from the system <strong>Keychain</strong>. Wrong passwords fail fast with clean error messages, no zero-byte leftovers. Check <strong>💾 Save to Keychain</strong> on the prompt to remember it (see §5).</p>",
+
+    "pack.title": "🔐 2. Creating encrypted archives",
+    "pack.basic.title": "2.1 Using the Compress workflow",
+    "pack.basic.s1": "Click <strong>Compress</strong> on the home screen, or choose <strong>File → New Archive…</strong> (<kbd>⌘ N</kbd>).",
+    "pack.basic.s2": "Hit <strong>Add files</strong> (or just drop them in). Configure format (ZIP, 7Z, TAR family), compression level (Store / Fast / Standard / Max).",
+    "pack.basic.s3": "Change the save location if needed; filenames auto-append the correct extension.",
+    "pack.pro": "<p><strong>Pro-only features:</strong> AES-256 encryption, 7Z compression, and <strong>encrypted filenames (-mhe=on)</strong> — even the <em>file list</em> requires the password to view, giving full confidentiality for sensitive data.</p>",
+    "pack.enc.title": "2.2 Encryption options explained",
+    "pack.enc.zip": "<strong>ZIP encryption:</strong> uses traditional ZipCrypto by default (best 3rd-party compatibility). Pick <strong>7Z + AES-256</strong> if your recipients can open 7Z files.",
+    "pack.enc.aes": "<strong>7Z encryption:</strong> AES-256 strength with an optional <em>Encrypt filenames</em> toggle — nobody can even list what's inside without the password.",
+    "pack.enc.pwd": "<strong>Strength meter:</strong> Weak / Medium / Strong as you type. We recommend 10+ characters mixing letters, digits and symbols for real-world protection.",
+
+    "batch.title": "📦 3. Batch mode (Pro)",
+    "batch.extract.title": "3.1 Batch extract",
+    "batch.extract.s1": "Choose <strong>Batch → Batch Extract</strong> from the home screen and drop in multiple archives (mixed formats are OK).",
+    "batch.extract.s2": "Pick an output strategy: <em>each into its own folder</em> or <em>all into one folder</em>. Path can be <em>current folder</em> or any custom folder.",
+    "batch.extract.s3": "Click <strong>Start</strong>. Progress and per-item status is shown live; failures are marked red and can be retried individually afterwards.",
+    "batch.compress.title": "3.2 Batch compress",
+    "batch.compress.desc": "Pack many files/folders into separate archives or one big archive. Same encryption/format/level controls as single-file compression — great for scheduled backups.",
+
+    "settings.title": "⚙️ 4. Settings & file associations",
+    "settings.lead": "Open <strong>Zipease → Settings…</strong> (<kbd>⌘ ,</kbd>). The panel has three tabs: General, Formats, About.",
+    "settings.general.title": "4.1 General tab",
+    "settings.general.extract": "<strong>Default extract location:</strong> Same folder as archive, Desktop, Downloads, or Ask every time.",
+    "settings.general.open": "<strong>Auto-open folder after extract:</strong> shows the results in Finder when the job completes.",
+    "settings.general.overwrite": "<strong>Confirm before overwrite:</strong> disable only if you know what you are doing — silently overwrites files on name clashes.",
+    "settings.general.encoding": "<strong>Filename encoding:</strong> seeing mojibake Chinese/Japanese names? Try GBK / GB18030 / Shift-JIS / EUC-JP / Latin1.",
+    "settings.general.lang": "<strong>App language:</strong> 18 languages including System, Simplified/Traditional Chinese, English and more. Restart the app after switching.",
+    "settings.formats.title": "4.2 Formats (default app associations)",
+    "settings.formats.setDefault": "Click <strong>Set as Default</strong> next to a format — macOS prompts once per type, then double-clicking that format in Finder opens Zipease.",
+    "settings.formats.restore": "<strong>Restore Default</strong> returns the format to macOS's handler (e.g. Archive Utility / BOMArchiveHelper).",
+    "settings.tip": "<p><strong>System dialog per format:</strong> macOS requires user confirmation for every single format you register. This is an OS-level security rule and no app can bypass it. Just click <strong>Confirm</strong> on each prompt.</p>",
+
+    "pwd.title": "🔑 5. Password manager (system Keychain)",
+    "pwd.save": "Check <strong>💾 Save to Keychain</strong> on the password prompt. Passwords are stored using the macOS native <strong>Keychain</strong>, with encryption keys guarded by Apple's <strong>Secure Enclave</strong>.",
+    "pwd.view": "Go to <strong>Settings → General → Manage Saved Passwords</strong> to view or delete entries.",
+    "pwd.privacy": "Even with iCloud Keychain sync enabled, developers <strong>cannot read any entry</strong> — this is enforced at the OS level (see <a href=\"privacy.html\">Privacy Policy</a>).",
+    "pwd.filename": "With 7Z <em>encrypted filenames</em> enabled, even the table-of-contents requires a password. This is the strongest protection Zipease offers.",
+
+    "advanced.title": "🛠 6. Advanced: testing & repairing archives",
+    "advanced.lead": "When extraction fails or you suspect corruption, use Zipease's built-in <strong>Test</strong> and <strong>Repair</strong> — no external tools needed.",
+    "advanced.test.title": "6.1 Integrity testing",
+    "advanced.test.desc": "Click <strong>Test</strong> in the preview toolbar. Zipease runs CRC and extraction checks against every file, then summarizes <em>Passed / Corrupted / Password error</em> — super useful for huge archives.",
+    "advanced.repair.title": "6.2 Repairing a damaged archive",
+    "advanced.repair.s1": "Click <strong>Repair</strong> in preview, or <strong>Tools → Repair archive…</strong> in the menu.",
+    "advanced.repair.s2": "Choose <em>Detect only</em> or <em>Detect & Repair</em>. ZIP/7Z try data recovery; RAR flows through a 7Z structural rebuild.",
+    "advanced.repair.s3": "When done, pick <strong>Save repaired file</strong> to export, then open the result to verify what was recovered.",
+    "advanced.split": "<p><strong>Split / multi-volume archives</strong> (<code>.zip.001</code>, <code>.7z.001</code>, <code>.part1.rar</code>): all pieces must exist in one folder with strictly identical naming. Just <strong>open the first piece</strong> and Zipease auto-chains the rest. Missing pieces produce a clear error message.</p>",
+
+    "pro.title": "💎 7. Pro lifetime — purchase & restore",
+    "pro.features.title": "7.1 What Pro unlocks",
+    "pro.features.f1": "🔐 <strong>Encrypted compression</strong> (ZIP ZipCrypto / 7Z AES-256)",
+    "pro.features.f2": "🗂 <strong>7Z format + filename encryption</strong>",
+    "pro.features.f3": "📦 <strong>Batch mode</strong> (batch extract & compress)",
+    "pro.features.f4": "🩹 <strong>Archive repair</strong> and encoding-fix tools",
+    "pro.features.f5": "🔑 <strong>Keychain password manager</strong> (save & autofill)",
+    "pro.license": "<p><strong>One-time purchase · Lifetime license · NO auto-renew</strong>. All future formats and features are free upgrades. Verify no subscriptions exist at any time in App Store → Subscriptions.</p>",
+    "pro.buy.title": "7.2 How to buy",
+    "pro.buy.s1": "Try to use any Pro feature (encrypted compress, batch, etc.) and the Upgrade sheet opens. Or go to <strong>Settings → General</strong> and click <strong>Buy Now</strong> at the bottom.",
+    "pro.buy.s2": "Hit <strong>Buy Pro Lifetime</strong>. Complete payment with Face ID / Touch ID / Apple ID password via the standard App Store flow.",
+    "pro.buy.s3": "On success the app instantly unlocks; the primary button becomes <strong>✅ Purchased</strong>.",
+    "pro.restore.title": "7.3 Restore purchases (new Mac / reinstall / reviewer flow)",
+    "pro.restore.s1": "<strong>Restore Purchases</strong> is always visible below the main action in Settings → General (App Store Guideline 3.1.1 — it stays visible even when already unlocked).",
+    "pro.restore.s2": "Tapping it queries the current App Store account's transaction history and re-applies the lifetime license when found.",
+    "pro.restore.s3": "After migration, reinstall or Family Sharing move, make sure you are signed in with the <strong>same Apple ID that originally purchased</strong> before restoring.",
+
+    "keys.title": "⌨️ Keyboard shortcuts",
+    "keys.lead": "Memorize these for a real speed boost:",
+    "keys.h.action": "Action",
+    "keys.h.shortcut": "Shortcut",
+    "keys.h.where": "Where",
+    "keys.r1.a": "Open archive / file",
+    "keys.r1.w": "Main window / Preview",
+    "keys.r2.a": "New archive",
+    "keys.r2.w": "Global",
+    "keys.r3.a": "Extract archive / selection",
+    "keys.r3.w": "Preview window",
+    "keys.r4.a": "Search files in preview",
+    "keys.r4.w": "Preview window",
+    "keys.r5.a": "Open Settings",
+    "keys.r5.w": "Global",
+    "keys.r6.a": "Show main window",
+    "keys.r6.w": "Global (works even when all windows are closed)",
+    "keys.r7.a": "Close current window",
+    "keys.r7.w": "Global",
+    "keys.r8.a": "Minimize",
+    "keys.r8.w": "Global",
+    "keys.r9.a": "Quit Zipease",
+    "keys.r9.w": "Global",
+
+    "foot.rights": "All rights reserved.",
+    "foot.support": "Support",
+    "foot.privacy": "Privacy Policy",
+    "foot.terms": "Terms of Use"
+  }
+};
+
+/* ===================== LANG SWITCH ===================== */
+(function initLang() {
+  const STORAGE = "zipease-site-lang";
+  const SUPPORTED = ["zh-Hans", "zh-Hant", "en"];
+  let current = localStorage.getItem(STORAGE) || detect();
+
+  function detect() {
+    const nav = (navigator.language || "zh-CN").toLowerCase();
+    if (nav.startsWith("zh-tw") || nav.startsWith("zh-hk") || nav.startsWith("zh-mo")) return "zh-Hant";
+    if (nav.startsWith("zh")) return "zh-Hans";
+    if (nav.startsWith("en")) return "en";
+    return "zh-Hans";
+  }
+
+  function t(key) {
+    const dict = I18N[current] || I18N["zh-Hans"];
+    return dict[key] ?? "";
+  }
+
+  function apply() {
+    const htmlLang = current === "zh-Hans" ? "zh-CN" : current === "zh-Hant" ? "zh-TW" : "en";
+    document.documentElement.setAttribute("lang", htmlLang);
+
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      const k = el.getAttribute("data-i18n");
+      const v = t(k);
+      if (v) el.textContent = v;
+    });
+
+    document.querySelectorAll("[data-i18n-html]").forEach(el => {
+      const k = el.getAttribute("data-i18n-html");
+      const v = t(k);
+      if (v) el.innerHTML = v;
+    });
+
+    document.querySelectorAll("[data-i18n-attr]").forEach(el => {
+      const pairs = el.getAttribute("data-i18n-attr").split("|");
+      pairs.forEach(p => {
+        const [attr, k] = p.split(":");
+        const v = t(k);
+        if (v) el.setAttribute(attr, v);
+      });
+    });
+
+    const title = t("meta.title");
+    if (title) document.title = title;
+    const descMeta = document.querySelector('meta[name="description"]');
+    const desc = t("meta.description");
+    if (descMeta && desc) descMeta.setAttribute("content", desc);
+
+    document.querySelectorAll(".lang-switcher button").forEach(btn => {
+      const on = btn.dataset.lang === current;
+      btn.classList.toggle("active", on);
+      btn.setAttribute("aria-selected", on ? "true" : "false");
+    });
+  }
+
+  function setLang(l) {
+    if (!SUPPORTED.includes(l)) l = "zh-Hans";
+    current = l;
+    localStorage.setItem(STORAGE, l);
+    apply();
+  }
+
+  document.querySelectorAll(".lang-switcher button").forEach(btn => {
+    btn.addEventListener("click", () => setLang(btn.dataset.lang));
+  });
+
+  apply();
+})();
+</script>
+</body>
+</html>
