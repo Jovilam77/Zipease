@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title data-i18n="meta.title">Zipease · 隐私政策</title>
+  <meta name="description" data-i18n="meta.description" content="Zipease 隐私政策：我们如何处理你的数据、密码、文件。Zipease 不收集任何个人信息，全程本地加密。" />
+  <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="assets/appicon-512.png" />
+  <style>
+    :root {
+      --bg: #fafbff;
+      --fg: #0d1030;
+      --muted: #5a5f7a;
+      --card: #ffffff;
+      --line: rgba(13, 16, 48, .08);
+      --accent-a: #6366f1;
+      --accent-b: #8b5cf6;
+      --accent-c: #ec4899;
+      --grad: linear-gradient(135deg, var(--accent-a) 0%, var(--accent-b) 50%, var(--accent-c) 100%);
+      --radius: 16px;
+      --shadow: 0 10px 40px -20px rgba(99, 102, 241, .35);
+      --maxw: 880px;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, Inter, sans-serif;
+      background: radial-gradient(1200px 600px at 10% -10%, rgba(139, 92, 246, .12), transparent 60%),
+                  radial-gradient(900px 500px at 100% 0%, rgba(236, 72, 153, .10), transparent 55%),
+                  var(--bg);
+      color: var(--fg);
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    .container { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+    header.site {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: saturate(180%) blur(14px);
+      -webkit-backdrop-filter: saturate(180%) blur(14px);
+      background: rgba(250, 251, 255, .7);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; text-decoration: none; letter-spacing: .2px; }
+    .brand-logo {
+      width: 34px; height: 34px; border-radius: 9px;
+      box-shadow: 0 2px 6px rgba(20, 20, 60, .12), 0 0 0 .5px rgba(0,0,0,.04) inset;
+      object-fit: cover; display: block;
+    }
+    .nav-right { display: flex; align-items: center; gap: 12px; }
+    .lang-switcher {
+      display: inline-flex; background: #fff; border: 1px solid var(--line); border-radius: 999px;
+      padding: 3px; box-shadow: 0 1px 2px rgba(0,0,0,.03);
+    }
+    .lang-switcher button {
+      border: 0; background: transparent; cursor: pointer; padding: 5px 12px;
+      border-radius: 999px; font-size: 13px; font-weight: 600; color: var(--muted);
+      transition: all .18s ease;
+    }
+    .lang-switcher button.active {
+      background: var(--grad); color: #fff; box-shadow: 0 2px 10px -4px rgba(99,102,241,.6);
+    }
+    .back-home {
+      text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+      color: var(--muted); font-weight: 600; font-size: 14px;
+    }
+    .back-home:hover { color: var(--fg); }
+
+    .page-hero { padding: 56px 0 24px; }
+    .page-hero .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--accent-b); margin-bottom: 14px;
+    }
+    .page-hero .eyebrow .dot { width: 8px; height: 8px; border-radius: 999px; background: var(--grad); }
+    .page-hero h1 {
+      font-size: 38px; line-height: 1.15; margin: 0 0 12px; letter-spacing: -.02em;
+    }
+    .page-hero h1 .accent {
+      background: var(--grad); -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: transparent;
+    }
+    .page-hero p.lead { font-size: 16px; color: var(--muted); max-width: 720px; margin: 0 0 6px; }
+    .meta-line { font-size: 13px; color: var(--muted); }
+    .meta-line strong { color: var(--fg); }
+
+    main.legal { padding: 28px 0 80px; }
+    main.legal h2 {
+      font-size: 22px; margin: 36px 0 14px; letter-spacing: -.01em;
+      padding-bottom: 10px; border-bottom: 1px solid var(--line);
+    }
+    main.legal h3 { font-size: 17px; margin: 22px 0 8px; }
+    main.legal p { color: #343852; margin: 10px 0; font-size: 14.8px; }
+    main.legal p a { color: var(--accent-a); text-decoration: none; border-bottom: 1px dashed rgba(99,102,241,.45); }
+    main.legal ul { padding-left: 22px; }
+    main.legal li { margin: 6px 0; color: #343852; font-size: 14.8px; }
+    main.legal code {
+      background: #eef0ff; color: #4338ca; padding: 1.5px 6px; border-radius: 5px; font-size: 13px;
+      font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, monospace;
+    }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 16px; border-radius: 12px; background: #fff;
+      border: 1px solid var(--line); box-shadow: 0 8px 24px -24px rgba(0,0,0,.3);
+      font-weight: 700; font-size: 14px;
+    }
+    .badges { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0; }
+    .badge .ic {
+      width: 22px; height: 22px; border-radius: 7px; display: grid; place-items: center;
+      background: var(--grad); color: #fff;
+    }
+
+    footer {
+      border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--muted); font-size: 13.5px;
+      background: rgba(255,255,255,.55);
+    }
+    .foot-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .foot-links { display: flex; gap: 18px; flex-wrap: wrap; }
+    .foot-links a { color: var(--muted); text-decoration: none; font-weight: 600; }
+    .foot-links a:hover { color: var(--fg); }
+
+    @media (max-width: 640px) {
+      .page-hero h1 { font-size: 28px; }
+      .back-home span { display: none; }
+      .lang-switcher button { padding: 5px 9px; font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+<header class="site">
+  <div class="container nav">
+    <a href="index.html" class="brand" aria-label="Zipease">
+      <img class="brand-logo" src="assets/appicon-512.png" alt="Zipease icon" />
+      <span data-i18n="brand">Zipease (易解)</span>
+    </a>
+    <div class="nav-right">
+      <div class="lang-switcher" role="tablist" aria-label="Language">
+        <button data-lang="zh-Hans" class="active" role="tab" aria-selected="true">简体</button>
+        <button data-lang="zh-Hant" role="tab" aria-selected="false">繁體</button>
+        <button data-lang="en" role="tab" aria-selected="false">EN</button>
+      </div>
+      <a class="back-home" href="index.html">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        <span data-i18n="nav.back">返回首页</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="eyebrow"><span class="dot"></span><span data-i18n="hero.eyebrow">法律文档</span></div>
+    <h1 data-i18n-html="hero.title">隐私政策 · <span class="accent">你的数据，百分之百由你控制</span></h1>
+    <p class="lead" data-i18n="hero.lead">Zipease 的设计哲学是：一个压缩工具不需要知道你是谁、你压缩了什么。因此我们对数据采集持最保守的立场——不采集任何用户数据。</p>
+    <p class="meta-line"><span data-i18n="hero.upd">最后更新日期</span>：<strong>2026-08-14</strong></p>
+    <div class="badges">
+      <div class="badge"><div class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.5 9 8 10 4.5-1 8-5 8-10V6z"/></svg></div><span data-i18n="badge.1">零数据采集</span></div>
+      <div class="badge"><div class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><span data-i18n="badge.2">Keychain 本地加密</span></div>
+      <div class="badge"><div class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg></div><span data-i18n="badge.3">App Sandbox 全程隔离</span></div>
+      <div class="badge"><div class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 10 17 19 8"/></svg></div><span data-i18n="badge.4">无统计 / 无广告 SDK</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+<main class="legal">
+
+  <section id="collect">
+    <h2 data-i18n="s1.title">1. 我们收集哪些信息？</h2>
+    <p data-i18n-html="s1.p1"><strong>完全不收集。</strong>Zipease 不会采集任何可识别的个人信息、匿名统计信息、崩溃诊断信息或使用分析信息。具体而言：</p>
+    <ul>
+      <li data-i18n="s1.l1">没有用户账号体系，也没有任何「登录」入口。</li>
+      <li data-i18n="s1.l2">没有集成任何第三方分析 SDK（如 Google Analytics、Firebase、Mixpanel、友盟、TalkingData 等）。</li>
+      <li data-i18n="s1.l3">没有集成任何第三方崩溃上报 SDK（如 Crashlytics、Bugly、Sentry 等）。</li>
+      <li data-i18n="s1.l4">没有集成任何广告 SDK，不显示任何广告，不做广告归因。</li>
+      <li data-i18n-html="s1.l5">在 App Sandbox 下默认<strong>不申请网络权限</strong>，应用无法主动连接外网。</li>
+    </ul>
+  </section>
+
+  <section id="local">
+    <h2 data-i18n="s2.title">2. 本地保存的信息（不会离开你的 Mac）</h2>
+    <p data-i18n-html="s2.p1">为了保证你的使用体验，Zipease 确实会在本地保存一些数据，<strong>但它们全部 100% 在你自己的 Mac 上，开发者无法获取：</strong></p>
+
+    <h3 data-i18n="s2.s1.title">2.1 你保存的压缩包密码（Keychain）</h3>
+    <p data-i18n-html="s2.s1.p">当你勾选「保存此密码」时，密码会通过 Apple 官方提供的 <strong>Keychain Services（钥匙串服务）</strong>接口写入系统钥匙串。这条记录归 macOS 管理，由 <strong>Secure Enclave</strong> 硬件芯片加密保护；即使开启 iCloud 钥匙串，加密过程也在你本机完成，同步内容密钥由你设备的 T2 / Secure Enclave 单独生成。<strong>Vonce / Zipease 无法导出或读取你保存的密码</strong>，我们的应用只持有「写入」和「为当前 app id 读取自己写入的记录」的最小化权限。</p>
+
+    <h3 data-i18n="s2.s2.title">2.2 你设置的偏好参数（UserDefaults）</h3>
+    <p data-i18n-html="s2.s2.p">包括默认压缩格式、压缩等级、默认输出位置、语言设置、格式关联记录等偏好，存储在系统标准的 <code>~/Library/Containers/com.vonce.zipease.mac/Data/Library/Preferences/com.vonce.zipease.mac.plist</code> 下，完全由 macOS App Sandbox 隔离，其他应用没有读取权限。</p>
+
+    <h3 data-i18n="s2.s3.title">2.3 解压 / 压缩过程中的临时文件</h3>
+    <p data-i18n-html="s2.s3.p">Zipease 处理超大归档时会在自己的沙盒容器 <code>~/Library/Containers/com.vonce.zipease.mac/Data/Library/Caches/</code> 下写入临时分块，<strong>任务完成或应用退出后自动删除</strong>，绝不会留存。如果强制关机导致未能清理，下次启动 Zipease 时会执行一次垃圾回收。</p>
+  </section>
+
+  <section id="sandbox">
+    <h2 data-i18n="s3.title">3. 权限与沙盒机制</h2>
+    <p data-i18n-html="s3.p1">Zipease 运行于严格的 <strong>App Sandbox</strong> 之下，这是 macOS 系统级安全隔离机制：</p>
+    <ul>
+      <li data-i18n-html="s3.l1"><strong>文件访问：</strong>默认情况下 Zipease 看不到你的任何文件。只有当你通过「打开」面板、拖放、或格式关联双击文件时，才会被授予该文件/目录的一次性访问权。</li>
+      <li data-i18n-html="s3.l2"><strong>网络访问：</strong>Zipease 的 entitlements 中<strong>没有声明入站/出站网络权限</strong>，无法发起任何网络请求。</li>
+      <li data-i18n-html="s3.l3"><strong>硬件访问：</strong>不申请摄像头、麦克风、位置、通讯录、日历、照片库等任何权限。</li>
+      <li data-i18n-html="s3.l4"><strong>自动化 (AppleEvents)：</strong>不向任何其他 App 发送 Apple Events。</li>
+    </ul>
+    <p data-i18n-html="s3.p2">你可以在 <strong>系统设置 → 隐私与安全性</strong> 中随时查看并撤销 Zipease 已被授予的所有权限；由于我们没有网络权限，撤销后不影响任何核心功能。</p>
+  </section>
+
+  <section id="third">
+    <h2 data-i18n="s4.title">4. 第三方组件声明</h2>
+    <p data-i18n-html="s4.p1">Zipease 仅依赖以下开源组件，全部以静态库 / 二进制方式嵌入你的 App Bundle，<strong>不进行任何网络调用</strong>：</p>
+    <ul>
+      <li><strong>7-Zip / 7zz</strong>（public-domain-like unRAR + LGPL 许可）：实际的压缩 / 解压引擎，纯本地执行。</li>
+      <li data-i18n-html="s4.l2"><strong>Apple 原生系统框架</strong>（SwiftUI、AppKit、Security、UniformTypeIdentifiers 等）：由 Apple 提供。</li>
+    </ul>
+  </section>
+
+  <section id="kids">
+    <h2 data-i18n="s5.title">5. 儿童隐私 (COPPA / GDPR-K)</h2>
+    <p data-i18n-html="s5.p1">Zipease 是面向全年龄段的通用生产力工具。由于我们根本不收集任何个人信息，包括儿童的个人信息，因此符合美国 <strong>COPPA（儿童在线隐私保护法）</strong> 以及欧盟 <strong>GDPR-K</strong> 关于儿童数据保护的合规要求。</p>
+  </section>
+
+  <section id="changes">
+    <h2 data-i18n="s6.title">6. 本政策的变更</h2>
+    <p data-i18n="s6.p1">若未来 Zipease 引入任何新功能导致需要新增数据采集（我们目前没有这样的计划），我们会：</p>
+    <ul>
+      <li data-i18n="s6.l1">提前至少 30 天在官网（zipease.vonce.com）公示变更内容；</li>
+      <li data-i18n="s6.l2">在 App Store 的版本更新描述中明确提示；</li>
+      <li data-i18n="s6.l3">首次启动新版本时弹窗提示，并要求你明确同意。</li>
+    </ul>
+  </section>
+
+  <section id="contact">
+    <h2 data-i18n="s7.title">7. 联系与查询</h2>
+    <p data-i18n-html="s7.p1">如果你对本隐私政策有任何疑问、希望确认你的数据状态，或希望我们删除你本机保存的偏好记录（技术上你也可以直接卸载 App 由 macOS 清理沙盒），欢迎通过以下方式联系我们：</p>
+    <ul>
+      <li>📮 <strong>邮箱</strong>：<a href="mailto:info@vonce.cn">info@vonce.cn</a></li>
+      <li data-i18n-html="s7.l2">📄 <strong>技术支持页</strong>：<a href="support.html">support.html</a></li>
+      <li><strong>开发者</strong>：Vonce.（© 2026）</li>
+    </ul>
+  </section>
+
+</main>
+</div>
+
+<footer>
+  <div class="container foot-inner">
+    <div>© 2026 Vonce. <span data-i18n="foot.rights">保留所有权利。</span></div>
+    <div class="foot-links">
+      <a href="support.html" data-i18n="foot.support">技术支持</a>
+      <a href="privacy.html" data-i18n="foot.privacy">隐私政策</a>
+      <a href="terms.html" data-i18n="foot.terms">使用条款</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const I18N = {
+  "zh-Hans": {
+    "meta.title": "Zipease · 隐私政策",
+    "meta.description": "Zipease 隐私政策：我们如何处理你的数据、密码、文件。Zipease 不收集任何个人信息，全程本地加密。",
+    "brand": "Zipease (易解)",
+    "nav.back": "返回首页",
+    "hero.eyebrow": "法律文档",
+    "hero.title": "隐私政策 · <span class=\"accent\">你的数据，百分之百由你控制</span>",
+    "hero.lead": "Zipease 的设计哲学是：一个压缩工具不需要知道你是谁、你压缩了什么。因此我们对数据采集持最保守的立场——不采集任何用户数据。",
+    "hero.upd": "最后更新日期",
+    "badge.1": "零数据采集",
+    "badge.2": "Keychain 本地加密",
+    "badge.3": "App Sandbox 全程隔离",
+    "badge.4": "无统计 / 无广告 SDK",
+    "s1.title": "1. 我们收集哪些信息？",
+    "s1.p1": "<strong>完全不收集。</strong>Zipease 不会采集任何可识别的个人信息、匿名统计信息、崩溃诊断信息或使用分析信息。具体而言：",
+    "s1.l1": "没有用户账号体系，也没有任何「登录」入口。",
+    "s1.l2": "没有集成任何第三方分析 SDK（如 Google Analytics、Firebase、Mixpanel、友盟、TalkingData 等）。",
+    "s1.l3": "没有集成任何第三方崩溃上报 SDK（如 Crashlytics、Bugly、Sentry 等）。",
+    "s1.l4": "没有集成任何广告 SDK，不显示任何广告，不做广告归因。",
+    "s1.l5": "在 App Sandbox 下默认<strong>不申请网络权限</strong>，应用无法主动连接外网。",
+    "s2.title": "2. 本地保存的信息（不会离开你的 Mac）",
+    "s2.p1": "为了保证你的使用体验，Zipease 确实会在本地保存一些数据，<strong>但它们全部 100% 在你自己的 Mac 上，开发者无法获取：</strong>",
+    "s2.s1.title": "2.1 你保存的压缩包密码（Keychain）",
+    "s2.s1.p": "当你勾选「保存此密码」时，密码会通过 Apple 官方提供的 <strong>Keychain Services（钥匙串服务）</strong>接口写入系统钥匙串。这条记录归 macOS 管理，由 <strong>Secure Enclave</strong> 硬件芯片加密保护；即使开启 iCloud 钥匙串，加密过程也在你本机完成，同步内容密钥由你设备的 T2 / Secure Enclave 单独生成。<strong>Vonce / Zipease 无法导出或读取你保存的密码</strong>，我们的应用只持有「写入」和「为当前 app id 读取自己写入的记录」的最小化权限。",
+    "s2.s2.title": "2.2 你设置的偏好参数（UserDefaults）",
+    "s2.s2.p": "包括默认压缩格式、压缩等级、默认输出位置、语言设置、格式关联记录等偏好，存储在系统标准的 <code>~/Library/Containers/com.vonce.zipease.mac/Data/Library/Preferences/com.vonce.zipease.mac.plist</code> 下，完全由 macOS App Sandbox 隔离，其他应用没有读取权限。",
+    "s2.s3.title": "2.3 解压 / 压缩过程中的临时文件",
+    "s2.s3.p": "Zipease 处理超大归档时会在自己的沙盒容器 <code>~/Library/Containers/com.vonce.zipease.mac/Data/Library/Caches/</code> 下写入临时分块，<strong>任务完成或应用退出后自动删除</strong>，绝不会留存。如果强制关机导致未能清理，下次启动 Zipease 时会执行一次垃圾回收。",
+    "s3.title": "3. 权限与沙盒机制",
+    "s3.p1": "Zipease 运行于严格的 <strong>App Sandbox</strong> 之下，这是 macOS 系统级安全隔离机制：",
+    "s3.l1": "<strong>文件访问：</strong>默认情况下 Zipease 看不到你的任何文件。只有当你通过「打开」面板、拖放、或格式关联双击文件时，才会被授予该文件/目录的一次性访问权。",
+    "s3.l2": "<strong>网络访问：</strong>Zipease 的 entitlements 中<strong>没有声明入站/出站网络权限</strong>，无法发起任何网络请求。",
+    "s3.l3": "<strong>硬件访问：</strong>不申请摄像头、麦克风、位置、通讯录、日历、照片库等任何权限。",
+    "s3.l4": "<strong>自动化 (AppleEvents)：</strong>不向任何其他 App 发送 Apple Events。",
+    "s3.p2": "你可以在 <strong>系统设置 → 隐私与安全性</strong> 中随时查看并撤销 Zipease 已被授予的所有权限；由于我们没有网络权限，撤销后不影响任何核心功能。",
+    "s4.title": "4. 第三方组件声明",
+    "s4.p1": "Zipease 仅依赖以下开源组件，全部以静态库 / 二进制方式嵌入你的 App Bundle，<strong>不进行任何网络调用</strong>：",
+    "s4.l2": "<strong>Apple 原生系统框架</strong>（SwiftUI、AppKit、Security、UniformTypeIdentifiers 等）：由 Apple 提供。",
+    "s5.title": "5. 儿童隐私 (COPPA / GDPR-K)",
+    "s5.p1": "Zipease 是面向全年龄段的通用生产力工具。由于我们根本不收集任何个人信息，包括儿童的个人信息，因此符合美国 <strong>COPPA（儿童在线隐私保护法）</strong> 以及欧盟 <strong>GDPR-K</strong> 关于儿童数据保护的合规要求。",
+    "s6.title": "6. 本政策的变更",
+    "s6.p1": "若未来 Zipease 引入任何新功能导致需要新增数据采集（我们目前没有这样的计划），我们会：",
+    "s6.l1": "提前至少 30 天在官网（zipease.vonce.com）公示变更内容；",
+    "s6.l2": "在 App Store 的版本更新描述中明确提示；",
+    "s6.l3": "首次启动新版本时弹窗提示，并要求你明确同意。",
+    "s7.title": "7. 联系与查询",
+    "s7.p1": "如果你对本隐私政策有任何疑问、希望确认你的数据状态，或希望我们删除你本机保存的偏好记录（技术上你也可以直接卸载 App 由 macOS 清理沙盒），欢迎通过以下方式联系我们：",
+    "s7.l2": "📄 <strong>技术支持页</strong>：<a href=\"support.html\">support.html</a>",
+    "foot.rights": "保留所有权利。",
+    "foot.support": "技术支持",
+    "foot.privacy": "隐私政策",
+    "foot.terms": "使用条款"
+  },
+  "zh-Hant": {
+    "meta.title": "Zipease · 隱私政策",
+    "meta.description": "Zipease 隱私政策：我們如何處理你的資料、密碼、檔案。Zipease 不收集任何個人資訊，全程本機加密。",
+    "brand": "Zipease (易解)",
+    "nav.back": "返回首頁",
+    "hero.eyebrow": "法律文件",
+    "hero.title": "隱私政策 · <span class=\"accent\">你的資料，百分之百由你控制</span>",
+    "hero.lead": "Zipease 的設計哲學是：一個壓縮工具不需要知道你是誰、你壓縮了什麼。因此我們對資料蒐集持最保守的立場——不蒐集任何使用者資料。",
+    "hero.upd": "最後更新日期",
+    "badge.1": "零資料蒐集",
+    "badge.2": "Keychain 本機加密",
+    "badge.3": "App Sandbox 全程隔離",
+    "badge.4": "無統計 / 無廣告 SDK",
+    "s1.title": "1. 我們收集哪些資訊？",
+    "s1.p1": "<strong>完全不收集。</strong>Zipease 不會蒐集任何可識別的個人資訊、匿名統計資訊、崩潰診斷資訊或使用分析資訊。具體而言：",
+    "s1.l1": "沒有使用者帳號體系，也沒有任何「登入」入口。",
+    "s1.l2": "沒有整合任何第三方分析 SDK（如 Google Analytics、Firebase、Mixpanel、友盟、TalkingData 等）。",
+    "s1.l3": "沒有整合任何第三方崩潰上報 SDK（如 Crashlytics、Bugly、Sentry 等）。",
+    "s1.l4": "沒有整合任何廣告 SDK，不顯示任何廣告，不做廣告歸因。",
+    "s1.l5": "在 App Sandbox 下預設<strong>不申請網路權限</strong>，應用無法主動連線外網。",
+    "s2.title": "2. 本機儲存的資訊（不會離開你的 Mac）",
+    "s2.p1": "為了保證你的使用體驗，Zipease 確實會在本機儲存一些資料，<strong>但它們全部 100% 在你自己的 Mac 上，開發者無法取得：</strong>",
+    "s2.s1.title": "2.1 你儲存的壓縮封包密碼（Keychain）",
+    "s2.s1.p": "當你勾選「儲存此密碼」時，密碼會透過 Apple 官方提供的 <strong>Keychain Services（鑰匙圈服務）</strong>介面寫入系統鑰匙圈。這條記錄歸 macOS 管理，由 <strong>Secure Enclave</strong> 硬體晶片加密保護；即使開啟 iCloud 鑰匙圈，加密過程也在你本機完成，同步內容金鑰由你裝置的 T2 / Secure Enclave 單獨生成。<strong>Vonce / Zipease 無法匯出或讀取你儲存的密碼</strong>，我們的應用只持有「寫入」和「為目前 app id 讀取自己寫入的記錄」的最小化權限。",
+    "s2.s2.title": "2.2 你設定的偏好參數（UserDefaults）",
+    "s2.s2.p": "包括預設壓縮格式、壓縮等級、預設輸出位置、語言設定、格式關聯記錄等偏好，儲存在系統標準的 <code>~/Library/Containers/com.vonce.zipease.mac/Data/Library/Preferences/com.vonce.zipease.mac.plist</code> 下，完全由 macOS App Sandbox 隔離，其他應用沒有讀取權限。",
+    "s2.s3.title": "2.3 解壓縮 / 壓縮過程中的暫存檔",
+    "s2.s3.p": "Zipease 處理超大歸檔時會在自己的沙盒容器 <code>~/Library/Containers/com.vonce.zipease.mac/Data/Library/Caches/</code> 下寫入暫存分塊，<strong>任務完成或應用離開後自動刪除</strong>，絕不會留存。如果強制關機導致未能清理，下次啟動 Zipease 時會執行一次垃圾回收。",
+    "s3.title": "3. 權限與沙盒機制",
+    "s3.p1": "Zipease 執行於嚴格的 <strong>App Sandbox</strong> 之下，這是 macOS 系統級安全隔離機制：",
+    "s3.l1": "<strong>檔案存取：</strong>預設情況下 Zipease 看不到你的任何檔案。只有當你透過「打開」面板、拖放、或格式關聯點兩下檔案時，才會被授予該檔案/目錄的一次性存取權。",
+    "s3.l2": "<strong>網路存取：</strong>Zipease 的 entitlements 中<strong>沒有宣告入站/出站網路權限</strong>，無法發起任何網路請求。",
+    "s3.l3": "<strong>硬體存取：</strong>不申請相機、麥克風、位置、聯絡人、行事曆、照片圖庫等任何權限。",
+    "s3.l4": "<strong>自動化 (AppleEvents)：</strong>不向任何其他 App 傳送 Apple Events。",
+    "s3.p2": "你可以在 <strong>系統設定 → 隱私與安全性</strong> 中隨時檢視並撤銷 Zipease 已被授予的所有權限；由於我們沒有網路權限，撤銷後不影響任何核心功能。",
+    "s4.title": "4. 第三方元件宣告",
+    "s4.p1": "Zipease 僅依賴以下開源元件，全部以靜態函式庫 / 二進位方式嵌入你的 App Bundle，<strong>不進行任何網路呼叫</strong>：",
+    "s4.l2": "<strong>Apple 原生系統框架</strong>（SwiftUI、AppKit、Security、UniformTypeIdentifiers 等）：由 Apple 提供。",
+    "s5.title": "5. 兒童隱私 (COPPA / GDPR-K)",
+    "s5.p1": "Zipease 是面向全年齡層的通用生產力工具。由於我們根本不收集任何個人資訊，包括兒童的個人資訊，因此符合美國 <strong>COPPA（兒童線上隱私保護法）</strong> 以及歐盟 <strong>GDPR-K</strong> 關於兒童資料保護的合規要求。",
+    "s6.title": "6. 本政策的變更",
+    "s6.p1": "若未來 Zipease 引入任何新功能導致需要新增資料蒐集（我們目前沒有這樣的計畫），我們會：",
+    "s6.l1": "提前至少 30 天在官網（zipease.vonce.com）公示變更內容；",
+    "s6.l2": "在 App Store 的版本更新描述中明確提示；",
+    "s6.l3": "首次啟動新版本時彈窗提示，並要求你明確同意。",
+    "s7.title": "7. 聯絡與查詢",
+    "s7.p1": "如果你對本隱私政策有任何疑問、希望確認你的資料狀態，或希望我們刪除你本機儲存的偏好記錄（技術上你也可以直接解除安裝 App 由 macOS 清理沙盒），歡迎透過以下方式聯絡我們：",
+    "s7.l2": "📄 <strong>技術支援頁</strong>：<a href=\"support.html\">support.html</a>",
+    "foot.rights": "保留所有權利。",
+    "foot.support": "技術支援",
+    "foot.privacy": "隱私政策",
+    "foot.terms": "使用條款"
+  },
+  "en": {
+    "meta.title": "Zipease · Privacy Policy",
+    "meta.description": "Zipease Privacy Policy: how we handle your data, passwords, and files. Zipease collects no personal information — everything stays encrypted on your Mac.",
+    "brand": "Zipease",
+    "nav.back": "Back to home",
+    "hero.eyebrow": "Legal",
+    "hero.title": "Privacy Policy · <span class=\"accent\">Your data. 100% under your control.</span>",
+    "hero.lead": "Our design philosophy: a compression utility has no business knowing who you are or what you're compressing. That's why we take the most conservative approach possible — we collect nothing.",
+    "hero.upd": "Last updated",
+    "badge.1": "Zero data collected",
+    "badge.2": "Keychain local encryption",
+    "badge.3": "Full App Sandbox isolation",
+    "badge.4": "No analytics / No ad SDKs",
+    "s1.title": "1. What we collect",
+    "s1.p1": "<strong>Absolutely nothing.</strong> Zipease does not collect any personally identifiable information, anonymous usage statistics, crash diagnostics, or analytics of any kind. Specifically:",
+    "s1.l1": "No user accounts, no 'sign in' flows of any kind.",
+    "s1.l2": "No third-party analytics SDK (Google Analytics, Firebase, Mixpanel, Umeng, TalkingData, etc.).",
+    "s1.l3": "No third-party crash-reporting SDK (Crashlytics, Bugly, Sentry, etc.).",
+    "s1.l4": "No ad SDKs, no ad display, no ad attribution.",
+    "s1.l5": "Runs under the App Sandbox with <strong>no network entitlement</strong> — the app literally cannot make outbound connections.",
+    "s2.title": "2. Information stored locally (never leaves your Mac)",
+    "s2.p1": "For a smooth experience Zipease does store a few things <strong>100% on your device</strong>. The developers never see any of it:",
+    "s2.s1.title": "2.1 Saved archive passwords (Keychain)",
+    "s2.s1.p": "When you check \"Remember this password\", the password is written to your system keychain using Apple's official <strong>Keychain Services</strong>. The entry is owned by macOS, encrypted in the <strong>Secure Enclave</strong> hardware; even with iCloud Keychain enabled, wrapping happens on-device and the sync key is derived per-device. <strong>Vonce / Zipease cannot export or read your saved passwords</strong> — the app only holds the minimum 'write' and 'read our own entries' Keychain access group.",
+    "s2.s2.title": "2.2 Preferences (UserDefaults)",
+    "s2.s2.p": "Default compression format, compression level, default output folder, language choice, and format-association settings are stored in the standard sandboxed plist: <code>~/Library/Containers/com.vonce.zipease.mac/Data/Library/Preferences/com.vonce.zipease.mac.plist</code>. Fully isolated by macOS App Sandbox; other apps cannot read it.",
+    "s2.s3.title": "2.3 Temporary processing files",
+    "s2.s3.p": "For very large archives, Zipease writes temporary chunks into its sandbox cache at <code>~/Library/Containers/com.vonce.zipease.mac/Data/Library/Caches/</code>. <strong>Files are auto-deleted when the task finishes or the app exits.</strong> If a forced shutdown leaves stale files, a garbage-collection pass runs on next launch.",
+    "s3.title": "3. Permissions & Sandboxing",
+    "s3.p1": "Zipease runs under strict <strong>App Sandbox</strong> — macOS's system-level security isolation:",
+    "s3.l1": "<strong>File access:</strong> By default Zipease sees nothing. Access is granted only when you use the Open panel, drag files onto the app, or double-click a format-bound archive.",
+    "s3.l2": "<strong>Network access:</strong> Our entitlements declare <strong>neither inbound nor outbound network</strong>. No requests can be made.",
+    "s3.l3": "<strong>Hardware access:</strong> No camera, microphone, location, contacts, calendar, or Photos library entitlements requested.",
+    "s3.l4": "<strong>Automation (AppleEvents):</strong> Never sends Apple Events to any other app.",
+    "s3.p2": "You can review and revoke all granted permissions at any time in <strong>System Settings → Privacy &amp; Security</strong>. Because we don't need network access, revoking anything never breaks the core product.",
+    "s4.title": "4. Third-party components",
+    "s4.p1": "Zipease ships with only these open-source components, all embedded as binaries/static libraries. <strong>None of them make network calls:</strong>",
+    "s4.l2": "<strong>Apple system frameworks</strong> (SwiftUI, AppKit, Security, UniformTypeIdentifiers, etc.) — provided by Apple.",
+    "s5.title": "5. Children's privacy (COPPA / GDPR-K)",
+    "s5.p1": "Zipease is a general-purpose productivity tool suitable for all ages. Since we collect no personal data at all — including from children — we satisfy US <strong>COPPA</strong> and EU <strong>GDPR-K</strong> children's privacy requirements.",
+    "s6.title": "6. Changes to this policy",
+    "s6.p1": "If a future feature ever requires new data collection (we have no plans for this), we will:",
+    "s6.l1": "Post notice on zipease.vonce.com at least 30 days before the change ships;",
+    "s6.l2": "Call out the privacy change prominently in App Store release notes;",
+    "s6.l3": "Show an in-app consent dialog the first time you launch the new version.",
+    "s7.title": "7. Contact us",
+    "s7.p1": "If you have questions about this policy, want to confirm the data status of your installation, or want us to wipe any local preferences (you can also just delete the app and macOS cleans the sandbox automatically), reach out via:",
+    "s7.l2": "📄 <strong>Support page</strong>: <a href=\"support.html\">support.html</a>",
+    "foot.rights": "All rights reserved.",
+    "foot.support": "Support",
+    "foot.privacy": "Privacy Policy",
+    "foot.terms": "Terms of Use"
+  }
+};
+
+(function initLang() {
+  const STORAGE = "zipease-site-lang";
+  const SUPPORTED = ["zh-Hans", "zh-Hant", "en"];
+  let current = localStorage.getItem(STORAGE) || detect();
+  function detect() {
+    const n = (navigator.language || "zh-CN").toLowerCase();
+    if (n.startsWith("zh-tw") || n.startsWith("zh-hk") || n.startsWith("zh-mo")) return "zh-Hant";
+    if (n.startsWith("zh")) return "zh-Hans";
+    if (n.startsWith("en")) return "en";
+    return "zh-Hans";
+  }
+  function t(k) { const d = I18N[current] || I18N["zh-Hans"]; return d[k] ?? ""; }
+  function apply() {
+    const hl = current === "zh-Hans" ? "zh-CN" : current === "zh-Hant" ? "zh-TW" : "en";
+    document.documentElement.setAttribute("lang", hl);
+    document.querySelectorAll("[data-i18n]").forEach(el => { const v = t(el.getAttribute("data-i18n")); if (v) el.textContent = v; });
+    document.querySelectorAll("[data-i18n-html]").forEach(el => { const v = t(el.getAttribute("data-i18n-html")); if (v) el.innerHTML = v; });
+    const title = t("meta.title"); if (title) document.title = title;
+    const descMeta = document.querySelector('meta[name="description"]');
+    const desc = t("meta.description"); if (descMeta && desc) descMeta.setAttribute("content", desc);
+    document.querySelectorAll(".lang-switcher button").forEach(b => {
+      const on = b.dataset.lang === current;
+      b.classList.toggle("active", on);
+      b.setAttribute("aria-selected", on ? "true" : "false");
+    });
+  }
+  function setLang(l) {
+    if (!SUPPORTED.includes(l)) l = "zh-Hans";
+    current = l; localStorage.setItem(STORAGE, l); apply();
+  }
+  document.querySelectorAll(".lang-switcher button").forEach(b =>
+    b.addEventListener("click", () => setLang(b.dataset.lang))
+  );
+  apply();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title data-i18n="meta.title">Zipease · 使用条款</title>
+  <meta name="description" data-i18n="meta.description" content="Zipease 使用条款（EULA）：Mac App Store 标准 Apple EULA 约束 + 额外本地条款与免责声明。" />
+  <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="assets/appicon-512.png" />
+  <style>
+    :root {
+      --bg: #fafbff;
+      --fg: #0d1030;
+      --muted: #5a5f7a;
+      --card: #ffffff;
+      --line: rgba(13, 16, 48, .08);
+      --accent-a: #6366f1;
+      --accent-b: #8b5cf6;
+      --accent-c: #ec4899;
+      --grad: linear-gradient(135deg, var(--accent-a) 0%, var(--accent-b) 50%, var(--accent-c) 100%);
+      --radius: 16px;
+      --maxw: 880px;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, Inter, sans-serif;
+      background: radial-gradient(1200px 600px at 10% -10%, rgba(139, 92, 246, .12), transparent 60%),
+                  radial-gradient(900px 500px at 100% 0%, rgba(236, 72, 153, .10), transparent 55%),
+                  var(--bg);
+      color: var(--fg);
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    .container { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+    header.site {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: saturate(180%) blur(14px);
+      -webkit-backdrop-filter: saturate(180%) blur(14px);
+      background: rgba(250, 251, 255, .7);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; text-decoration: none; letter-spacing: .2px; }
+    .brand-logo {
+      width: 34px; height: 34px; border-radius: 9px;
+      box-shadow: 0 2px 6px rgba(20, 20, 60, .12), 0 0 0 .5px rgba(0,0,0,.04) inset;
+      object-fit: cover; display: block;
+    }
+    .nav-right { display: flex; align-items: center; gap: 12px; }
+    .lang-switcher {
+      display: inline-flex; background: #fff; border: 1px solid var(--line); border-radius: 999px;
+      padding: 3px; box-shadow: 0 1px 2px rgba(0,0,0,.03);
+    }
+    .lang-switcher button {
+      border: 0; background: transparent; cursor: pointer; padding: 5px 12px;
+      border-radius: 999px; font-size: 13px; font-weight: 600; color: var(--muted);
+      transition: all .18s ease;
+    }
+    .lang-switcher button.active {
+      background: var(--grad); color: #fff; box-shadow: 0 2px 10px -4px rgba(99,102,241,.6);
+    }
+    .back-home {
+      text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+      color: var(--muted); font-weight: 600; font-size: 14px;
+    }
+    .back-home:hover { color: var(--fg); }
+
+    .page-hero { padding: 56px 0 24px; }
+    .page-hero .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--accent-b); margin-bottom: 14px;
+    }
+    .page-hero .eyebrow .dot { width: 8px; height: 8px; border-radius: 999px; background: var(--grad); }
+    .page-hero h1 {
+      font-size: 38px; line-height: 1.15; margin: 0 0 12px; letter-spacing: -.02em;
+    }
+    .page-hero h1 .accent {
+      background: var(--grad); -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: transparent;
+    }
+    .page-hero p.lead { font-size: 16px; color: var(--muted); max-width: 720px; margin: 0 0 6px; }
+    .meta-line { font-size: 13px; color: var(--muted); }
+    .meta-line strong { color: var(--fg); }
+
+    .callout {
+      border: 1px solid rgba(99,102,241,.22);
+      background: linear-gradient(180deg, rgba(139,92,246,.07), rgba(99,102,241,.03));
+      border-radius: 14px; padding: 18px 20px; margin: 20px 0 6px;
+      font-size: 14.5px; color: #343852;
+    }
+    .callout strong { color: var(--accent-a); }
+
+    main.legal { padding: 28px 0 80px; }
+    main.legal h2 {
+      font-size: 22px; margin: 36px 0 14px; letter-spacing: -.01em;
+      padding-bottom: 10px; border-bottom: 1px solid var(--line);
+    }
+    main.legal h3 { font-size: 17px; margin: 22px 0 8px; }
+    main.legal p { color: #343852; margin: 10px 0; font-size: 14.8px; }
+    main.legal p a { color: var(--accent-a); text-decoration: none; border-bottom: 1px dashed rgba(99,102,241,.45); }
+    main.legal ul { padding-left: 22px; }
+    main.legal li { margin: 6px 0; color: #343852; font-size: 14.8px; }
+    main.legal ol { padding-left: 22px; }
+    main.legal ol li { margin: 6px 0; color: #343852; font-size: 14.8px; }
+    main.legal code {
+      background: #eef0ff; color: #4338ca; padding: 1.5px 6px; border-radius: 5px; font-size: 13px;
+      font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, monospace;
+    }
+
+    footer {
+      border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--muted); font-size: 13.5px;
+      background: rgba(255,255,255,.55);
+    }
+    .foot-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .foot-links { display: flex; gap: 18px; flex-wrap: wrap; }
+    .foot-links a { color: var(--muted); text-decoration: none; font-weight: 600; }
+    .foot-links a:hover { color: var(--fg); }
+
+    @media (max-width: 640px) {
+      .page-hero h1 { font-size: 28px; }
+      .back-home span { display: none; }
+      .lang-switcher button { padding: 5px 9px; font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+<header class="site">
+  <div class="container nav">
+    <a href="index.html" class="brand" aria-label="Zipease">
+      <img class="brand-logo" src="assets/appicon-512.png" alt="Zipease icon" />
+      <span data-i18n="brand">Zipease (易解)</span>
+    </a>
+    <div class="nav-right">
+      <div class="lang-switcher" role="tablist" aria-label="Language">
+        <button data-lang="zh-Hans" class="active" role="tab" aria-selected="true">简体</button>
+        <button data-lang="zh-Hant" role="tab" aria-selected="false">繁體</button>
+        <button data-lang="en" role="tab" aria-selected="false">EN</button>
+      </div>
+      <a class="back-home" href="index.html">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        <span data-i18n="nav.back">返回首页</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="eyebrow"><span class="dot"></span><span data-i18n="hero.eyebrow">法律文档</span></div>
+    <h1 data-i18n-html="hero.title">使用条款 · <span class="accent">Zipease 最终用户许可协议</span></h1>
+    <p class="lead" data-i18n="hero.lead">请在使用 Zipease 之前仔细阅读以下条款。通过从 Mac App Store 下载、安装或使用 Zipease，即表示你同意受本协议及 Apple 标准 EULA 的约束。</p>
+    <p class="meta-line"><span data-i18n="hero.upd">最后更新日期</span>：<strong>2026-08-14</strong></p>
+  </div>
+</section>
+
+<div class="container">
+<main class="legal">
+
+  <div class="callout" data-i18n-html="callout.apple">
+    <strong>ℹ️ 关于 Mac App Store 版本的重要说明：</strong>通过 Mac App Store 获取的 Zipease 同时受本条款与 Apple Inc. 发布的 <strong>《Apple Media Services 条款与条件》</strong>（Apple 标准 EULA / Apple Licensed Application End User License Agreement）的约束。若本条款与 Apple 标准 EULA 之间存在冲突，<strong>以 Apple 标准 EULA 为准</strong>。你可以在 <a href="https://www.apple.com/legal/internet-services/itunes/" target="_blank" rel="noopener">apple.com/legal</a> 查看 Apple 标准 EULA 的完整内容。
+  </div>
+
+  <section>
+    <h2 data-i18n="s1.title">1. 协议双方与许可范围</h2>
+    <p data-i18n-html="s1.p1">本协议由你（最终用户）与开发者 <strong>Vonce.</strong>（以下简称「许可方」、「我们」）共同订立。</p>
+    <ol>
+      <li data-i18n-html="s1.l1"><strong>许可标的：</strong>Zipease macOS 应用程序（含可执行二进制、图标、界面文字、文档及其他随附材料）。</li>
+      <li data-i18n-html="s1.l2"><strong>许可方式：</strong>授予你一份有限、非独占、不可再许可、不可转让、不可转售、全球范围有效的个人使用许可，允许你在 Apple ID 所关联的 Mac 设备（受 Apple ID 家庭共享与设备数量限制）上安装、运行、显示本软件。</li>
+      <li data-i18n-html="s1.l3"><strong>保留权利：</strong>本协议未明确授予的一切权利，均由许可方与/或其许可人（例如 7-Zip 的相关作者等第三方组件权利人）保留。</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2 data-i18n="s2.title">2. 你承诺不做以下行为</h2>
+    <ul>
+      <li data-i18n="s2.l1">对本软件进行反向工程、反编译、反汇编、解密、剥离符号，或尝试获取源代码、提取内嵌二进制文件（含但不限于 7zz）用于其他用途；</li>
+      <li data-i18n="s2.l2">修改、改编、翻译、制作衍生作品，或把本软件整体或部分嵌入其他软件产品 / 服务中再分发；</li>
+      <li data-i18n="s2.l3">未经许可方书面同意，对本软件进行出租、租赁、出借、转售、分时共享、SaaS 化、运营服务化使用；</li>
+      <li data-i18n="s2.l4">移除、遮盖、篡改 Zipease 或其第三方组件的任何版权声明、许可标记、署名、App Store DRM 签名；</li>
+      <li data-i18n="s2.l5">使用本软件从事违反所在国家/地区法律法规的活动，包括但不限于：非法获取的文件的处理、侵权内容分发、受管制数据的跨境传输等；</li>
+      <li data-i18n="s2.l6">干扰、破坏、绕过本软件的技术措施（App Sandbox、Gatekeeper、代码签名校验等）。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 data-i18n="s3.title">3. 知识产权归属</h2>
+    <p data-i18n-html="s3.p1">Zipease 应用整体、品牌标识「Zipease / 易解」、UI 设计、用户界面文案、图标与美术作品的著作权归 <strong>Vonce.</strong> 所有。Zipease 的运行嵌入了以下第三方开源组件，对应权利与许可随附如下（你也可以在本页面末尾附件中查看）：</p>
+    <ul>
+      <li><strong>7-Zip / p7zip / unRAR</strong>：由 Igor Pavlov 等作者提供，unRAR 部分遵循 unRAR 许可协议；其余部分遵循 GNU LGPL v2.1 与 BSD 风格开源许可。</li>
+      <li data-i18n-html="s3.l2"><strong>Apple 开源组件</strong>：由 Apple Inc. 提供，遵循对应的 Apple Public Source License（部分）与 Apache License 2.0。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 data-i18n="s4.title">4. 免责声明（你使用本软件产生的风险自行承担）</h2>
+    <p data-i18n-html="s4.p1"><strong>在适用法律允许的最大范围内，Zipease 及其开发者、贡献者、合作伙伴对以下事项不做任何明示或默示担保：</strong></p>
+    <ol>
+      <li data-i18n="s4.l1">本软件的适销性、适用性、无错误、无故障、无恶意代码、不中断运行；</li>
+      <li data-i18n="s4.l2">本软件满足你的特定需求或与第三方硬件 / 软件 / 归档格式 100% 兼容；</li>
+      <li data-i18n="s4.l3">使用本软件得到的压缩 / 解压结果完整、准确、可恢复，尤其对于加密归档、分卷归档、跨平台生成的归档。</li>
+    </ol>
+    <p data-i18n-html="s4.p2"><strong>对于你使用本软件导致的任何直接、间接、附带、特殊、惩罚性或衍生性损失</strong>（包括但不限于：利润损失、业务中断、数据丢失、程序错误、替代采购成本、人身伤害或财产损失），即使我们已被告知该等损失的可能性，在任何责任理论（合同、严格责任、侵权或其他）下，<strong>我们的责任上限以你为本软件实际支付的金额（对免费版即不超过 0 美元/人民币）为限</strong>。</p>
+    <p data-i18n="s4.p3">💡 重要提示：对于重要数据，请务必在压缩 / 解压前进行独立备份，并在解压后校验结果完整性。</p>
+  </section>
+
+  <section>
+    <h2 data-i18n="s5.title">5. DMCA / 版权申诉</h2>
+    <p data-i18n-html="s5.p1">Zipease 本身为中立的文件处理工具，不存储、不分发任何受版权保护的内容。若你认为 Zipease 内某部分素材侵犯了你的著作权（例如 UI 设计、品牌标识、开源授权合规性问题等，<strong>不包含用户使用本工具处理的文件本身</strong>），请发送 DMCA / 版权申诉至：</p>
+    <ul>
+      <li>📮 <a href="mailto:info@vonce.cn">info@vonce.cn</a></li>
+    </ul>
+    <p data-i18n="s5.p2">我们会在收到申诉后立即核查，并视情况移除、替换相应素材或与你沟通替代方案。</p>
+  </section>
+
+  <section>
+    <h2 data-i18n="s6.title">6. 出口管制与合规</h2>
+    <p data-i18n="s6.p1">Zipease 内置 AES-256 对称加密（ZIP 传统加密与 7Z AES-256 均符合 FIPS 197）。你确认：</p>
+    <ul>
+      <li data-i18n="s6.l1">你所在司法管辖区对获取、持有、使用密码学软件无额外限制；</li>
+      <li data-i18n="s6.l2">你不会将本软件直接或间接出口 / 再出口到受美国、欧盟或联合国制裁的国家 / 地区 / 实体；</li>
+      <li data-i18n="s6.l3">你不属于任何受制裁人员名单（如 OFAC SDN List、EU 制裁清单、联合国制裁清单）上的主体。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 data-i18n="s7.title">7. 协议终止</h2>
+    <ul>
+      <li data-i18n-html="s7.l1"><strong>你主动终止：</strong>从 Mac 卸载 Zipease 即视为终止本协议。</li>
+      <li data-i18n-html="s7.l2"><strong>因违约终止：</strong>若你违反本协议第 2 条中的任何承诺，许可方有权以书面（含邮件）通知立即终止本许可；终止后你必须立即卸载并销毁所有已获得的软件副本。</li>
+      <li data-i18n-html="s7.l3"><strong>条款持续：</strong>协议终止后，第 3（知识产权）、4（免责声明）、5（DMCA）、6（出口管制）、7（终止后条款）、8（适用法律）、9（可分割性）条仍然有效。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 data-i18n="s8.title">8. 适用法律与争议解决</h2>
+    <ol>
+      <li data-i18n-html="s8.l1"><strong>适用法律：</strong>本协议的订立、效力、解释、履行及争议解决，在不与 Apple 标准 EULA 冲突的前提下，适用 <strong>中华人民共和国法律</strong>（不含其冲突法规则）。</li>
+      <li data-i18n-html="s8.l2"><strong>争议解决：</strong>因本协议或软件使用产生的任何争议，双方应首先通过友好协商（电子邮件渠道）解决；协商不成的，任何一方均可提交至 <strong>开发者所在地</strong> 有管辖权的人民法院通过诉讼解决。</li>
+      <li data-i18n-html="s8.l3"><strong>消费者保护：</strong>若你所在司法管辖区的消费者保护法律对你适用且不可通过合同排除，则本协议的任何条款均不旨在排除或限制此类法定权利。</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2 data-i18n="s9.title">9. 可分割性与完整协议</h2>
+    <ul>
+      <li data-i18n-html="s9.l1"><strong>可分割性：</strong>本协议任何条款被有管辖权的法院认定为无效或不可执行的，该条款的无效或不可执行不影响本协议其余条款的效力。</li>
+      <li data-i18n-html="s9.l2"><strong>完整协议：</strong>本协议（连同 Apple 标准 EULA 及隐私政策）构成你与 Vonce. 就 Zipease 使用达成的完整协议，取代此前所有口头或书面沟通、谅解备忘录、协议草稿。</li>
+      <li data-i18n-html="s9.l3"><strong>条款的更新：</strong>本协议可能不定期更新；新版本一经在官网（zipease.vonce.com）发布即对后续使用行为生效，除非本次更新包含重大限制性条款（此时会通过应用内弹窗提示你明确同意）。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 data-i18n="s10.title">10. 联系我们</h2>
+    <p data-i18n="s10.p1">若对本使用条款有任何疑问、需要获取授权许可（例如商业 OEM 嵌入、企业批量部署等），请联系：</p>
+    <ul>
+      <li>📮 <a href="mailto:info@vonce.cn">info@vonce.cn</a></li>
+      <li data-i18n-html="s10.l2">📄 <a href="support.html">技术支持页 / Support</a></li>
+      <li data-i18n-html="s10.l3">📄 <a href="privacy.html">隐私政策 / Privacy Policy</a></li>
+      <li><strong>运营主体：</strong>Vonce.</li>
+    </ul>
+  </section>
+
+</main>
+</div>
+
+<footer>
+  <div class="container foot-inner">
+    <div>© 2026 Vonce. <span data-i18n="foot.rights">保留所有权利。</span></div>
+    <div class="foot-links">
+      <a href="support.html" data-i18n="foot.support">技术支持</a>
+      <a href="privacy.html" data-i18n="foot.privacy">隐私政策</a>
+      <a href="terms.html" data-i18n="foot.terms">使用条款</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const I18N = {
+  "zh-Hans": {
+    "meta.title": "Zipease · 使用条款",
+    "meta.description": "Zipease 使用条款（EULA）：Mac App Store 标准 Apple EULA 约束 + 额外本地条款与免责声明。",
+    "brand": "Zipease (易解)",
+    "nav.back": "返回首页",
+    "hero.eyebrow": "法律文档",
+    "hero.title": "使用条款 · <span class=\"accent\">Zipease 最终用户许可协议</span>",
+    "hero.lead": "请在使用 Zipease 之前仔细阅读以下条款。通过从 Mac App Store 下载、安装或使用 Zipease，即表示你同意受本协议及 Apple 标准 EULA 的约束。",
+    "hero.upd": "最后更新日期",
+    "callout.apple": "<strong>ℹ️ 关于 Mac App Store 版本的重要说明：</strong>通过 Mac App Store 获取的 Zipease 同时受本条款与 Apple Inc. 发布的 <strong>《Apple Media Services 条款与条件》</strong>（Apple 标准 EULA / Apple Licensed Application End User License Agreement）的约束。若本条款与 Apple 标准 EULA 之间存在冲突，<strong>以 Apple 标准 EULA 为准</strong>。你可以在 <a href=\"https://www.apple.com/legal/internet-services/itunes/\" target=\"_blank\" rel=\"noopener\">apple.com/legal</a> 查看 Apple 标准 EULA 的完整内容。",
+    "s1.title": "1. 协议双方与许可范围",
+    "s1.p1": "本协议由你（最终用户）与开发者 <strong>Vonce.</strong>（以下简称「许可方」、「我们」）共同订立。",
+    "s1.l1": "<strong>许可标的：</strong>Zipease macOS 应用程序（含可执行二进制、图标、界面文字、文档及其他随附材料）。",
+    "s1.l2": "<strong>许可方式：</strong>授予你一份有限、非独占、不可再许可、不可转让、不可转售、全球范围有效的个人使用许可，允许你在 Apple ID 所关联的 Mac 设备（受 Apple ID 家庭共享与设备数量限制）上安装、运行、显示本软件。",
+    "s1.l3": "<strong>保留权利：</strong>本协议未明确授予的一切权利，均由许可方与/或其许可人（例如 7-Zip 的相关作者等第三方组件权利人）保留。",
+    "s2.title": "2. 你承诺不做以下行为",
+    "s2.l1": "对本软件进行反向工程、反编译、反汇编、解密、剥离符号，或尝试获取源代码、提取内嵌二进制文件（含但不限于 7zz）用于其他用途；",
+    "s2.l2": "修改、改编、翻译、制作衍生作品，或把本软件整体或部分嵌入其他软件产品 / 服务中再分发；",
+    "s2.l3": "未经许可方书面同意，对本软件进行出租、租赁、出借、转售、分时共享、SaaS 化、运营服务化使用；",
+    "s2.l4": "移除、遮盖、篡改 Zipease 或其第三方组件的任何版权声明、许可标记、署名、App Store DRM 签名；",
+    "s2.l5": "使用本软件从事违反所在国家/地区法律法规的活动，包括但不限于：非法获取的文件的处理、侵权内容分发、受管制数据的跨境传输等；",
+    "s2.l6": "干扰、破坏、绕过本软件的技术措施（App Sandbox、Gatekeeper、代码签名校验等）。",
+    "s3.title": "3. 知识产权归属",
+    "s3.p1": "Zipease 应用整体、品牌标识「Zipease / 易解」、UI 设计、用户界面文案、图标与美术作品的著作权归 <strong>Vonce.</strong> 所有。Zipease 的运行嵌入了以下第三方开源组件，对应权利与许可随附如下（你也可以在本页面末尾附件中查看）：",
+    "s3.l2": "<strong>Apple 开源组件</strong>：由 Apple Inc. 提供，遵循对应的 Apple Public Source License（部分）与 Apache License 2.0。",
+    "s4.title": "4. 免责声明（你使用本软件产生的风险自行承担）",
+    "s4.p1": "<strong>在适用法律允许的最大范围内，Zipease 及其开发者、贡献者、合作伙伴对以下事项不做任何明示或默示担保：</strong>",
+    "s4.l1": "本软件的适销性、适用性、无错误、无故障、无恶意代码、不中断运行；",
+    "s4.l2": "本软件满足你的特定需求或与第三方硬件 / 软件 / 归档格式 100% 兼容；",
+    "s4.l3": "使用本软件得到的压缩 / 解压结果完整、准确、可恢复，尤其对于加密归档、分卷归档、跨平台生成的归档。",
+    "s4.p2": "<strong>对于你使用本软件导致的任何直接、间接、附带、特殊、惩罚性或衍生性损失</strong>（包括但不限于：利润损失、业务中断、数据丢失、程序错误、替代采购成本、人身伤害或财产损失），即使我们已被告知该等损失的可能性，在任何责任理论（合同、严格责任、侵权或其他）下，<strong>我们的责任上限以你为本软件实际支付的金额（对免费版即不超过 0 美元/人民币）为限</strong>。",
+    "s4.p3": "💡 重要提示：对于重要数据，请务必在压缩 / 解压前进行独立备份，并在解压后校验结果完整性。",
+    "s5.title": "5. DMCA / 版权申诉",
+    "s5.p1": "Zipease 本身为中立的文件处理工具，不存储、不分发任何受版权保护的内容。若你认为 Zipease 内某部分素材侵犯了你的著作权（例如 UI 设计、品牌标识、开源授权合规性问题等，<strong>不包含用户使用本工具处理的文件本身</strong>），请发送 DMCA / 版权申诉至：",
+    "s5.p2": "我们会在收到申诉后立即核查，并视情况移除、替换相应素材或与你沟通替代方案。",
+    "s6.title": "6. 出口管制与合规",
+    "s6.p1": "Zipease 内置 AES-256 对称加密（ZIP 传统加密与 7Z AES-256 均符合 FIPS 197）。你确认：",
+    "s6.l1": "你所在司法管辖区对获取、持有、使用密码学软件无额外限制；",
+    "s6.l2": "你不会将本软件直接或间接出口 / 再出口到受美国、欧盟或联合国制裁的国家 / 地区 / 实体；",
+    "s6.l3": "你不属于任何受制裁人员名单（如 OFAC SDN List、EU 制裁清单、联合国制裁清单）上的主体。",
+    "s7.title": "7. 协议终止",
+    "s7.l1": "<strong>你主动终止：</strong>从 Mac 卸载 Zipease 即视为终止本协议。",
+    "s7.l2": "<strong>因违约终止：</strong>若你违反本协议第 2 条中的任何承诺，许可方有权以书面（含邮件）通知立即终止本许可；终止后你必须立即卸载并销毁所有已获得的软件副本。",
+    "s7.l3": "<strong>条款持续：</strong>协议终止后，第 3（知识产权）、4（免责声明）、5（DMCA）、6（出口管制）、7（终止后条款）、8（适用法律）、9（可分割性）条仍然有效。",
+    "s8.title": "8. 适用法律与争议解决",
+    "s8.l1": "<strong>适用法律：</strong>本协议的订立、效力、解释、履行及争议解决，在不与 Apple 标准 EULA 冲突的前提下，适用 <strong>中华人民共和国法律</strong>（不含其冲突法规则）。",
+    "s8.l2": "<strong>争议解决：</strong>因本协议或软件使用产生的任何争议，双方应首先通过友好协商（电子邮件渠道）解决；协商不成的，任何一方均可提交至 <strong>开发者所在地</strong> 有管辖权的人民法院通过诉讼解决。",
+    "s8.l3": "<strong>消费者保护：</strong>若你所在司法管辖区的消费者保护法律对你适用且不可通过合同排除，则本协议的任何条款均不旨在排除或限制此类法定权利。",
+    "s9.title": "9. 可分割性与完整协议",
+    "s9.l1": "<strong>可分割性：</strong>本协议任何条款被有管辖权的法院认定为无效或不可执行的，该条款的无效或不可执行不影响本协议其余条款的效力。",
+    "s9.l2": "<strong>完整协议：</strong>本协议（连同 Apple 标准 EULA 及隐私政策）构成你与 Vonce. 就 Zipease 使用达成的完整协议，取代此前所有口头或书面沟通、谅解备忘录、协议草稿。",
+    "s9.l3": "<strong>条款的更新：</strong>本协议可能不定期更新；新版本一经在官网（zipease.vonce.com）发布即对后续使用行为生效，除非本次更新包含重大限制性条款（此时会通过应用内弹窗提示你明确同意）。",
+    "s10.title": "10. 联系我们",
+    "s10.p1": "若对本使用条款有任何疑问、需要获取授权许可（例如商业 OEM 嵌入、企业批量部署等），请联系：",
+    "s10.l2": "📄 <a href=\"support.html\">技术支持页 / Support</a>",
+    "s10.l3": "📄 <a href=\"privacy.html\">隐私政策 / Privacy Policy</a>",
+    "foot.rights": "保留所有权利。",
+    "foot.support": "技术支持",
+    "foot.privacy": "隐私政策",
+    "foot.terms": "使用条款"
+  },
+  "zh-Hant": {
+    "meta.title": "Zipease · 使用條款",
+    "meta.description": "Zipease 使用條款（EULA）：Mac App Store 標準 Apple EULA 約束 + 額外本機條款與免責聲明。",
+    "brand": "Zipease (易解)",
+    "nav.back": "返回首頁",
+    "hero.eyebrow": "法律文件",
+    "hero.title": "使用條款 · <span class=\"accent\">Zipease 最終使用者授權合約</span>",
+    "hero.lead": "請在使用 Zipease 之前仔細閱讀以下條款。透過從 Mac App Store 下載、安裝或使用 Zipease，即表示你同意受本合約及 Apple 標準 EULA 的約束。",
+    "hero.upd": "最後更新日期",
+    "callout.apple": "<strong>ℹ️ 關於 Mac App Store 版本的重要說明：</strong>透過 Mac App Store 取得的 Zipease 同時受本條款與 Apple Inc. 發布的 <strong>《Apple Media Services 條款與條件》</strong>（Apple 標準 EULA / Apple Licensed Application End User License Agreement）的約束。若本條款與 Apple 標準 EULA 之間存在衝突，<strong>以 Apple 標準 EULA 為準</strong>。你可以在 <a href=\"https://www.apple.com/legal/internet-services/itunes/\" target=\"_blank\" rel=\"noopener\">apple.com/legal</a> 查看 Apple 標準 EULA 的完整內容。",
+    "s1.title": "1. 合約雙方與授權範圍",
+    "s1.p1": "本合約由你（最終使用者）與開發者 <strong>Vonce.</strong>（以下簡稱「授權方」、「我們」）共同訂立。",
+    "s1.l1": "<strong>授權標的：</strong>Zipease macOS 應用程式（含可執行二進位、圖示、介面文字、文件及其他隨附材料）。",
+    "s1.l2": "<strong>授權方式：</strong>授予你一份有限、非獨占、不可再授權、不可轉讓、不可轉售、全球範圍有效的個人使用授權，允許你在 Apple ID 所關聯的 Mac 裝置（受 Apple ID 家庭共享與裝置數量限制）上安裝、執行、顯示本軟體。",
+    "s1.l3": "<strong>保留權利：</strong>本合約未明確授予的一切權利，均由授權方與/或其授權人（例如 7-Zip 的相關作者等第三方元件權利人）保留。",
+    "s2.title": "2. 你承諾不做以下行為",
+    "s2.l1": "對本軟體進行反向工程、反編譯、反組譯、解密、剝離符號，或嘗試取得原始碼、擷取內嵌二進位檔案（含但不限於 7zz）用於其他用途；",
+    "s2.l2": "修改、改編、翻譯、製作衍生著作，或把本軟體整體或部分嵌入其他軟體產品 / 服務中再散佈；",
+    "s2.l3": "未經授權方書面同意，對本軟體進行出租、租賃、出借、轉售、分時共享、SaaS 化、營運服務化使用；",
+    "s2.l4": "移除、遮蓋、篡改 Zipease 或其第三方元件的任何著作權聲明、授權標記、署名、App Store DRM 簽章；",
+    "s2.l5": "使用本軟體從事違反所在國家/地區法律法規的活動，包括但不限於：非法取得的檔案的處理、侵權內容散佈、受管制資料的跨境傳輸等；",
+    "s2.l6": "干擾、破壞、繞過本軟體的技術措施（App Sandbox、Gatekeeper、程式碼簽名校驗等）。",
+    "s3.title": "3. 智慧財產權歸屬",
+    "s3.p1": "Zipease 應用整體、品牌識別「Zipease / 易解」、UI 設計、使用者介面文案、圖示與美術作品的著作權歸 <strong>Vonce.</strong> 所有。Zipease 的執行嵌入了以下第三方開源元件，對應權利與授權隨附如下（你也可以在本頁面末尾附件中查看）：",
+    "s3.l2": "<strong>Apple 開源元件</strong>：由 Apple Inc. 提供，遵循對應的 Apple Public Source License（部分）與 Apache License 2.0。",
+    "s4.title": "4. 免責聲明（你使用本軟體產生的風險自行承擔）",
+    "s4.p1": "<strong>在適用法律允許的最大範圍內，Zipease 及其開發者、貢獻者、合作夥伴對以下事項不做任何明示或默示擔保：</strong>",
+    "s4.l1": "本軟體的適銷性、適用性、無錯誤、無故障、無惡意程式碼、不中斷執行；",
+    "s4.l2": "本軟體滿足你的特定需求或與第三方硬體 / 軟體 / 歸檔格式 100% 相容；",
+    "s4.l3": "使用本軟體得到的壓縮 / 解壓縮結果完整、準確、可恢復，尤其對於加密歸檔、分卷歸檔、跨平台生成的歸檔。",
+    "s4.p2": "<strong>對於你使用本軟體導致的任何直接、間接、附帶、特殊、懲罰性或衍生性損失</strong>（包括但不限於：利潤損失、業務中斷、資料遺失、程式錯誤、替代採購成本、人身傷害或財產損失），即使我們已被告知該等損失的可能性，在任何責任理論（合約、嚴格責任、侵權或其他）下，<strong>我們的責任上限以你為本軟體實際支付的金額（對免費版即不超過 0 美元/新台幣）為限</strong>。",
+    "s4.p3": "💡 重要提示：對於重要資料，請務必在壓縮 / 解壓縮前進行獨立備份，並在解壓縮後校驗結果完整性。",
+    "s5.title": "5. DMCA / 著作權申訴",
+    "s5.p1": "Zipease 本身為中立的檔案處理工具，不儲存、不散佈任何受著作權保護的內容。若你認為 Zipease 內某部分素材侵犯了你的著作權（例如 UI 設計、品牌識別、開源授權合規性問題等，<strong>不包含使用者使用本工具處理的檔案本身</strong>），請傳送 DMCA / 著作權申訴至：",
+    "s5.p2": "我們會在收到申訴後立即查核，並視情況移除、替換相應素材或與你溝通替代方案。",
+    "s6.title": "6. 出口管制與合規",
+    "s6.p1": "Zipease 內建 AES-256 對稱加密（ZIP 傳統加密與 7Z AES-256 皆符合 FIPS 197）。你確認：",
+    "s6.l1": "你所在司法管轄區對取得、持有、使用密碼學軟體無額外限制；",
+    "s6.l2": "你不會將本軟體直接或間接出口 / 再出口到受美國、歐盟或聯合國制裁的國家 / 地區 / 實體；",
+    "s6.l3": "你不屬於任何受制裁人員名單（如 OFAC SDN List、EU 制裁清單、聯合國制裁清單）上的主體。",
+    "s7.title": "7. 合約終止",
+    "s7.l1": "<strong>你主動終止：</strong>從 Mac 解除安裝 Zipease 即視為終止本合約。",
+    "s7.l2": "<strong>因違約終止：</strong>若你違反本合約第 2 條中的任何承諾，授權方有權以書面（含郵件）通知立即終止本授權；終止後你必須立即解除安裝並銷毀所有已取得的軟體副本。",
+    "s7.l3": "<strong>條款持續：</strong>合約終止後，第 3（智慧財產權）、4（免責聲明）、5（DMCA）、6（出口管制）、7（終止後條款）、8（適用法律）、9（可分割性）條仍然有效。",
+    "s8.title": "8. 適用法律與爭議解決",
+    "s8.l1": "<strong>適用法律：</strong>本合約的訂立、效力、解釋、履行及爭議解決，在不與 Apple 標準 EULA 衝突的前提下，適用 <strong>中華人民共和國法律</strong>（不含其衝突法規則）。",
+    "s8.l2": "<strong>爭議解決：</strong>因本合約或軟體使用產生的任何爭議，雙方應首先透過友好協商（電子郵件管道）解決；協商不成的，任何一方均可提交至 <strong>開發者所在地</strong> 有管轄權的人民法院透過訴訟解決。",
+    "s8.l3": "<strong>消費者保護：</strong>若你所在司法管轄區的消費者保護法律對你適用且不可透過合約排除，則本合約的任何條款均不旨在排除或限制此類法定權利。",
+    "s9.title": "9. 可分割性與完整合約",
+    "s9.l1": "<strong>可分割性：</strong>本合約任何條款被有管轄權的法院認定為無效或不可執行的，該條款的無效或不可執行不影響本合約其餘條款的效力。",
+    "s9.l2": "<strong>完整合約：</strong>本合約（連同 Apple 標準 EULA 及隱私政策）構成你與 Vonce. 就 Zipease 使用達成的完整合約，取代此前所有口頭或書面溝通、諒解備忘錄、合約草稿。",
+    "s9.l3": "<strong>條款的更新：</strong>本合約可能不定期更新；新版本一經在官網（zipease.vonce.com）發布即對後續使用行為生效，除非本次更新包含重大限制性條款（此時會透過應用內彈窗提示你明確同意）。",
+    "s10.title": "10. 聯絡我們",
+    "s10.p1": "若對本使用條款有任何疑問、需要取得授權許可（例如商業 OEM 嵌入、企業批次部署等），請聯絡：",
+    "s10.l2": "📄 <a href=\"support.html\">技術支援頁 / Support</a>",
+    "s10.l3": "📄 <a href=\"privacy.html\">隱私政策 / Privacy Policy</a>",
+    "foot.rights": "保留所有權利。",
+    "foot.support": "技術支援",
+    "foot.privacy": "隱私政策",
+    "foot.terms": "使用條款"
+  },
+  "en": {
+    "meta.title": "Zipease · Terms of Use",
+    "meta.description": "Zipease End User License Agreement (EULA) — subject to the Apple Standard EULA for Mac App Store apps plus additional local terms.",
+    "brand": "Zipease",
+    "nav.back": "Back to home",
+    "hero.eyebrow": "Legal",
+    "hero.title": "Terms of Use · <span class=\"accent\">Zipease EULA</span>",
+    "hero.lead": "Please read these terms carefully before using Zipease. By downloading, installing or using Zipease from the Mac App Store you agree to be bound by this agreement and the Apple Standard EULA.",
+    "hero.upd": "Last updated",
+    "callout.apple": "<strong>ℹ️  Note for Mac App Store customers:</strong> Zipease obtained from the Mac App Store is governed by both this agreement and Apple Inc.'s <strong>Apple Media Services Terms and Conditions</strong> (the Apple Standard EULA / Apple Licensed Application End User License Agreement). In the event of a conflict between this agreement and the Apple Standard EULA, <strong>the Apple Standard EULA takes precedence</strong>. You can read the full Apple Standard EULA at <a href=\"https://www.apple.com/legal/internet-services/itunes/\" target=\"_blank\" rel=\"noopener\">apple.com/legal</a>.",
+    "s1.title": "1. Parties & Scope of License",
+    "s1.p1": "This agreement is entered between you (the End User) and the developer, <strong>Vonce.</strong> (the \"Licensor\", \"we\", \"us\").",
+    "s1.l1": "<strong>Licensed product:</strong> the Zipease macOS application (including its executable binaries, icons, UI text, documentation and all accompanying materials).",
+    "s1.l2": "<strong>License grant:</strong> you receive a limited, non-exclusive, non-sublicensable, non-transferable, non-resellable, worldwide personal license to install, run and display the Software on Apple-ID-associated Mac devices (subject to Apple ID Family Sharing and device-count limits).",
+    "s1.l3": "<strong>Rights reserved:</strong> all rights not expressly granted herein are reserved by the Licensor and/or its licensors (e.g. 7-Zip authors and other third-party component rightsholders).",
+    "s2.title": "2. Restrictions",
+    "s2.l1": "Reverse-engineer, decompile, disassemble, decrypt, strip symbols, or attempt to obtain source code or extract embedded binaries (including but not limited to 7zz) for other uses;",
+    "s2.l2": "Modify, adapt, translate, create derivative works, or embed the Software (in whole or in part) into another software product or service for redistribution;",
+    "s2.l3": "Rent, lease, lend, resell, timeshare, SaaS-ify, or operate the Software as a service without prior written consent from the Licensor;",
+    "s2.l4": "Remove, obscure or alter any copyright notice, license mark, attribution, or App Store DRM signature in the Software or its third-party components;",
+    "s2.l5": "Use the Software for any activity that violates the laws of your jurisdiction, including but not limited to: processing unlawfully obtained files, distributing infringing content, or transferring regulated data across borders;",
+    "s2.l6": "Interfere with, defeat or bypass the Software's technical protection measures (App Sandbox, Gatekeeper, code-signature validation, etc.).",
+    "s3.title": "3. Intellectual Property",
+    "s3.p1": "The Zipease application as a whole, the \"Zipease\" brand identity, UI design, user-facing copy, icons and artwork are © <strong>Vonce.</strong> Zipease ships with the following embedded third-party open-source components under the listed licenses:",
+    "s3.l2": "<strong>Apple open-source components</strong> — provided by Apple Inc. under Apple Public Source License (selected files) and Apache License 2.0.",
+    "s4.title": "4. Disclaimer of Warranties — Use at Your Own Risk",
+    "s4.p1": "<strong>To the maximum extent permitted by applicable law, Zipease, its developer, contributors and partners make no warranties, express or implied, regarding:</strong>",
+    "s4.l1": "merchantability, fitness for a particular purpose, absence of errors, absence of defects, absence of malware, or uninterrupted operation;",
+    "s4.l2": "that the Software will meet your specific requirements or be 100% compatible with any third-party hardware, software, or archive format;",
+    "s4.l3": "that the compression / extraction output is complete, correct or recoverable — especially for encrypted archives, multi-volume archives, or archives produced on other platforms.",
+    "s4.p2": "<strong>In no event shall we be liable for any direct, indirect, incidental, special, punitive or consequential damages</strong> (including, without limitation, lost profits, business interruption, data loss, program errors, cost of cover, personal injury or property damage) arising out of or in connection with the use of the Software — under any theory of liability (contract, strict liability, tort or otherwise) — even if advised of the possibility of such damages. <strong>Our total aggregate liability under this agreement shall not exceed the amount you actually paid for the license (USD 0 for the free tier).</strong>",
+    "s4.p3": "💡 Important: Always keep independent backups of critical data before compressing / extracting, and verify output integrity after extraction.",
+    "s5.title": "5. DMCA / Copyright Notices",
+    "s5.p1": "Zipease is a neutral file-processing tool — it does not store or distribute any copyrighted content. If you believe any material shipped inside Zipease itself (e.g. UI design, branding, or a licensing-compliance issue with an open-source component — <strong>not the user's own files</strong>) infringes your copyright, please send a DMCA / copyright notice to:",
+    "s5.p2": "We will investigate immediately upon receipt and remove, replace, or discuss alternatives as appropriate.",
+    "s6.title": "6. Export Controls & Compliance",
+    "s6.p1": "Zipease contains AES-256 symmetric encryption (both legacy ZIP encryption and 7z AES-256 conform to FIPS 197). You confirm that:",
+    "s6.l1": "your jurisdiction imposes no additional restrictions on the acquisition, possession, or use of cryptographic software;",
+    "s6.l2": "you will not, directly or indirectly, export or re-export the Software to any country, territory or entity subject to US, EU or UN sanctions;",
+    "s6.l3": "you are not a person or entity named on any sanctions list (including the OFAC SDN List, EU sanctions lists, or UN sanctions lists).",
+    "s7.title": "7. Termination",
+    "s7.l1": "<strong>Voluntary termination by you:</strong> uninstalling Zipease from your Mac terminates this agreement.",
+    "s7.l2": "<strong>Termination for breach:</strong> if you breach any promise in Section 2, the Licensor may terminate your license immediately on written (including email) notice; you must then uninstall and destroy all copies you have obtained.",
+    "s7.l3": "<strong>Survival:</strong> sections 3 (IP), 4 (disclaimer), 5 (DMCA), 6 (export), 7 (survival), 8 (governing law), and 9 (severability) survive termination indefinitely.",
+    "s8.title": "8. Governing Law & Dispute Resolution",
+    "s8.l1": "<strong>Governing law:</strong> except to the extent overridden by the Apple Standard EULA, this agreement is governed by <strong>the laws of the People's Republic of China</strong>, excluding its conflict-of-laws rules.",
+    "s8.l2": "<strong>Dispute resolution:</strong> the parties will first attempt good-faith resolution via email. If unresolved within 30 days, either party may submit to the competent People's Court in <strong>the developer's domicile</strong>.",
+    "s8.l3": "<strong>Consumer protection:</strong> nothing in this agreement seeks to exclude or restrict any non-waivable statutory consumer-protection rights applicable in your jurisdiction.",
+    "s9.title": "9. Severability & Entire Agreement",
+    "s9.l1": "<strong>Severability:</strong> if any provision is held unenforceable or invalid by a competent court, the rest of this agreement remains in full force.",
+    "s9.l2": "<strong>Entire agreement:</strong> this agreement (together with the Apple Standard EULA and our Privacy Policy) is the entire agreement between you and Vonce. regarding Zipease, and supersedes all prior oral or written communications, MOUs, or drafts.",
+    "s9.l3": "<strong>Updates:</strong> this agreement may be updated from time to time. The latest version posted at zipease.vonce.com applies to your ongoing use, except for materially restrictive updates which will be accompanied by an in-app explicit-consent prompt.",
+    "s10.title": "10. Contact",
+    "s10.p1": "For questions about these terms, or to inquire about an OEM license, enterprise deployment, or other custom licensing, please contact:",
+    "s10.l2": "📄 <a href=\"support.html\">Support page</a>",
+    "s10.l3": "📄 <a href=\"privacy.html\">Privacy Policy</a>",
+    "foot.rights": "All rights reserved.",
+    "foot.support": "Support",
+    "foot.privacy": "Privacy Policy",
+    "foot.terms": "Terms of Use"
+  }
+};
+
+(function initLang() {
+  const STORAGE = "zipease-site-lang";
+  const SUPPORTED = ["zh-Hans", "zh-Hant", "en"];
+  let current = localStorage.getItem(STORAGE) || detect();
+  function detect() {
+    const n = (navigator.language || "zh-CN").toLowerCase();
+    if (n.startsWith("zh-tw") || n.startsWith("zh-hk") || n.startsWith("zh-mo")) return "zh-Hant";
+    if (n.startsWith("zh")) return "zh-Hans";
+    if (n.startsWith("en")) return "en";
+    return "zh-Hans";
+  }
+  function t(k) { const d = I18N[current] || I18N["zh-Hans"]; return d[k] ?? ""; }
+  function apply() {
+    const hl = current === "zh-Hans" ? "zh-CN" : current === "zh-Hant" ? "zh-TW" : "en";
+    document.documentElement.setAttribute("lang", hl);
+    document.querySelectorAll("[data-i18n]").forEach(el => { const v = t(el.getAttribute("data-i18n")); if (v) el.textContent = v; });
+    document.querySelectorAll("[data-i18n-html]").forEach(el => { const v = t(el.getAttribute("data-i18n-html")); if (v) el.innerHTML = v; });
+    const title = t("meta.title"); if (title) document.title = title;
+    const descMeta = document.querySelector('meta[name="description"]');
+    const desc = t("meta.description"); if (descMeta && desc) descMeta.setAttribute("content", desc);
+    document.querySelectorAll(".lang-switcher button").forEach(b => {
+      const on = b.dataset.lang === current;
+      b.classList.toggle("active", on);
+      b.setAttribute("aria-selected", on ? "true" : "false");
+    });
+  }
+  function setLang(l) {
+    if (!SUPPORTED.includes(l)) l = "zh-Hans";
+    current = l; localStorage.setItem(STORAGE, l); apply();
+  }
+  document.querySelectorAll(".lang-switcher button").forEach(b =>
+    b.addEventListener("click", () => setLang(b.dataset.lang))
+  );
+  apply();
+})();
+</script>
+</body>
+</html>

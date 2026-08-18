@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title data-i18n="meta.title">Zipease(易解) - 全能 macOS 压缩解压工具</title>
+<meta name="description" data-i18n="meta.description" content="Zipease 易解是专为 macOS 打造的全能压缩解压工具，支持 15+ 格式、密码管理、分卷解压、批量处理，原生 SwiftUI 打造，轻量极速无广告。" />
+<link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+<link rel="apple-touch-icon" href="assets/appicon-512.png" />
+<style>
+  :root {
+    --color-bg: #0b0f1a;
+    --color-bg-2: #101627;
+    --color-surface: rgba(255, 255, 255, 0.04);
+    --color-surface-hover: rgba(255, 255, 255, 0.07);
+    --color-border: rgba(255, 255, 255, 0.08);
+    --color-border-strong: rgba(255, 255, 255, 0.16);
+    --color-text: #f4f6fb;
+    --color-text-mute: #aab2c5;
+    --color-text-dim: #7a8296;
+    --color-accent: #6f8bff;
+    --color-accent-2: #9f7bff;
+    --color-accent-grad: linear-gradient(135deg, #5a7aff 0%, #8a6bff 55%, #c07bff 100%);
+    --color-success: #38d39f;
+    --radius-lg: 20px;
+    --radius-xl: 28px;
+    --shadow-soft: 0 20px 60px -20px rgba(90, 122, 255, 0.45);
+    --shadow-card: 0 8px 30px -12px rgba(0, 0, 0, 0.6);
+    --container: 1180px;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
+      "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC",
+      "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: -40% -10% auto -10%;
+    height: 100vh;
+    background:
+      radial-gradient(70% 55% at 18% 20%, rgba(111, 139, 255, 0.32), transparent 60%),
+      radial-gradient(55% 50% at 82% 30%, rgba(159, 123, 255, 0.22), transparent 62%),
+      radial-gradient(60% 50% at 50% 110%, rgba(56, 211, 159, 0.12), transparent 65%);
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .container {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
+
+  /* ---------- NAV ---------- */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: saturate(160%) blur(16px);
+    -webkit-backdrop-filter: saturate(160%) blur(16px);
+    background: rgba(11, 15, 26, 0.6);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    font-size: 18px;
+  }
+  .brand-logo {
+    width: 36px; height: 36px;
+    border-radius: 9px;
+    object-fit: cover;
+    box-shadow: 0 6px 20px -8px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255,255,255,0.08);
+    background: #111;
+  }
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .lang-switcher {
+    display: inline-flex;
+    padding: 4px;
+    border-radius: 999px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+  }
+  .lang-switcher button {
+    padding: 7px 13px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text-mute);
+    transition: all 0.25s var(--ease);
+  }
+  .lang-switcher button:hover { color: var(--color-text); }
+  .lang-switcher button.active {
+    background: linear-gradient(135deg, rgba(111,139,255,0.22), rgba(159,123,255,0.22));
+    color: var(--color-text);
+    box-shadow: inset 0 0 0 1px var(--color-border-strong);
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 22px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.28s var(--ease);
+    white-space: nowrap;
+  }
+  .btn-ghost {
+    color: var(--color-text-mute);
+  }
+  .btn-ghost:hover { color: var(--color-text); }
+  .btn-primary {
+    background: var(--color-accent-grad);
+    color: #fff;
+    box-shadow: 0 10px 30px -12px rgba(111, 139, 255, 0.85);
+  }
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 40px -12px rgba(111, 139, 255, 0.95);
+  }
+  .btn-secondary {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-strong);
+    color: var(--color-text);
+  }
+  .btn-secondary:hover {
+    background: var(--color-surface-hover);
+    transform: translateY(-1px);
+  }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    padding: 110px 0 90px;
+    position: relative;
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-mute);
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 28px;
+  }
+  .eyebrow .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--color-success);
+    box-shadow: 0 0 0 3px rgba(56, 211, 159, 0.18);
+  }
+  h1 {
+    font-size: clamp(38px, 6vw, 68px);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    font-weight: 800;
+    margin-bottom: 24px;
+    background: linear-gradient(180deg, #ffffff 0%, #d0d9f4 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  h1 .accent {
+    background: var(--color-accent-grad);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero-sub {
+    font-size: clamp(16px, 1.6vw, 19px);
+    color: var(--color-text-mute);
+    max-width: 620px;
+    margin-bottom: 38px;
+  }
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 56px;
+  }
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+    color: var(--color-text-dim);
+    font-size: 13.5px;
+  }
+  .hero-meta span strong {
+    color: var(--color-text-mute);
+    font-weight: 600;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  /* Product preview mock */
+  .app-mock {
+    position: relative;
+    border-radius: var(--radius-xl);
+    background: linear-gradient(180deg, rgba(20, 26, 48, 0.85), rgba(16, 22, 42, 0.85));
+    border: 1px solid var(--color-border-strong);
+    box-shadow: var(--shadow-soft), var(--shadow-card);
+    padding: 16px;
+    overflow: hidden;
+  }
+  .app-mock::before {
+    content: "";
+    position: absolute;
+    inset: -50%;
+    background: conic-gradient(from 180deg at 50% 50%, rgba(111,139,255,0.18), transparent 40%, rgba(159,123,255,0.18) 60%, transparent 80%);
+    animation: spin 18s linear infinite;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .app-window {
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(180deg, #1a2040 0%, #131833 100%);
+    border-radius: 16px;
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+  }
+  .app-titlebar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--color-border);
+    background: rgba(255,255,255,0.02);
+  }
+  .traffic { display: inline-flex; gap: 7px; }
+  .traffic span { width: 12px; height: 12px; border-radius: 50%; }
+  .traffic span:nth-child(1) { background: #ff5f57; }
+  .traffic span:nth-child(2) { background: #febc2e; }
+  .traffic span:nth-child(3) { background: #28c840; }
+  .app-title {
+    flex: 1; text-align: center; color: var(--color-text-dim);
+    font-size: 12.5px; font-weight: 500;
+  }
+  .app-body {
+    padding: 22px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .file-list {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 10px;
+  }
+  .file-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 10px;
+    border-radius: 8px;
+    font-size: 12.5px;
+  }
+  .file-row + .file-row { margin-top: 2px; }
+  .file-row.active {
+    background: linear-gradient(90deg, rgba(111,139,255,0.25), rgba(159,123,255,0.12));
+    box-shadow: inset 0 0 0 1px rgba(111,139,255,0.35);
+  }
+  .file-ico {
+    width: 26px; height: 26px; border-radius: 7px;
+    display: grid; place-items: center;
+    font-size: 10px; font-weight: 700; color: #fff;
+    letter-spacing: -0.02em;
+  }
+  .ico-zip { background: linear-gradient(135deg,#6f8bff,#4a5fd6); }
+  .ico-7z  { background: linear-gradient(135deg,#f08c5a,#c75828); }
+  .ico-rar { background: linear-gradient(135deg,#5fc08c,#2e9164); }
+  .ico-tar { background: linear-gradient(135deg,#c28bdb,#8f58b8); }
+  .ico-iso { background: linear-gradient(135deg,#e2c56a,#bda03d); }
+  .file-name { color: var(--color-text); }
+  .file-size { margin-left: auto; color: var(--color-text-dim); font-size: 11px; }
+  .action-panel {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 14px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .progress {
+    display: flex; flex-direction: column; gap: 6px;
+    padding: 12px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+  }
+  .progress-header {
+    display: flex; justify-content: space-between;
+    font-size: 11.5px; color: var(--color-text-mute);
+  }
+  .progress-bar {
+    height: 6px; border-radius: 999px;
+    background: rgba(255,255,255,0.06);
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; width: 68%;
+    background: var(--color-accent-grad);
+    border-radius: 999px;
+    box-shadow: 0 0 10px rgba(111,139,255,0.6);
+  }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    padding: 4px 9px;
+    font-size: 11px;
+    border-radius: 999px;
+    background: rgba(111,139,255,0.12);
+    border: 1px solid rgba(111,139,255,0.25);
+    color: #c9d4ff;
+  }
+  .tag.green {
+    background: rgba(56,211,159,0.12);
+    border-color: rgba(56,211,159,0.3);
+    color: #a8e9d0;
+  }
+
+  /* ---------- SECTION BASICS ---------- */
+  section { padding: 90px 0; position: relative; }
+  .section-head {
+    text-align: center;
+    max-width: 760px;
+    margin: 0 auto 56px;
+  }
+  .section-kicker {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 14px;
+  }
+  h2 {
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 800;
+    letter-spacing: -0.015em;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .section-desc {
+    color: var(--color-text-mute);
+    font-size: 17px;
+  }
+
+  /* ---------- FORMATS ---------- */
+  .formats-wrap {
+    padding: 32px;
+    border-radius: var(--radius-xl);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    backdrop-filter: blur(10px);
+  }
+  .format-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 14px;
+  }
+  .format-item {
+    aspect-ratio: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--color-border);
+    transition: all 0.3s var(--ease);
+    cursor: default;
+  }
+  .format-item:hover {
+    transform: translateY(-3px);
+    background: rgba(255,255,255,0.05);
+    border-color: var(--color-border-strong);
+    box-shadow: 0 12px 30px -18px rgba(111,139,255,0.6);
+  }
+  .format-badge {
+    width: 50px; height: 50px;
+    border-radius: 14px;
+    display: grid; place-items: center;
+    font-weight: 800; color: #fff;
+    font-size: 15px;
+    letter-spacing: -0.02em;
+  }
+  .format-name {
+    font-size: 12.5px;
+    color: var(--color-text-mute);
+    font-weight: 500;
+  }
+  .fb-1 { background: linear-gradient(135deg,#6f8bff,#4a5fd6); }
+  .fb-2 { background: linear-gradient(135deg,#f08c5a,#c75828); }
+  .fb-3 { background: linear-gradient(135deg,#5fc08c,#2e9164); }
+  .fb-4 { background: linear-gradient(135deg,#c28bdb,#8f58b8); }
+  .fb-5 { background: linear-gradient(135deg,#e2c56a,#bda03d); }
+  .fb-6 { background: linear-gradient(135deg,#71c9db,#3a93a6); }
+  .fb-7 { background: linear-gradient(135deg,#d4739a,#a0456c); }
+  .fb-8 { background: linear-gradient(135deg,#837fe1,#5451b8); }
+  .fb-9 { background: linear-gradient(135deg,#5fb0a0,#2e7e70); }
+  .fb-10 { background: linear-gradient(135deg,#cfa25a,#967130); }
+  .fb-11 { background: linear-gradient(135deg,#7f93a8,#4f6177); }
+  .fb-12 { background: linear-gradient(135deg,#a3d07a,#679c42); }
+
+  .format-footnote {
+    margin-top: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    color: var(--color-text-dim);
+    font-size: 13px;
+  }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgba(56,211,159,0.1);
+    border: 1px solid rgba(56,211,159,0.25);
+    color: #a8e9d0;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  /* ---------- FEATURES ---------- */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+  .feature-card {
+    padding: 30px;
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    transition: all 0.35s var(--ease);
+    position: relative;
+    overflow: hidden;
+  }
+  .feature-card::after {
+    content: "";
+    position: absolute;
+    top: -60%; right: -40%;
+    width: 280px; height: 280px;
+    background: radial-gradient(circle, rgba(111,139,255,0.18), transparent 65%);
+    opacity: 0;
+    transition: opacity 0.5s var(--ease);
+    pointer-events: none;
+  }
+  .feature-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-border-strong);
+    box-shadow: var(--shadow-card);
+  }
+  .feature-card:hover::after { opacity: 1; }
+  .feature-icon {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    display: grid; place-items: center;
+    margin-bottom: 22px;
+    background: linear-gradient(135deg, rgba(111,139,255,0.22), rgba(159,123,255,0.22));
+    border: 1px solid rgba(111,139,255,0.35);
+    color: #fff;
+    font-size: 22px;
+  }
+  .feature-card h3 {
+    font-size: 19px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+  }
+  .feature-card p {
+    color: var(--color-text-mute);
+    font-size: 14.5px;
+    position: relative;
+    z-index: 1;
+  }
+  .feature-list {
+    list-style: none;
+    margin-top: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .feature-list li {
+    padding: 7px 0;
+    padding-left: 22px;
+    position: relative;
+    color: var(--color-text-mute);
+    font-size: 14px;
+  }
+  .feature-list li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 15px;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: rgba(56,211,159,0.18);
+    box-shadow: inset 0 0 0 3px rgba(56,211,159,0.05);
+  }
+  .feature-list li::after {
+    content: "";
+    position: absolute;
+    left: 4px; top: 19px;
+    width: 6px; height: 3px;
+    border-left: 2px solid var(--color-success);
+    border-bottom: 2px solid var(--color-success);
+    transform: rotate(-45deg);
+  }
+
+  /* ---------- SHOWCASE (alternating) ---------- */
+  .showcase {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    margin-bottom: 120px;
+  }
+  .showcase:last-child { margin-bottom: 0; }
+  .showcase.reverse .showcase-visual { order: 2; }
+  .showcase.reverse .showcase-copy { order: 1; }
+  .showcase-copy h3 {
+    font-size: clamp(24px, 3vw, 34px);
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    margin-bottom: 18px;
+    line-height: 1.25;
+  }
+  .showcase-copy p.lead {
+    color: var(--color-text-mute);
+    font-size: 16.5px;
+    margin-bottom: 24px;
+  }
+  .bullets {
+    list-style: none;
+    display: grid;
+    gap: 14px;
+  }
+  .bullets li {
+    padding-left: 30px;
+    position: relative;
+    color: var(--color-text-mute);
+    font-size: 15px;
+  }
+  .bullets li strong { color: var(--color-text); font-weight: 600; }
+  .bullets li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 6px;
+    width: 20px; height: 20px;
+    border-radius: 6px;
+    background: var(--color-accent-grad);
+    opacity: 0.9;
+  }
+  .bullets li::after {
+    content: "";
+    position: absolute;
+    left: 6px; top: 12px;
+    width: 5px; height: 9px;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: rotate(45deg);
+  }
+  .showcase-visual {
+    border-radius: var(--radius-xl);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    padding: 28px;
+    min-height: 340px;
+    display: grid;
+    place-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .showcase-visual svg { width: 100%; max-width: 420px; height: auto; }
+
+  /* ---------- CTA ---------- */
+  .cta-band {
+    padding: 80px 0;
+  }
+  .cta-inner {
+    padding: 60px 50px;
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(80% 120% at 0% 0%, rgba(111,139,255,0.35), transparent 55%),
+      radial-gradient(70% 110% at 100% 100%, rgba(159,123,255,0.3), transparent 55%),
+      linear-gradient(180deg, #181e3a, #11172c);
+    border: 1px solid var(--color-border-strong);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-inner h2 { margin-bottom: 14px; }
+  .cta-inner p {
+    color: var(--color-text-mute);
+    max-width: 560px;
+    margin: 0 auto 32px;
+    font-size: 17px;
+  }
+  .cta-actions {
+    display: inline-flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    padding: 40px 0 50px;
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-dim);
+    font-size: 13.5px;
+  }
+  .foot-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .foot-links {
+    display: flex;
+    gap: 24px;
+  }
+  .foot-links a { transition: color 0.2s var(--ease); }
+  .foot-links a:hover { color: var(--color-text); }
+
+  /* ---------- REVEAL ANIM ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+  }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 960px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    .hero { padding: 60px 0 60px; }
+    section { padding: 60px 0; }
+    .feature-grid { grid-template-columns: repeat(2, 1fr); }
+    .showcase { grid-template-columns: 1fr; gap: 36px; margin-bottom: 70px; }
+    .showcase.reverse .showcase-visual { order: 0; }
+    .showcase.reverse .showcase-copy { order: 0; }
+    .app-body { grid-template-columns: 1fr; }
+    .cta-inner { padding: 40px 24px; }
+  }
+  @media (max-width: 640px) {
+    .nav-inner { height: 60px; }
+    .nav-cta { display: none; }
+    .feature-grid { grid-template-columns: 1fr; }
+    .container { padding: 0 20px; }
+    .formats-wrap { padding: 20px; }
+    .hero-actions { gap: 10px; }
+    .btn { padding: 11px 18px; font-size: 14px; }
+    .lang-switcher button { padding: 6px 10px; font-size: 12px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="container nav-inner">
+    <a href="#top" class="brand" aria-label="Zipease">
+      <img class="brand-logo" src="assets/appicon-512.png" alt="Zipease icon" />
+      <span data-i18n="brand">Zipease (易解)</span>
+    </a>
+    <div class="nav-right">
+      <div class="lang-switcher" role="tablist" aria-label="Language">
+        <button data-lang="zh-Hans" class="active" role="tab" aria-selected="true">简体</button>
+        <button data-lang="zh-Hant" role="tab" aria-selected="false">繁體</button>
+        <button data-lang="en" role="tab" aria-selected="false">EN</button>
+      </div>
+      <a href="#" class="btn btn-primary nav-cta" data-i18n="nav.download" onclick="alert('{{alert_not_available}}'); return false;">免费下载</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="top" class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow reveal">
+        <span class="dot"></span>
+        <span data-i18n="hero.eyebrow">原生 SwiftUI · macOS 14+</span>
+      </div>
+      <h1 class="reveal" data-i18n-html="hero.title">
+        专为 macOS 打造的<br/><span class="accent">全能压缩解压</span>专家
+      </h1>
+      <p class="hero-sub reveal" data-i18n="hero.sub">
+        支持 ZIP / 7Z / RAR / TAR / GZ / BZ2 / XZ 等 15+ 格式，内置密码管理、分卷解压、批量处理。轻量、极速、无广告。
+      </p>
+      <div class="hero-actions reveal">
+        <a href="#" class="btn btn-primary" onclick="alert('{{alert_not_available}}'); return false;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+          <span data-i18n="hero.download">下载 macOS 版</span>
+        </a>
+        <a href="#features" class="btn btn-secondary" data-i18n="hero.learnmore">了解更多</a>
+      </div>
+      <div class="hero-meta reveal">
+        <span><strong data-i18n="hero.meta.version">版本 1.0</strong></span>
+        <span><strong data-i18n="hero.meta.size">15.7 MB</strong></span>
+        <span><strong data-i18n="hero.meta.langs">支持 12 种语言</strong></span>
+        <span><strong data-i18n="hero.meta.free">完全免费</strong></span>
+      </div>
+    </div>
+
+    <!-- APP PREVIEW MOCK -->
+    <div class="app-mock reveal">
+      <div class="app-window">
+        <div class="app-titlebar">
+          <div class="traffic"><span></span><span></span><span></span></div>
+          <div class="app-title" data-i18n="hero.mock.title">Zipease · archive.zip</div>
+          <div style="width:56px"></div>
+        </div>
+        <div class="app-body">
+          <div class="file-list">
+            <div class="file-row active">
+              <div class="file-ico ico-zip">ZIP</div>
+              <div class="file-name">Documents.zip</div>
+              <div class="file-size">12.4MB</div>
+            </div>
+            <div class="file-row">
+              <div class="file-ico ico-7z">7Z</div>
+              <div class="file-name">backup.7z</div>
+              <div class="file-size">284MB</div>
+            </div>
+            <div class="file-row">
+              <div class="file-ico ico-rar">RAR</div>
+              <div class="file-name">photos.part1.rar</div>
+              <div class="file-size">890MB</div>
+            </div>
+            <div class="file-row">
+              <div class="file-ico ico-tar">TAR</div>
+              <div class="file-name">project.tar.gz</div>
+              <div class="file-size">4.2MB</div>
+            </div>
+            <div class="file-row">
+              <div class="file-ico ico-iso">ISO</div>
+              <div class="file-name">ubuntu.iso</div>
+              <div class="file-size">4.7GB</div>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div class="action-panel">
+              <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <span class="tag" data-i18n="hero.mock.tag1">加密</span>
+                <span class="tag" data-i18n="hero.mock.tag2">分卷</span>
+                <span class="tag green" data-i18n="hero.mock.tag3">校验通过</span>
+              </div>
+              <div style="color:var(--color-text-mute);font-size:12.5px;" data-i18n="hero.mock.password">密码已匹配 · 来自密码管理器</div>
+            </div>
+            <div class="progress">
+              <div class="progress-header">
+                <span data-i18n="hero.mock.progress">解压进度</span>
+                <span>68%</span>
+              </div>
+              <div class="progress-bar"><div class="progress-fill"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMATS -->
+<section id="formats">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-kicker" data-i18n="formats.kicker">SUPPORTED FORMATS</div>
+      <h2 data-i18n="formats.title">15+ 主流格式，全面兼容</h2>
+      <p class="section-desc" data-i18n="formats.desc">无论是日常邮件附件、网盘下载还是开发者归档文件，Zipease 都能轻松打开。</p>
+    </div>
+
+    <div class="formats-wrap reveal">
+      <div class="format-grid">
+        <div class="format-item"><div class="format-badge fb-1">ZIP</div><div class="format-name">ZIP / ZIPX</div></div>
+        <div class="format-item"><div class="format-badge fb-2">7Z</div><div class="format-name">7-Zip</div></div>
+        <div class="format-item"><div class="format-badge fb-3">RAR</div><div class="format-name">RAR / RAR5</div></div>
+        <div class="format-item"><div class="format-badge fb-4">TAR</div><div class="format-name">TAR</div></div>
+        <div class="format-item"><div class="format-badge fb-5">GZ</div><div class="format-name">GZIP</div></div>
+        <div class="format-item"><div class="format-badge fb-6">BZ2</div><div class="format-name">BZIP2</div></div>
+        <div class="format-item"><div class="format-badge fb-7">XZ</div><div class="format-name">XZ / LZMA</div></div>
+        <div class="format-item"><div class="format-badge fb-8">LZ</div><div class="format-name">LZIP</div></div>
+        <div class="format-item"><div class="format-badge fb-9">APK</div><div class="format-name">Android APK</div></div>
+        <div class="format-item"><div class="format-badge fb-10">ISO</div><div class="format-name">ISO Image</div></div>
+        <div class="format-item"><div class="format-badge fb-11">CAB</div><div class="format-name">CAB / LZH</div></div>
+        <div class="format-item"><div class="format-badge fb-12">ZST</div><div class="format-name">ZSTD / CPIO</div></div>
+      </div>
+      <div class="format-footnote">
+        <div data-i18n="formats.note">※ 支持所有格式解压；压缩支持 ZIP / 7Z / TAR / TAR.GZ / TAR.BZ2 / TAR.XZ</div>
+        <div class="pill"><span style="width:6px;height:6px;border-radius:50%;background:var(--color-success)"></span><span data-i18n="formats.pill">AES-256 加密</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES GRID -->
+<section id="features">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="section-kicker" data-i18n="feat.kicker">KEY FEATURES</div>
+      <h2 data-i18n="feat.title">为效率而生，为安全护航</h2>
+      <p class="section-desc" data-i18n="feat.desc">每一个功能细节，都经过反复打磨，只为让压缩解压这件小事变得更顺手。</p>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <h3 data-i18n="feat.f1.title">核心能力</h3>
+        <p data-i18n="feat.f1.desc">15+ 格式全覆盖，压缩解压双向兼容。</p>
+        <ul class="feature-list">
+          <li data-i18n="feat.f1.1">全格式解压支持</li>
+          <li data-i18n="feat.f1.2">6 种格式压缩加密</li>
+          <li data-i18n="feat.f1.3">智能识别分卷合并</li>
+          <li data-i18n="feat.f1.4">AES-256 强度加密</li>
+        </ul>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <h3 data-i18n="feat.f2.title">效率特性</h3>
+        <p data-i18n="feat.f2.desc">让每一次操作都又快又省心。</p>
+        <ul class="feature-list">
+          <li data-i18n="feat.f2.1">批量压缩 / 批量解压</li>
+          <li data-i18n="feat.f2.2">预览包内容，部分解压</li>
+          <li data-i18n="feat.f2.3">集中式密码管理器</li>
+          <li data-i18n="feat.f2.4">拖拽操作 + 默认关联</li>
+        </ul>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3 data-i18n="feat.f3.title">文件安全</h3>
+        <p data-i18n="feat.f3.desc">严格把控每一个可能出错的环节。</p>
+        <ul class="feature-list">
+          <li data-i18n="feat.f3.1">同名冲突三选一处理</li>
+          <li data-i18n="feat.f3.2">完整性校验，防静默失败</li>
+          <li data-i18n="feat.f3.3">App Sandbox 全程隔离</li>
+          <li data-i18n="feat.f3.4">仅读写你选定的目录</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SHOWCASES -->
+<section id="showcases">
+  <div class="container">
+    <div class="showcase reveal">
+      <div class="showcase-copy">
+        <h3 data-i18n="sc.sc1.title">智能分卷解压，一键搞定多卷包</h3>
+        <p class="lead" data-i18n="sc.sc1.lead">遇到 .001、.z01、part1 等分卷包不必再费心找齐每一片 —— Zipease 自动识别分卷序列并合并解压，支持校验每一片完整性。</p>
+        <ul class="bullets">
+          <li data-i18n-html="sc.sc1.p1"><strong>自动序列识别：</strong>支持 RAR / 7Z / ZIP 三种主流分卷命名方式</li>
+          <li data-i18n-html="sc.sc1.p2"><strong>缺失检测：</strong>分卷不全时提前提示，避免解压到一半失败</li>
+          <li data-i18n-html="sc.sc1.p3"><strong>单卷独立可解：</strong>对于非固体分卷，缺失首卷时仍可尝试解部分内容</li>
+        </ul>
+      </div>
+      <div class="showcase-visual">
+        <svg viewBox="0 0 400 260" aria-hidden="true">
+          <defs>
+            <linearGradient id="vgrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#6f8bff"/><stop offset="1" stop-color="#9f7bff"/>
+            </linearGradient>
+          </defs>
+          <g fill="none" stroke="url(#vgrad)" stroke-width="1.4" opacity="0.5">
+            <path d="M0 40 Q 200 10 400 40" />
+            <path d="M0 220 Q 200 250 400 220" />
+          </g>
+          <g transform="translate(30,70)">
+            <rect width="80" height="100" rx="12" fill="rgba(111,139,255,0.14)" stroke="rgba(111,139,255,0.45)"/>
+            <text x="40" y="60" text-anchor="middle" font-family="inherit" font-size="18" font-weight="700" fill="#c9d4ff">.001</text>
+            <text x="40" y="82" text-anchor="middle" font-size="11" fill="#aab2c5">photos</text>
+          </g>
+          <g transform="translate(130,90)">
+            <rect width="80" height="100" rx="12" fill="rgba(111,139,255,0.14)" stroke="rgba(111,139,255,0.45)"/>
+            <text x="40" y="60" text-anchor="middle" font-family="inherit" font-size="18" font-weight="700" fill="#c9d4ff">.002</text>
+          </g>
+          <g transform="translate(230,110)">
+            <rect width="80" height="100" rx="12" fill="rgba(159,123,255,0.16)" stroke="rgba(159,123,255,0.55)"/>
+            <text x="40" y="60" text-anchor="middle" font-family="inherit" font-size="18" font-weight="700" fill="#d8cbff">.003</text>
+          </g>
+          <path d="M110 130 C 135 140, 135 140, 150 140" stroke="rgba(111,139,255,0.7)" stroke-width="2" stroke-dasharray="4 4" fill="none" stroke-linecap="round"/>
+          <path d="M210 150 C 235 160, 235 160, 250 160" stroke="rgba(111,139,255,0.7)" stroke-width="2" stroke-dasharray="4 4" fill="none" stroke-linecap="round"/>
+          <path d="M310 150 L 360 130" stroke="url(#vgrad)" stroke-width="2" marker-end="url(#arr)" fill="none"/>
+          <g transform="translate(330,40)">
+            <rect width="60" height="170" rx="14" fill="url(#vgrad)" opacity="0.9"/>
+            <path d="M15 45 H 45 M15 65 H 45 M15 85 H 35 M15 105 H 45 M15 125 H 30" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity="0.9"/>
+            <path d="M18 20 L 42 20 L 42 32 L 18 32 Z" fill="#fff" opacity="0.9"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="showcase reverse reveal">
+      <div class="showcase-copy">
+        <h3 data-i18n="sc.sc2.title">密码管理器，告别反复输入</h3>
+        <p class="lead" data-i18n="sc.sc2.lead">在 Zipease 中集中管理你常用的压缩包密码。下次遇到加密包，系统自动尝试匹配已保存的密码，输入一次，终身可用。</p>
+        <ul class="bullets">
+          <li data-i18n-html="sc.sc2.p1"><strong>安全存储：</strong>密码使用系统级 Keychain 安全加密保存</li>
+          <li data-i18n-html="sc.sc2.p2"><strong>智能匹配：</strong>按归档路径、文件名、加密类型多维度尝试匹配</li>
+          <li data-i18n-html="sc.sc2.p3"><strong>随时管理：</strong>可在设置面板随时查看、编辑、删除已保存密码</li>
+        </ul>
+      </div>
+      <div class="showcase-visual">
+        <svg viewBox="0 0 400 260" aria-hidden="true">
+          <defs>
+            <linearGradient id="pg" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#1b2345"/><stop offset="1" stop-color="#131a35"/>
+            </linearGradient>
+          </defs>
+          <rect x="20" y="30" width="360" height="200" rx="16" fill="url(#pg)" stroke="rgba(255,255,255,0.1)"/>
+          <circle cx="38" cy="48" r="4" fill="#ff5f57"/>
+          <circle cx="52" cy="48" r="4" fill="#febc2e"/>
+          <circle cx="66" cy="48" r="4" fill="#28c840"/>
+          <text x="200" y="51" text-anchor="middle" font-size="12" fill="#aab2c5" data-i18n="sc.sc2.mock">Password Manager</text>
+          <g font-size="13" fill="#aab2c5">
+            <rect x="35" y="75" width="330" height="36" rx="8" fill="rgba(111,139,255,0.18)" stroke="rgba(111,139,255,0.4)"/>
+            <circle cx="55" cy="93" r="8" fill="rgba(56,211,159,0.25)" stroke="#38d39f" stroke-width="1.4"/>
+            <text x="72" y="97">Documents.zip</text>
+            <text x="310" y="97" text-anchor="end" fill="#7a8296">••••••••</text>
+
+            <rect x="35" y="120" width="330" height="36" rx="8" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)"/>
+            <circle cx="55" cy="138" r="8" fill="rgba(111,139,255,0.2)" stroke="#6f8bff" stroke-width="1.4"/>
+            <text x="72" y="142">backup.7z</text>
+            <text x="310" y="142" text-anchor="end" fill="#7a8296">••••••••</text>
+
+            <rect x="35" y="165" width="330" height="36" rx="8" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)"/>
+            <circle cx="55" cy="183" r="8" fill="rgba(159,123,255,0.2)" stroke="#9f7bff" stroke-width="1.4"/>
+            <text x="72" y="187">photos.part1.rar</text>
+            <text x="310" y="187" text-anchor="end" fill="#7a8296">••••••••</text>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="showcase reveal">
+      <div class="showcase-copy">
+        <h3 data-i18n="sc.sc3.title">批量操作，一次选中全部搞定</h3>
+        <p class="lead" data-i18n="sc.sc3.lead">有一堆压缩包要解？一堆文件夹要压？多选一下，Zipease 按队列自动处理，进度一目了然，支持同名冲突逐次或统一策略。</p>
+        <ul class="bullets">
+          <li data-i18n-html="sc.sc3.p1"><strong>批量压缩：</strong>多组文件夹独立压缩 / 合并到同一压缩包，策略任选</li>
+          <li data-i18n-html="sc.sc3.p2"><strong>批量解压：</strong>任意混合格式同时解压，每个包独立显示进度与结果</li>
+          <li data-i18n-html="sc.sc3.p3"><strong>队列可管理：</strong>可随时暂停、取消、移除任务项</li>
+        </ul>
+      </div>
+      <div class="showcase-visual">
+        <svg viewBox="0 0 400 260" aria-hidden="true">
+          <g>
+            <g transform="translate(40,50)">
+              <rect width="320" height="170" rx="14" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)"/>
+              <g font-size="12" fill="#aab2c5" font-family="inherit">
+                <g transform="translate(20,24)">
+                  <rect width="130" height="14" rx="3" fill="rgba(111,139,255,0.15)"/>
+                  <text x="140" y="11" dx="10">Documents.zip</text>
+                </g>
+                <rect x="20" y="44" width="280" height="5" rx="3" fill="rgba(255,255,255,0.06)"/>
+                <rect x="20" y="44" width="230" height="5" rx="3" fill="url(#vgrad)"/>
+                <text x="300" y="49" text-anchor="end" fill="#aab2c5">82%</text>
+
+                <g transform="translate(20,66)">
+                  <rect width="110" height="14" rx="3" fill="rgba(159,123,255,0.15)"/>
+                  <text x="120" y="11" dx="10">backup.7z</text>
+                </g>
+                <rect x="20" y="86" width="280" height="5" rx="3" fill="rgba(255,255,255,0.06)"/>
+                <rect x="20" y="86" width="130" height="5" rx="3" fill="url(#vgrad)"/>
+                <text x="300" y="91" text-anchor="end" fill="#aab2c5">46%</text>
+
+                <g transform="translate(20,108)">
+                  <rect width="140" height="14" rx="3" fill="rgba(56,211,159,0.1)"/>
+                  <text x="150" y="11" dx="10">photos.part1.rar</text>
+                </g>
+                <rect x="20" y="128" width="280" height="5" rx="3" fill="rgba(255,255,255,0.06)"/>
+                <rect x="20" y="128" width="280" height="5" rx="3" fill="#38d39f"/>
+                <text x="300" y="133" text-anchor="end" fill="#38d39f">100%</text>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="download" class="cta-band">
+  <div class="container">
+    <div class="cta-inner reveal">
+      <div class="section-kicker" data-i18n="cta.kicker">GET STARTED</div>
+      <h2 data-i18n="cta.title">现在就下载 Zipease</h2>
+      <p data-i18n="cta.desc">专为 macOS 打造的轻量压缩解压工具，免费下载，开箱即用。</p>
+      <div class="cta-actions">
+        <a href="#" class="btn btn-primary" onclick="alert('{{alert_not_available}}'); return false;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+          <span data-i18n="cta.btn1">Mac App Store 下载</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container foot-inner">
+    <div>© 2026 Vonce. <span data-i18n="foot.rights">保留所有权利。</span></div>
+    <div class="foot-links">
+      <a href="support.html" data-i18n="foot.support">技术支持</a>
+      <a href="privacy.html" data-i18n="foot.privacy">隐私政策</a>
+      <a href="terms.html" data-i18n="foot.terms">使用条款</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ===================== I18N ===================== */
+const I18N = {
+  "zh-Hans": {
+    "meta.title": "Zipease(易解) - 全能 macOS 压缩解压工具",
+    "meta.description": "Zipease 易解是专为 macOS 打造的全能压缩解压工具，支持 15+ 格式、密码管理、分卷解压、批量处理，原生 SwiftUI 打造，轻量极速无广告。",
+    "brand": "Zipease (易解)",
+    "nav.download": "App Store 下载",
+    "hero.eyebrow": "原生 SwiftUI · macOS 14+",
+    "hero.title": "专为 macOS 打造的<br/><span class=\"accent\">全能压缩解压</span>专家",
+    "hero.sub": "支持 ZIP / 7Z / RAR / TAR / GZ / BZ2 / XZ 等 15+ 格式，内置密码管理、分卷解压、批量处理。轻量、极速、无广告。",
+    "hero.download": "App Store 立即下载",
+    "hero.learnmore": "了解更多",
+    "hero.meta.version": "版本 1.0",
+    "hero.meta.size": "15.7 MB",
+    "hero.meta.langs": "支持 12 种语言",
+    "hero.meta.free": "完全免费",
+    "hero.mock.title": "Zipease · archive.zip",
+    "hero.mock.tag1": "加密",
+    "hero.mock.tag2": "分卷",
+    "hero.mock.tag3": "校验通过",
+    "hero.mock.password": "密码已匹配 · 来自密码管理器",
+    "hero.mock.progress": "解压进度",
+    "formats.kicker": "SUPPORTED FORMATS",
+    "formats.title": "15+ 主流格式，全面兼容",
+    "formats.desc": "无论是日常邮件附件、网盘下载还是开发者归档文件，Zipease 都能轻松打开。",
+    "formats.note": "※ 支持所有格式解压；压缩支持 ZIP / 7Z / TAR / TAR.GZ / TAR.BZ2 / TAR.XZ",
+    "formats.pill": "AES-256 加密",
+    "feat.kicker": "KEY FEATURES",
+    "feat.title": "为效率而生，为安全护航",
+    "feat.desc": "每一个功能细节，都经过反复打磨，只为让压缩解压这件小事变得更顺手。",
+    "feat.f1.title": "核心能力",
+    "feat.f1.desc": "15+ 格式全覆盖，压缩解压双向兼容。",
+    "feat.f1.1": "全格式解压支持",
+    "feat.f1.2": "6 种格式压缩加密",
+    "feat.f1.3": "智能识别分卷合并",
+    "feat.f1.4": "AES-256 强度加密",
+    "feat.f2.title": "效率特性",
+    "feat.f2.desc": "让每一次操作都又快又省心。",
+    "feat.f2.1": "批量压缩 / 批量解压",
+    "feat.f2.2": "预览包内容，部分解压",
+    "feat.f2.3": "集中式密码管理器",
+    "feat.f2.4": "拖拽操作 + 默认关联",
+    "feat.f3.title": "文件安全",
+    "feat.f3.desc": "严格把控每一个可能出错的环节。",
+    "feat.f3.1": "同名冲突三选一处理",
+    "feat.f3.2": "完整性校验，防静默失败",
+    "feat.f3.3": "App Sandbox 全程隔离",
+    "feat.f3.4": "仅读写你选定的目录",
+    "sc.sc1.title": "智能分卷解压，一键搞定多卷包",
+    "sc.sc1.lead": "遇到 .001、.z01、part1 等分卷包不必再费心找齐每一片 —— Zipease 自动识别分卷序列并合并解压，支持校验每一片完整性。",
+    "sc.sc1.p1": "<strong>自动序列识别：</strong>支持 RAR / 7Z / ZIP 三种主流分卷命名方式",
+    "sc.sc1.p2": "<strong>缺失检测：</strong>分卷不全时提前提示，避免解压到一半失败",
+    "sc.sc1.p3": "<strong>单卷独立可解：</strong>对于非固体分卷，缺失首卷时仍可尝试解部分内容",
+    "sc.sc2.title": "密码管理器，告别反复输入",
+    "sc.sc2.lead": "在 Zipease 中集中管理你常用的压缩包密码。下次遇到加密包，系统自动尝试匹配已保存的密码，输入一次，终身可用。",
+    "sc.sc2.p1": "<strong>安全存储：</strong>密码使用系统级 Keychain 安全加密保存",
+    "sc.sc2.p2": "<strong>智能匹配：</strong>按归档路径、文件名、加密类型多维度尝试匹配",
+    "sc.sc2.p3": "<strong>随时管理：</strong>可在设置面板随时查看、编辑、删除已保存密码",
+    "sc.sc2.mock": "密码管理器",
+    "sc.sc3.title": "批量操作，一次选中全部搞定",
+    "sc.sc3.lead": "有一堆压缩包要解？一堆文件夹要压？多选一下，Zipease 按队列自动处理，进度一目了然，支持同名冲突逐次或统一策略。",
+    "sc.sc3.p1": "<strong>批量压缩：</strong>多组文件夹独立压缩 / 合并到同一压缩包，策略任选",
+    "sc.sc3.p2": "<strong>批量解压：</strong>任意混合格式同时解压，每个包独立显示进度与结果",
+    "sc.sc3.p3": "<strong>队列可管理：</strong>可随时暂停、取消、移除任务项",
+    "cta.kicker": "GET STARTED",
+    "cta.title": "现在就下载 Zipease",
+    "cta.desc": "专为 macOS 打造的轻量压缩解压工具，免费下载，开箱即用。",
+    "cta.btn1": "App Store 立即下载",
+    "foot.rights": "保留所有权利。",
+    "foot.support": "技术支持",
+    "foot.privacy": "隐私政策",
+    "foot.terms": "使用条款",
+    "alert.not_available": "即将上线，敬请期待！"
+  },
+  "zh-Hant": {
+    "meta.title": "Zipease(易解) - 全方位 macOS 壓縮解壓縮工具",
+    "meta.description": "Zipease 易解是專為 macOS 打造的全方位壓縮解壓縮工具，支援 15+ 格式、密碼管理、分卷解壓縮、批次處理，原生 SwiftUI 打造，輕量極速無廣告。",
+    "brand": "Zipease (易解)",
+    "nav.download": "App Store 下載",
+    "hero.eyebrow": "原生 SwiftUI · macOS 14+",
+    "hero.title": "專為 macOS 打造的<br/><span class=\"accent\">全方位壓縮解壓縮</span>專家",
+    "hero.sub": "支援 ZIP / 7Z / RAR / TAR / GZ / BZ2 / XZ 等 15+ 格式，內建密碼管理、分卷解壓縮、批次處理。輕量、極速、無廣告。",
+    "hero.download": "App Store 立即下載",
+    "hero.learnmore": "進一步瞭解",
+    "hero.meta.version": "版本 1.0",
+    "hero.meta.size": "15.7 MB",
+    "hero.meta.langs": "支援 12 種語言",
+    "hero.meta.free": "完全免費",
+    "hero.mock.title": "Zipease · archive.zip",
+    "hero.mock.tag1": "加密",
+    "hero.mock.tag2": "分卷",
+    "hero.mock.tag3": "驗證通過",
+    "hero.mock.password": "密碼已配對 · 來自密碼管理器",
+    "hero.mock.progress": "解壓縮進度",
+    "formats.kicker": "支援格式",
+    "formats.title": "15+ 主流格式，完整相容",
+    "formats.desc": "不論是日常電子郵件附件、雲端下載還是開發者歸檔檔案，Zipease 都能輕鬆開啟。",
+    "formats.note": "※ 所有格式均可解壓縮；壓縮支援 ZIP / 7Z / TAR / TAR.GZ / TAR.BZ2 / TAR.XZ",
+    "formats.pill": "AES-256 加密",
+    "feat.kicker": "核心功能",
+    "feat.title": "為效率而生，為安全護航",
+    "feat.desc": "每一個功能細節，都經過反覆打磨，只為讓壓縮解壓縮這件小事變得更順手。",
+    "feat.f1.title": "核心能力",
+    "feat.f1.desc": "15+ 格式全覆蓋，壓縮解壓縮雙向相容。",
+    "feat.f1.1": "全格式解壓縮支援",
+    "feat.f1.2": "6 種格式壓縮加密",
+    "feat.f1.3": "智慧辨識分卷合併",
+    "feat.f1.4": "AES-256 強度加密",
+    "feat.f2.title": "效率特性",
+    "feat.f2.desc": "讓每一次操作都又快又省心。",
+    "feat.f2.1": "批次壓縮 / 批次解壓縮",
+    "feat.f2.2": "預覽封包內容，部分解壓縮",
+    "feat.f2.3": "集中式密碼管理器",
+    "feat.f2.4": "拖曳操作 + 預設關聯",
+    "feat.f3.title": "檔案安全",
+    "feat.f3.desc": "嚴格控管每一個可能出錯的環節。",
+    "feat.f3.1": "同名衝突三選一處理",
+    "feat.f3.2": "完整性驗證，防靜默失敗",
+    "feat.f3.3": "App Sandbox 全程隔離",
+    "feat.f3.4": "僅讀寫你選定的目錄",
+    "sc.sc1.title": "智慧分卷解壓縮，一鍵搞定多卷封包",
+    "sc.sc1.lead": "遇到 .001、.z01、part1 等分卷包不必再費心找齊每一片 —— Zipease 自動辨識分卷序列並合併解壓縮，支援驗證每一片完整性。",
+    "sc.sc1.p1": "<strong>自動序列辨識：</strong>支援 RAR / 7Z / ZIP 三種主流分卷命名方式",
+    "sc.sc1.p2": "<strong>缺失偵測：</strong>分卷不全時提前提示，避免解壓縮到一半失敗",
+    "sc.sc1.p3": "<strong>單卷獨立可解：</strong>對於非固體分卷，缺少首卷時仍可嘗試解部分內容",
+    "sc.sc2.title": "密碼管理器，告別重複輸入",
+    "sc.sc2.lead": "在 Zipease 中集中管理你常用的壓縮封包密碼。下次遇到加密封包，系統自動嘗試配對已儲存的密碼，輸入一次，永久可用。",
+    "sc.sc2.p1": "<strong>安全儲存：</strong>密碼使用系統級 Keychain 安全加密保存",
+    "sc.sc2.p2": "<strong>智慧配對：</strong>依歸檔路徑、檔案名稱、加密類型多維度嘗試配對",
+    "sc.sc2.p3": "<strong>隨時管理：</strong>可在設定面板隨時檢視、編輯、刪除已儲存密碼",
+    "sc.sc2.mock": "密碼管理器",
+    "sc.sc3.title": "批次操作，一次選取全部完成",
+    "sc.sc3.lead": "有一堆壓縮封包要解？一堆資料夾要壓？多選一下，Zipease 依佇列自動處理，進度一目瞭然，支援同名衝突逐次或統一策略。",
+    "sc.sc3.p1": "<strong>批次壓縮：</strong>多組資料夾獨立壓縮 / 合併到同一壓縮封包，策略任選",
+    "sc.sc3.p2": "<strong>批次解壓縮：</strong>任意混合格式同時解壓縮，每個封包獨立顯示進度與結果",
+    "sc.sc3.p3": "<strong>佇列可管理：</strong>可隨時暫停、取消、移除工作項目",
+    "cta.kicker": "立即開始",
+    "cta.title": "現在就下載 Zipease",
+    "cta.desc": "專為 macOS 打造的輕量壓縮解壓縮工具，免費下載，開箱即用。",
+    "cta.btn1": "App Store 立即下載",
+    "foot.rights": "保留所有權利。",
+    "foot.support": "技術支援",
+    "foot.privacy": "隱私政策",
+    "foot.terms": "使用條款",
+    "alert.not_available": "即將上線，敬請期待！"
+  },
+  "en": {
+    "meta.title": "Zipease — All-in-One macOS Archiver",
+    "meta.description": "Zipease is a native all-in-one compression and extraction utility for macOS. Supports 15+ formats, password manager, multi-volume archives, batch processing. Built with SwiftUI. Lightweight, fast, ad-free.",
+    "brand": "Zipease",
+    "nav.download": "App Store",
+    "hero.eyebrow": "Native SwiftUI · macOS 14+",
+    "hero.title": "The all-in-one <span class=\"accent\">compress & extract</span> toolkit for macOS",
+    "hero.sub": "Supports ZIP, 7Z, RAR, TAR, GZ, BZ2, XZ and 15+ formats. Built-in password manager, multi-volume extraction, batch processing. Native SwiftUI — light, fast, ad-free.",
+    "hero.download": "Get it on the App Store",
+    "hero.learnmore": "Learn more",
+    "hero.meta.version": "Version 1.0",
+    "hero.meta.size": "15.7 MB",
+    "hero.meta.langs": "12 Languages",
+    "hero.meta.free": "100% Free",
+    "hero.mock.title": "Zipease · archive.zip",
+    "hero.mock.tag1": "Encrypted",
+    "hero.mock.tag2": "Multi-volume",
+    "hero.mock.tag3": "Verified",
+    "hero.mock.password": "Password matched · via Password Manager",
+    "hero.mock.progress": "Extracting",
+    "formats.kicker": "SUPPORTED FORMATS",
+    "formats.title": "15+ formats. Fully compatible.",
+    "formats.desc": "From email attachments and cloud downloads to developer archives — Zipease opens them all.",
+    "formats.note": "Extract available for ALL formats. Compress: ZIP / 7Z / TAR / TAR.GZ / TAR.BZ2 / TAR.XZ.",
+    "formats.pill": "AES-256 Encryption",
+    "feat.kicker": "KEY FEATURES",
+    "feat.title": "Built for speed. Designed for safety.",
+    "feat.desc": "Every detail is refined so that the everyday act of zipping and unzipping files just works, smoothly and reliably.",
+    "feat.f1.title": "Core Capabilities",
+    "feat.f1.desc": "15+ formats covered with full two-way compatibility.",
+    "feat.f1.1": "Extract every mainstream format",
+    "feat.f1.2": "6 formats: compress + encrypt",
+    "feat.f1.3": "Auto-merge multi-volume archives",
+    "feat.f1.4": "AES-256 military-grade encryption",
+    "feat.f2.title": "Productivity Boost",
+    "feat.f2.desc": "Make every operation fast and effortless.",
+    "feat.f2.1": "Batch compress & batch extract",
+    "feat.f2.2": "Preview & partial extraction",
+    "feat.f2.3": "Centralized password manager",
+    "feat.f2.4": "Drag-and-drop + default app",
+    "feat.f3.title": "File Safety",
+    "feat.f3.desc": "Every error-prone step is carefully guarded.",
+    "feat.f3.1": "3-way name-conflict handling",
+    "feat.f3.2": "Integrity check — never silent-fail",
+    "feat.f3.3": "Full App Sandbox isolation",
+    "feat.f3.4": "Only reads folders you choose",
+    "sc.sc1.title": "Smart multi-volume extraction in one click",
+    "sc.sc1.lead": "No more hunting for .001, .z01 or part1 pieces. Zipease auto-detects split sequences and merges them with per-volume integrity verification.",
+    "sc.sc1.p1": "<strong>Auto sequence detection:</strong> Works with RAR / 7Z / ZIP naming conventions",
+    "sc.sc1.p2": "<strong>Missing-piece alert:</strong> Warns before you start so extraction never fails halfway",
+    "sc.sc1.p3": "<strong>Partial recovery:</strong> Even without the first volume, non-solid archives can still recover selectable files",
+    "sc.sc2.title": "Password Manager — type once, use forever",
+    "sc.sc2.lead": "Keep all your archive passwords in one place. Next time you open an encrypted archive, Zipease auto-tries matches — no more tedious re-typing.",
+    "sc.sc2.p1": "<strong>Secure storage:</strong> Passwords are stored securely in the system Keychain",
+    "sc.sc2.p2": "<strong>Smart matching:</strong> Tries passwords by path, name, and encryption type",
+    "sc.sc2.p3": "<strong>Full control:</strong> View, edit or delete saved passwords from the Preferences panel",
+    "sc.sc2.mock": "Password Manager",
+    "sc.sc3.title": "Batch operations — select all, process in one go",
+    "sc.sc3.lead": "Stacks of archives to extract? Folders to compress? Multi-select and Zipease queues them automatically with per-item progress and name-conflict strategy controls.",
+    "sc.sc3.p1": "<strong>Batch compress:</strong> Compress folders independently or merge — your call",
+    "sc.sc3.p2": "<strong>Batch extract:</strong> Mix any formats; each archive shows its own progress and result",
+    "sc.sc3.p3": "<strong>Queue control:</strong> Pause, cancel, or remove any task at any time",
+    "cta.kicker": "GET STARTED",
+    "cta.title": "Download Zipease today",
+    "cta.desc": "A lightweight, native macOS archiver. Free. Ready to go out of the box.",
+    "cta.btn1": "Get it on the App Store",
+    "foot.rights": "All rights reserved.",
+    "foot.support": "Support",
+    "foot.privacy": "Privacy Policy",
+    "foot.terms": "Terms of Use",
+    "alert.not_available": "Coming soon. Stay tuned!"
+  }
+};
+
+/* ===================== LANG SWITCH ===================== */
+(function initLang() {
+  const STORAGE = "zipease-site-lang";
+  const SUPPORTED = ["zh-Hans", "zh-Hant", "en"];
+  let current = "zh-Hans";
+
+  function detect() {
+    const saved = localStorage.getItem(STORAGE);
+    if (saved && SUPPORTED.includes(saved)) return saved;
+    const nav = (navigator.language || "zh-CN").toLowerCase();
+    if (nav.startsWith("zh-tw") || nav.startsWith("zh-hk") || nav.startsWith("zh-mo")) return "zh-Hant";
+    if (nav.startsWith("zh")) return "zh-Hans";
+    if (nav.startsWith("en")) return "en";
+    return "zh-Hans";
+  }
+
+  function t(key) {
+    const dict = I18N[current] || I18N["zh-Hans"];
+    return dict[key] ?? "";
+  }
+
+  function applyTranslations() {
+    const htmlLang = current === "zh-Hans" ? "zh-CN" : current === "zh-Hant" ? "zh-TW" : "en";
+    document.documentElement.setAttribute("lang", htmlLang);
+
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      const key = el.getAttribute("data-i18n");
+      const val = t(key);
+      if (!val) return;
+      el.textContent = val;
+    });
+
+    document.querySelectorAll("[data-i18n-html]").forEach(el => {
+      const key = el.getAttribute("data-i18n-html");
+      const val = t(key);
+      if (!val) return;
+      el.innerHTML = val;
+    });
+
+    document.querySelectorAll("[data-i18n-attr]").forEach(el => {
+      const key = el.getAttribute("data-i18n-attr");
+      const pairs = key.split("|");
+      pairs.forEach(p => {
+        const [attr, k] = p.split(":");
+        const v = t(k);
+        if (v) el.setAttribute(attr, v);
+      });
+    });
+
+    const title = t("meta.title");
+    if (title) document.title = title;
+    const desc = t("meta.description");
+    const descMeta = document.querySelector('meta[name="description"]');
+    if (desc && descMeta) descMeta.setAttribute("content", desc);
+
+    document.querySelectorAll(".lang-switcher button").forEach(btn => {
+      const active = btn.dataset.lang === current;
+      btn.classList.toggle("active", active);
+      btn.setAttribute("aria-selected", active ? "true" : "false");
+    });
+
+    // Replace alert placeholder for CTA buttons
+    const alertMsg = t("alert.not_available") || "Coming soon.";
+    document.querySelectorAll("[onclick]").forEach(el => {
+      const old = el.getAttribute("onclick") || "";
+      el.setAttribute("onclick", old.replace(/'{{alert_not_available}}'/, JSON.stringify(alertMsg)));
+    });
+  }
+
+  function setLang(lang) {
+    if (!SUPPORTED.includes(lang)) lang = "zh-Hans";
+    current = lang;
+    localStorage.setItem(STORAGE, lang);
+    applyTranslations();
+  }
+
+  // Wire up buttons
+  document.querySelectorAll(".lang-switcher button").forEach(btn => {
+    btn.addEventListener("click", () => setLang(btn.dataset.lang));
+  });
+
+  // Init
+  current = detect();
+  applyTranslations();
+
+  // Scroll reveal
+  const io = "IntersectionObserver" in window ? new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+  }, { threshold: 0.08, rootMargin: "0px 0px -60px 0px" }) : null;
+  document.querySelectorAll(".reveal").forEach(el => {
+    if (io) io.observe(el); else el.classList.add("in");
+  });
+})();
+</script>
+</body>
+</html>

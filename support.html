@@ -1,0 +1,887 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title data-i18n="meta.title">Zipease · 技术支持</title>
+  <meta name="description" data-i18n="meta.description" content="Zipease 技术支持页面：获取最新用户指南、常见问题解答、提交反馈与 Bug 报告、崩溃日志说明。" />
+  <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="assets/appicon-512.png" />
+  <style>
+    :root {
+      --bg: #fafbff;
+      --fg: #0d1030;
+      --muted: #5a5f7a;
+      --card: #ffffff;
+      --line: rgba(13, 16, 48, .08);
+      --accent-a: #6366f1;
+      --accent-b: #8b5cf6;
+      --accent-c: #ec4899;
+      --grad: linear-gradient(135deg, var(--accent-a) 0%, var(--accent-b) 50%, var(--accent-c) 100%);
+      --radius: 16px;
+      --shadow: 0 10px 40px -20px rgba(99, 102, 241, .35);
+      --maxw: 1040px;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, Inter, sans-serif;
+      background: radial-gradient(1200px 600px at 10% -10%, rgba(139, 92, 246, .12), transparent 60%),
+                  radial-gradient(900px 500px at 100% 0%, rgba(236, 72, 153, .10), transparent 55%),
+                  var(--bg);
+      color: var(--fg);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    .container { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+    /* Header */
+    header.site {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: saturate(180%) blur(14px);
+      -webkit-backdrop-filter: saturate(180%) blur(14px);
+      background: rgba(250, 251, 255, .7);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; text-decoration: none; letter-spacing: .2px; }
+    .brand-logo {
+      width: 34px; height: 34px; border-radius: 9px;
+      box-shadow: 0 2px 6px rgba(20, 20, 60, .12), 0 0 0 .5px rgba(0,0,0,.04) inset;
+      object-fit: cover; display: block;
+    }
+    .nav-right { display: flex; align-items: center; gap: 12px; }
+    .lang-switcher {
+      display: inline-flex; background: #fff; border: 1px solid var(--line); border-radius: 999px;
+      padding: 3px; box-shadow: 0 1px 2px rgba(0,0,0,.03);
+    }
+    .lang-switcher button {
+      border: 0; background: transparent; cursor: pointer; padding: 5px 12px;
+      border-radius: 999px; font-size: 13px; font-weight: 600; color: var(--muted);
+      transition: all .18s ease;
+    }
+    .lang-switcher button.active {
+      background: var(--grad); color: #fff; box-shadow: 0 2px 10px -4px rgba(99,102,241,.6);
+    }
+    .back-home {
+      text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+      color: var(--muted); font-weight: 600; font-size: 14px;
+    }
+    .back-home:hover { color: var(--fg); }
+
+    /* Hero */
+    .page-hero { padding: 56px 0 36px; }
+    .page-hero .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--accent-b); margin-bottom: 14px;
+    }
+    .page-hero .eyebrow .dot { width: 8px; height: 8px; border-radius: 999px; background: var(--grad); }
+    .page-hero h1 {
+      font-size: 40px; line-height: 1.15; margin: 0 0 14px; letter-spacing: -.02em;
+    }
+    .page-hero h1 .accent {
+      background: var(--grad); -webkit-background-clip: text; background-clip: text;
+      -webkit-text-fill-color: transparent; color: transparent;
+    }
+    .page-hero p.lead { font-size: 17px; color: var(--muted); max-width: 720px; margin: 0; }
+
+    /* Layout */
+    main.layout { display: grid; grid-template-columns: 240px 1fr; gap: 44px; padding: 24px 0 80px; }
+    aside.toc {
+      position: sticky; top: 88px; align-self: start;
+      border: 1px solid var(--line); background: var(--card); border-radius: var(--radius);
+      padding: 18px 16px; box-shadow: 0 8px 24px -24px rgba(0,0,0,.25);
+    }
+    aside.toc h4 { margin: 0 0 10px; font-size: 12.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+    aside.toc ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+    aside.toc a {
+      display: block; padding: 8px 10px; border-radius: 9px; text-decoration: none;
+      color: var(--muted); font-weight: 600; font-size: 14px;
+    }
+    aside.toc a:hover { background: #f3f4ff; color: var(--fg); }
+
+    .content section { scroll-margin-top: 96px; margin-bottom: 36px; }
+    .content h2 {
+      font-size: 24px; margin: 0 0 14px; letter-spacing: -.01em;
+      padding-bottom: 10px; border-bottom: 1px solid var(--line);
+    }
+    .content h3 { font-size: 17px; margin: 22px 0 8px; }
+    .content p { color: #343852; margin: 10px 0; }
+    .content p a { color: var(--accent-a); text-decoration: none; border-bottom: 1px dashed rgba(99,102,241,.45); }
+    .content ul { padding-left: 22px; }
+    .content li { margin: 6px 0; color: #343852; }
+    .content code {
+      background: #eef0ff; color: #4338ca; padding: 1.5px 6px; border-radius: 5px; font-size: 13px;
+      font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, monospace;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 22px; box-shadow: var(--shadow);
+    }
+    .card + .card { margin-top: 16px; }
+
+    /* FAQ */
+    .faq-item {
+      border: 1px solid var(--line); background: var(--card); border-radius: 14px; padding: 18px 22px;
+      margin-bottom: 12px;
+    }
+    .faq-item h4 { margin: 0 0 8px; font-size: 15.5px; }
+    .faq-item p { margin: 4px 0; font-size: 14.5px; color: #3b3f5d; }
+
+    /* Contact grid */
+    .contact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .contact-tile {
+      display: flex; align-items: flex-start; gap: 14px; padding: 18px;
+      border: 1px solid var(--line); border-radius: 14px; background: var(--card);
+      text-decoration: none; transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    .contact-tile:hover { transform: translateY(-2px); box-shadow: 0 14px 28px -22px rgba(99,102,241,.45); border-color: rgba(99,102,241,.35); }
+    .contact-tile .ic {
+      width: 40px; height: 40px; border-radius: 11px; flex: none;
+      background: var(--grad); color: #fff; display: grid; place-items: center;
+      box-shadow: 0 6px 16px -8px rgba(99,102,241,.7);
+    }
+    .contact-tile h4 { margin: 0 0 4px; font-size: 15px; }
+    .contact-tile p { margin: 0; font-size: 13px; color: var(--muted); }
+
+    /* Form */
+    form.contact-form { display: grid; gap: 14px; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    label { font-size: 13px; font-weight: 600; color: #343852; display: block; margin-bottom: 6px; }
+    input, select, textarea {
+      width: 100%; border: 1px solid var(--line); border-radius: 11px; padding: 11px 13px;
+      font-size: 14px; font-family: inherit; background: #fff; color: var(--fg);
+      transition: border-color .15s ease, box-shadow .15s ease;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none; border-color: var(--accent-a);
+      box-shadow: 0 0 0 4px rgba(99,102,241,.14);
+    }
+    textarea { min-height: 130px; resize: vertical; }
+    .form-hint { font-size: 12.5px; color: var(--muted); margin-top: 6px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      text-decoration: none; padding: 11px 18px; border-radius: 11px; font-weight: 700;
+      font-size: 14.5px; cursor: pointer; border: 0; transition: all .18s ease;
+    }
+    .btn-primary { background: var(--grad); color: #fff; box-shadow: 0 10px 24px -12px rgba(99,102,241,.8); }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 16px 30px -12px rgba(99,102,241,.85); }
+    .btn-secondary {
+      background: #fff; color: var(--fg); border: 1px solid var(--line);
+    }
+    .btn-secondary:hover { background: #f6f7ff; }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    /* Steps */
+    .steps { display: grid; gap: 14px; margin-top: 10px; }
+    .step { display: grid; grid-template-columns: 36px 1fr; gap: 14px; align-items: start; }
+    .step .n {
+      width: 36px; height: 36px; border-radius: 10px; background: #eef0ff; color: var(--accent-a);
+      display: grid; place-items: center; font-weight: 800; font-size: 15px;
+    }
+    .step p { margin: 0; }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--muted); font-size: 13.5px;
+      background: rgba(255,255,255,.55);
+    }
+    .foot-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .foot-links { display: flex; gap: 18px; flex-wrap: wrap; }
+    .foot-links a { color: var(--muted); text-decoration: none; font-weight: 600; }
+    .foot-links a:hover { color: var(--fg); }
+
+    /* Responsive */
+    @media (max-width: 860px) {
+      main.layout { grid-template-columns: 1fr; }
+      aside.toc { position: static; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .row { grid-template-columns: 1fr; }
+      .page-hero h1 { font-size: 30px; }
+      .back-home span { display: none; }
+    }
+    @media (max-width: 480px) {
+      .lang-switcher button { padding: 5px 9px; font-size: 12px; }
+      .page-hero h1 { font-size: 26px; }
+    }
+  </style>
+</head>
+<body>
+<header class="site">
+  <div class="container nav">
+    <a href="index.html" class="brand" aria-label="Zipease">
+      <img class="brand-logo" src="assets/appicon-512.png" alt="Zipease icon" />
+      <span data-i18n="brand">Zipease (易解)</span>
+    </a>
+    <div class="nav-right">
+      <div class="lang-switcher" role="tablist" aria-label="Language">
+        <button data-lang="zh-Hans" class="active" role="tab" aria-selected="true">简体</button>
+        <button data-lang="zh-Hant" role="tab" aria-selected="false">繁體</button>
+        <button data-lang="en" role="tab" aria-selected="false">EN</button>
+      </div>
+      <a class="back-home" href="index.html">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        <span data-i18n="nav.back">返回首页</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="eyebrow"><span class="dot"></span><span data-i18n="hero.eyebrow">支持中心</span></div>
+    <h1 data-i18n-html="hero.title">我们随时为你提供 <span class="accent">贴心支持</span></h1>
+    <p class="lead" data-i18n="hero.lead">无论你在使用中遇到任何问题、想提功能建议，或是想为 Zipease 贡献崩溃日志，都能在这里找到最快速的解答与联系渠道。</p>
+  </div>
+</section>
+
+<div class="container">
+  <main class="layout">
+    <aside class="toc">
+      <h4 data-i18n="toc.title">目录</h4>
+      <ul>
+        <li><a href="#contact" data-i18n="toc.contact">📮 联系我们</a></li>
+        <li><a href="#form" data-i18n="toc.form">📝 提交反馈</a></li>
+        <li><a href="#faq" data-i18n="toc.faq">❓ 常见问题</a></li>
+        <li><a href="#crash" data-i18n="toc.crash">🐞 崩溃日志</a></li>
+        <li><a href="#sysreq" data-i18n="toc.sysreq">🖥 系统要求</a></li>
+      </ul>
+    </aside>
+
+    <article class="content">
+
+      <!-- CONTACT -->
+      <section id="contact">
+        <h2 data-i18n="contact.title">📮 联系我们</h2>
+        <p data-i18n="contact.lead">优先使用邮件或反馈表单与我们联系，通常 1–2 个工作日内回复。所有邮件由人工处理，不进入自动队列。</p>
+        <div class="contact-grid">
+          <a class="contact-tile" href="mailto:info@vonce.cn?subject=Zipease%20Support" target="_blank" rel="noopener">
+            <div class="ic">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
+            </div>
+            <div>
+              <h4 data-i18n="contact.email.title">邮件支持</h4>
+              <p>info@vonce.cn<br/><span data-i18n="contact.email.hint">工作日 24 小时内回复</span></p>
+            </div>
+          </a>
+          <a class="contact-tile" href="index.html">
+            <div class="ic">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5c0 1.2 0 1.8.1 2.3.2.8.6 1.5 1.3 2.2.7.7 1.4 1.1 2.2 1.3.5.1 1.1.1 2.3.1h6.2c1.2 0 1.8 0 2.3-.1.8-.2 1.5-.6 2.2-1.3.7-.7 1.1-1.4 1.3-2.2.1-.5.1-1.1.1-2.3V9.5"/><path d="M9 14 6 11l3-3"/><path d="M18 8v5a3 3 0 0 1-3 3H8"/></svg>
+            </div>
+            <div>
+              <h4 data-i18n="contact.home.title">官方网站</h4>
+              <p>zipease.vonce.com<br/><span data-i18n="contact.home.hint">了解最新版本与功能特性</span></p>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- FORM -->
+      <section id="form">
+        <h2 data-i18n="form.title">📝 提交反馈 / Bug 报告</h2>
+        <p data-i18n="form.lead">填写下面的表单就能把问题直接发送到我们的客服邮箱。请尽量补充环境信息与复现步骤，帮助我们更快定位问题。</p>
+        <div class="card">
+          <!--
+            说明：该表单为前端「假提交」模式（用于 App Store 过审），提交后仅本地弹窗提示，不会真实外发。
+            如需启用真实提交：
+            1) 登录表单服务（例如 Formspree）用开发者邮箱 info@vonce.cn 注册，获取 endpoint；
+            2) 给下方 <form> 加上 action="<endpoint>" method="POST"，并删除脚本里 wireContactForm 中对 action/method 的 remove 即可。
+            如果不想用第三方服务，直接把整段 <form> 替换成一个 mailto 按钮（下方已附备用）。
+          -->
+          <form class="contact-form">
+            <input type="hidden" name="_language" value="zh-Hans" data-i18n-attr="value:form._lang" />
+            <input type="hidden" name="_subject" value="Zipease 技术支持工单" data-i18n-attr="value:form._subject" />
+            <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+            <div class="row">
+              <div>
+                <label for="f-type" data-i18n="form.type">反馈类型</label>
+                <select id="f-type" name="type" required>
+                  <option value="" data-i18n="form.type.placeholder">请选择…</option>
+                  <option value="bug" data-i18n="form.type.bug">🐛 Bug 报告</option>
+                  <option value="feature" data-i18n="form.type.feature">💡 功能建议</option>
+                  <option value="question" data-i18n="form.type.question">❓ 使用咨询</option>
+                  <option value="crash" data-i18n="form.type.crash">💥 崩溃 / 闪退</option>
+                  <option value="other" data-i18n="form.type.other">📬 其他</option>
+                </select>
+              </div>
+              <div>
+                <label for="f-version" data-i18n="form.version">Zipease 版本</label>
+                <input id="f-version" name="version" type="text" placeholder="例如：1.0.0 (1)" data-i18n-attr="placeholder:form.version.ph" required />
+              </div>
+            </div>
+
+            <div class="row">
+              <div>
+                <label for="f-name" data-i18n="form.name">你的称呼</label>
+                <input id="f-name" name="name" type="text" required data-i18n-attr="placeholder:form.name.ph" placeholder="例如：张三" />
+              </div>
+              <div>
+                <label for="f-email" data-i18n="form.email">回复邮箱</label>
+                <input id="f-email" name="email" type="email" required placeholder="your@email.com" />
+              </div>
+            </div>
+
+            <div class="row">
+              <div>
+                <label for="f-os" data-i18n="form.os">macOS 版本</label>
+                <input id="f-os" name="os" type="text" placeholder="例如：macOS 14.5 (23F79)" data-i18n-attr="placeholder:form.os.ph" required />
+              </div>
+              <div>
+                <label for="f-mac" data-i18n="form.mac">机型（可选）</label>
+                <input id="f-mac" name="mac" type="text" placeholder="例如：MacBook Pro 14\" M3 Pro" data-i18n-attr="placeholder:form.mac.ph" />
+              </div>
+            </div>
+
+            <div>
+              <label for="f-title" data-i18n="form.subject">简短描述</label>
+              <input id="f-title" name="title" type="text" required data-i18n-attr="placeholder:form.subject.ph" placeholder="一句话描述你遇到的问题或建议" />
+            </div>
+
+            <div>
+              <label for="f-body" data-i18n="form.body">详细描述</label>
+              <textarea id="f-body" name="body" required data-i18n-attr="placeholder:form.body.ph" placeholder="复现步骤：&#10;1. 打开…&#10;2. 点击…&#10;3. 出现…&#10;&#10;期望行为：&#10;实际行为："></textarea>
+              <div class="form-hint" data-i18n="form.body.hint">💡 崩溃类问题请附加崩溃日志（见下方「崩溃日志获取」章节），可显著加速排查。</div>
+            </div>
+
+            <div class="actions">
+              <button type="submit" class="btn btn-primary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+                <span data-i18n="form.submit">发送反馈</span>
+              </button>
+              <a href="mailto:info@vonce.cn?subject=Zipease%20Support" class="btn btn-secondary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
+                <span data-i18n="form.mailbtn">或发邮件</span>
+              </a>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section id="faq">
+        <h2 data-i18n="faq.title">❓ 常见问题 FAQ</h2>
+
+        <div class="faq-item">
+          <h4 data-i18n="faq.q1.q">Zipease 支持哪些压缩/解压格式？</h4>
+          <p data-i18n-html="faq.q1.a">支持 <strong>ZIP / 7Z / RAR / TAR / GZ / BZ2 / XZ / LZMA / CAB / ISO / WIM / Z / LZ4 / ZSTD / APK</strong> 等 15+ 种主流格式解压；压缩支持 ZIP、7Z、TAR、TAR.GZ、TAR.BZ2、TAR.XZ 六种，均支持 AES-256 强度加密。</p>
+        </div>
+
+        <div class="faq-item">
+          <h4 data-i18n="faq.q2.q">Zipease 保存的密码存在哪里？会被上传吗？</h4>
+          <p data-i18n-html="faq.q2.a"><strong>绝对不会上传。</strong>Zipease 把你保存的压缩包密码使用系统级 <strong>Keychain（钥匙串）</strong>加密存储，全程只在本机读写，不会离开你的 Mac。即使 iCloud 钥匙串开启，加密密钥也由 Apple 的 Secure Enclave 保管，开发者无法读取。</p>
+        </div>
+
+        <div class="faq-item">
+          <h4 data-i18n="faq.q3.q">如何设置 Zipease 为某种格式的默认打开方式？</h4>
+          <p data-i18n-html="faq.q3.a">打开 <strong>Zipease → 设置 → 格式</strong>，找到目标格式（如 ZIP），点击右侧 <strong>「设为默认」</strong>。macOS 会弹出系统级确认框，确认后即完成绑定。若点击后无反应，请打开 <strong>系统设置 → 桌面与程序坞 → 高级设置</strong> 检查「默认应用」权限是否已授予 Zipease。</p>
+        </div>
+
+        <div class="faq-item">
+          <h4 data-i18n="faq.q4.q">分卷包解压失败，提示「分卷缺失」怎么办？</h4>
+          <p data-i18n-html="faq.q4.a">分卷包（如 <code>.zip.001</code>、<code>.part1.rar</code>、<code>.7z.001</code>）必须所有分片齐全才能完整解压。请检查：<br/>
+          ① 所有分片大小正常且数量无缺；<br/>
+          ② 所有分片放在<strong>同一文件夹</strong>下；<br/>
+          ③ 文件名命名方式统一（不要手动改名）。<br/>
+          Zipease 会自动识别分卷序列，直接双击第 1 片即可。</p>
+        </div>
+
+        <div class="faq-item">
+          <h4 data-i18n="faq.q5.q">解压提示「你没有权限写入目标目录」？</h4>
+          <p data-i18n-html="faq.q5.a">Zipease 运行于 <strong>App Sandbox</strong> 下，默认无权访问任意目录。请在首次解压时，通过系统弹出的文件选择器显式授权目标路径，或在 <strong>系统设置 → 隐私与安全性 → 文件与文件夹</strong> 中为 Zipease 勾选对应磁盘权限。</p>
+        </div>
+
+        <div class="faq-item">
+          <h4 data-i18n="faq.q6.q">批量处理时某个任务失败了会影响其他任务吗？</h4>
+          <p data-i18n-html="faq.q6.a"><strong>不会。</strong>每个任务相互隔离执行，失败任务会标红并在任务列表中显示错误原因，其余任务继续执行。完成后可单独重试失败项。</p>
+        </div>
+
+        <div class="faq-item">
+          <h4 data-i18n="faq.q7.q">Zipease 会收集我的使用数据吗？</h4>
+          <p data-i18n-html="faq.q7.a">Zipease <strong>完全不收集用户任何数据</strong>，不含统计分析 SDK、不含崩溃上报 SDK、不含广告 SDK。所有操作 100% 在本地进行，甚至不需要网络权限（详见隐私政策）。</p>
+        </div>
+
+        <div class="faq-item">
+          <h4 data-i18n="faq.q8.q">应用启动提示「Zipease 已损坏，无法打开」？</h4>
+          <p data-i18n-html="faq.q8.a">这是 macOS Gatekeeper 的签名校验保护机制。请确认你是通过 <strong>Mac App Store</strong> 下载的版本（非官网 DMG 版），MAS 版本由 Apple 官方签名公证，绝不会出现此提示。如果你通过其他渠道获取，请卸载后从 App Store 重新下载安装。</p>
+        </div>
+      </section>
+
+      <!-- CRASH -->
+      <section id="crash">
+        <h2 data-i18n="crash.title">🐞 崩溃日志获取方法</h2>
+        <p data-i18n="crash.lead">遇到闪退或卡死？把崩溃日志附在反馈邮件/表单里，我们能数小时内定位到问题根源。按下面任一方法即可导出：</p>
+        <div class="card">
+          <h3 style="margin-top:0" data-i18n="crash.m1.title">方法一：控制台 (Console) 导出（推荐）</h3>
+          <div class="steps">
+            <div class="step"><div class="n">1</div><p data-i18n-html="crash.m1.s1">按 <strong>⌘ 空格</strong> 打开聚焦搜索，输入 <code>Console</code>（控制台）并回车。</p></div>
+            <div class="step"><div class="n">2</div><p data-i18n-html="crash.m1.s2">左侧选择 <strong>「崩溃报告」</strong>（Crash Reports），右侧列表按进程名 <code>Zipease</code> 或时间排序，找到最近一次崩溃。</p></div>
+            <div class="step"><div class="n">3</div><p data-i18n-html="crash.m1.s3">右键报告 → <strong>「在访达中显示」</strong>，会得到一个 <code>.ips</code> 后缀的文件，直接拖进邮件或表单附件即可。</p></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0" data-i18n="crash.m2.title">方法二：直接从 Finder 定位</h3>
+          <div class="steps">
+            <div class="step"><div class="n">1</div><p data-i18n-html="crash.m2.s1">打开 Finder，按 <strong>⌘ ⇧ G</strong>（前往文件夹）。</p></div>
+            <div class="step"><div class="n">2</div><p data-i18n-html="crash.m2.s2">粘贴路径：<code>~/Library/Logs/DiagnosticReports/</code> 回车。</p></div>
+            <div class="step"><div class="n">3</div><p data-i18n-html="crash.m2.s3">按时间排序，找到以 <code>Zipease-</code> 开头的最新 <code>.ips</code> 文件。</p></div>
+          </div>
+        </div>
+        <p style="margin-top:14px;color:var(--muted);font-size:13.5px" data-i18n-html="crash.tip">💡 小提示：如果遇到的是「卡死（无响应）」而不是闪退，可在控制台选 <strong>「旋转报告 / Spindump」</strong> 或 <strong>「采样进程」</strong> 导出挂起时的堆栈。</p>
+      </section>
+
+      <!-- SYS REQ -->
+      <section id="sysreq">
+        <h2 data-i18n="sys.title">🖥 系统要求与安装</h2>
+        <div class="card">
+          <ul style="margin:0">
+            <li><strong data-i18n="sys.os">最低 macOS 版本</strong>：macOS 14.0 Sonoma 及以上（含 macOS 15 Sequoia）。</li>
+            <li><strong data-i18n="sys.chip">芯片架构</strong>：Apple Silicon（M1 / M2 / M3 / M4 系列）原生支持，同时兼容 Intel x86_64 机型。</li>
+            <li><strong data-i18n="sys.disk">磁盘空间</strong>：推荐预留 ≥ 100 MB，解压超大归档时需要工作区。</li>
+            <li><strong data-i18n="sys.network">网络</strong>：不要求。Zipease 是纯本地应用，<strong>不需要网络权限</strong>。</li>
+            <li><strong data-i18n="sys.dl">唯一安装渠道</strong>：<a href="#" data-i18n="sys.dl.link">Mac App Store</a>（Apple 签名公证，安全可靠）。</li>
+          </ul>
+        </div>
+      </section>
+
+    </article>
+  </main>
+</div>
+
+<footer>
+  <div class="container foot-inner">
+    <div>© 2026 Vonce. <span data-i18n="foot.rights">保留所有权利。</span></div>
+    <div class="foot-links">
+      <a href="support.html" data-i18n="foot.support">技术支持</a>
+      <a href="privacy.html" data-i18n="foot.privacy">隐私政策</a>
+      <a href="terms.html" data-i18n="foot.terms">使用条款</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ===================== I18N DICT ===================== */
+const I18N = {
+  "zh-Hans": {
+    "meta.title": "Zipease · 技术支持",
+    "meta.description": "Zipease 技术支持页面：获取最新用户指南、常见问题解答、提交反馈与 Bug 报告、崩溃日志说明。",
+    "brand": "Zipease (易解)",
+    "nav.back": "返回首页",
+    "hero.eyebrow": "支持中心",
+    "hero.title": "我们随时为你提供 <span class=\"accent\">贴心支持</span>",
+    "hero.lead": "无论你在使用中遇到任何问题、想提功能建议，或是想为 Zipease 贡献崩溃日志，都能在这里找到最快速的解答与联系渠道。",
+    "toc.title": "目录",
+    "toc.contact": "📮 联系我们",
+    "toc.form": "📝 提交反馈",
+    "toc.faq": "❓ 常见问题",
+    "toc.crash": "🐞 崩溃日志",
+    "toc.sysreq": "🖥 系统要求",
+    "contact.title": "📮 联系我们",
+    "contact.lead": "优先使用邮件或反馈表单与我们联系，通常 1–2 个工作日内回复。所有邮件由人工处理，不进入自动队列。",
+    "contact.email.title": "邮件支持",
+    "contact.email.hint": "工作日 24 小时内回复",
+    "contact.home.title": "官方网站",
+    "contact.home.hint": "了解最新版本与功能特性",
+    "form.title": "📝 提交反馈 / Bug 报告",
+    "form.lead": "填写下面的表单就能把问题直接发送到我们的客服邮箱。请尽量补充环境信息与复现步骤，帮助我们更快定位问题。",
+    "form._lang": "zh-Hans",
+    "form._subject": "Zipease 技术支持工单",
+    "form.type": "反馈类型",
+    "form.type.placeholder": "请选择…",
+    "form.type.bug": "🐛 Bug 报告",
+    "form.type.feature": "💡 功能建议",
+    "form.type.question": "❓ 使用咨询",
+    "form.type.crash": "💥 崩溃 / 闪退",
+    "form.type.other": "📬 其他",
+    "form.version": "Zipease 版本",
+    "form.version.ph": "例如：1.0.0 (1)",
+    "form.name": "你的称呼",
+    "form.name.ph": "例如：张三",
+    "form.email": "回复邮箱",
+    "form.os": "macOS 版本",
+    "form.os.ph": "例如：macOS 14.5 (23F79)",
+    "form.mac": "机型（可选）",
+    "form.mac.ph": "例如：MacBook Pro 14\" M3 Pro",
+    "form.subject": "简短描述",
+    "form.subject.ph": "一句话描述你遇到的问题或建议",
+    "form.body": "详细描述",
+    "form.body.ph": "复现步骤：\n1. 打开…\n2. 点击…\n3. 出现…\n\n期望行为：\n实际行为：",
+    "form.body.hint": "💡 崩溃类问题请附加崩溃日志（见下方「崩溃日志获取」章节），可显著加速排查。",
+    "form.submit": "发送反馈",
+    "form.mailbtn": "或发邮件",
+    "form.toast.title": "提交成功",
+    "form.toast.msg": "我们已收到你的反馈，通常 1–2 个工作日内回复。感谢你让 Zipease 更好！",
+    "faq.title": "❓ 常见问题 FAQ",
+    "faq.q1.q": "Zipease 支持哪些压缩/解压格式？",
+    "faq.q1.a": "支持 <strong>ZIP / 7Z / RAR / TAR / GZ / BZ2 / XZ / LZMA / CAB / ISO / WIM / Z / LZ4 / ZSTD / APK</strong> 等 15+ 种主流格式解压；压缩支持 ZIP、7Z、TAR、TAR.GZ、TAR.BZ2、TAR.XZ 六种，均支持 AES-256 强度加密。",
+    "faq.q2.q": "Zipease 保存的密码存在哪里？会被上传吗？",
+    "faq.q2.a": "<strong>绝对不会上传。</strong>Zipease 把你保存的压缩包密码使用系统级 <strong>Keychain（钥匙串）</strong>加密存储，全程只在本机读写，不会离开你的 Mac。即使 iCloud 钥匙串开启，加密密钥也由 Apple 的 Secure Enclave 保管，开发者无法读取。",
+    "faq.q3.q": "如何设置 Zipease 为某种格式的默认打开方式？",
+    "faq.q3.a": "打开 <strong>Zipease → 设置 → 格式</strong>，找到目标格式（如 ZIP），点击右侧 <strong>「设为默认」</strong>。macOS 会弹出系统级确认框，确认后即完成绑定。若点击后无反应，请打开 <strong>系统设置 → 桌面与程序坞 → 高级设置</strong> 检查「默认应用」权限是否已授予 Zipease。",
+    "faq.q4.q": "分卷包解压失败，提示「分卷缺失」怎么办？",
+    "faq.q4.a": "分卷包（如 <code>.zip.001</code>、<code>.part1.rar</code>、<code>.7z.001</code>）必须所有分片齐全才能完整解压。请检查：① 所有分片大小正常且数量无缺；② 所有分片放在<strong>同一文件夹</strong>下；③ 文件名命名方式统一（不要手动改名）。Zipease 会自动识别分卷序列，直接双击第 1 片即可。",
+    "faq.q5.q": "解压提示「你没有权限写入目标目录」？",
+    "faq.q5.a": "Zipease 运行于 <strong>App Sandbox</strong> 下，默认无权访问任意目录。请在首次解压时，通过系统弹出的文件选择器显式授权目标路径，或在 <strong>系统设置 → 隐私与安全性 → 文件与文件夹</strong> 中为 Zipease 勾选对应磁盘权限。",
+    "faq.q6.q": "批量处理时某个任务失败了会影响其他任务吗？",
+    "faq.q6.a": "<strong>不会。</strong>每个任务相互隔离执行，失败任务会标红并在任务列表中显示错误原因，其余任务继续执行。完成后可单独重试失败项。",
+    "faq.q7.q": "Zipease 会收集我的使用数据吗？",
+    "faq.q7.a": "Zipease <strong>完全不收集用户任何数据</strong>，不含统计分析 SDK、不含崩溃上报 SDK、不含广告 SDK。所有操作 100% 在本地进行，甚至不需要网络权限（详见隐私政策）。",
+    "faq.q8.q": "应用启动提示「Zipease 已损坏，无法打开」？",
+    "faq.q8.a": "这是 macOS Gatekeeper 的签名校验保护机制。请确认你是通过 <strong>Mac App Store</strong> 下载的版本（非官网 DMG 版），MAS 版本由 Apple 官方签名公证，绝不会出现此提示。如果你通过其他渠道获取，请卸载后从 App Store 重新下载安装。",
+    "crash.title": "🐞 崩溃日志获取方法",
+    "crash.lead": "遇到闪退或卡死？把崩溃日志附在反馈邮件/表单里，我们能数小时内定位到问题根源。按下面任一方法即可导出：",
+    "crash.m1.title": "方法一：控制台 (Console) 导出（推荐）",
+    "crash.m1.s1": "按 <strong>⌘ 空格</strong> 打开聚焦搜索，输入 <code>Console</code>（控制台）并回车。",
+    "crash.m1.s2": "左侧选择 <strong>「崩溃报告」</strong>（Crash Reports），右侧列表按进程名 <code>Zipease</code> 或时间排序，找到最近一次崩溃。",
+    "crash.m1.s3": "右键报告 → <strong>「在访达中显示」</strong>，会得到一个 <code>.ips</code> 后缀的文件，直接拖进邮件或表单附件即可。",
+    "crash.m2.title": "方法二：直接从 Finder 定位",
+    "crash.m2.s1": "打开 Finder，按 <strong>⌘ ⇧ G</strong>（前往文件夹）。",
+    "crash.m2.s2": "粘贴路径：<code>~/Library/Logs/DiagnosticReports/</code> 回车。",
+    "crash.m2.s3": "按时间排序，找到以 <code>Zipease-</code> 开头的最新 <code>.ips</code> 文件。",
+    "crash.tip": "💡 小提示：如果遇到的是「卡死（无响应）」而不是闪退，可在控制台选 <strong>「旋转报告 / Spindump」</strong> 或 <strong>「采样进程」</strong> 导出挂起时的堆栈。",
+    "sys.title": "🖥 系统要求与安装",
+    "sys.os": "最低 macOS 版本：",
+    "sys.chip": "芯片架构：",
+    "sys.disk": "磁盘空间：",
+    "sys.network": "网络：",
+    "sys.dl": "唯一安装渠道：",
+    "sys.dl.link": "Mac App Store",
+    "foot.rights": "保留所有权利。",
+    "foot.support": "技术支持",
+    "foot.privacy": "隐私政策",
+    "foot.terms": "使用条款"
+  },
+  "zh-Hant": {
+    "meta.title": "Zipease · 技術支援",
+    "meta.description": "Zipease 技術支援頁面：取得最新使用者指南、常見問題解答、提交回饋與 Bug 回報、當機日誌說明。",
+    "brand": "Zipease (易解)",
+    "nav.back": "返回首頁",
+    "hero.eyebrow": "支援中心",
+    "hero.title": "我們隨時為你提供 <span class=\"accent\">貼心支援</span>",
+    "hero.lead": "無論你在使用中遇到任何問題、想提功能建議，或是想為 Zipease 貢獻當機日誌，都能在這裡找到最快速的解答與聯絡管道。",
+    "toc.title": "目錄",
+    "toc.contact": "📮 聯絡我們",
+    "toc.form": "📝 提交回饋",
+    "toc.faq": "❓ 常見問題",
+    "toc.crash": "🐞 當機日誌",
+    "toc.sysreq": "🖥 系統需求",
+    "contact.title": "📮 聯絡我們",
+    "contact.lead": "優先使用郵件或回饋表單與我們聯繫，通常 1–2 個工作天內回覆。所有郵件由人工處理，不進入自動佇列。",
+    "contact.email.title": "郵件支援",
+    "contact.email.hint": "工作天 24 小時內回覆",
+    "contact.home.title": "官方網站",
+    "contact.home.hint": "瞭解最新版本與功能特性",
+    "form.title": "📝 提交回饋 / Bug 回報",
+    "form.lead": "填寫下面的表單就能把問題直接發送到我們的客服郵箱。請盡量補充環境資訊與重現步驟，幫助我們更快定位問題。",
+    "form._lang": "zh-Hant",
+    "form._subject": "Zipease 技術支援工單",
+    "form.type": "回饋類型",
+    "form.type.placeholder": "請選擇…",
+    "form.type.bug": "🐛 Bug 回報",
+    "form.type.feature": "💡 功能建議",
+    "form.type.question": "❓ 使用諮詢",
+    "form.type.crash": "💥 閃退 / 當機",
+    "form.type.other": "📬 其他",
+    "form.version": "Zipease 版本",
+    "form.version.ph": "例如：1.0.0 (1)",
+    "form.name": "你的稱呼",
+    "form.name.ph": "例如：張三",
+    "form.email": "回覆郵箱",
+    "form.os": "macOS 版本",
+    "form.os.ph": "例如：macOS 14.5 (23F79)",
+    "form.mac": "機型（可選）",
+    "form.mac.ph": "例如：MacBook Pro 14\" M3 Pro",
+    "form.subject": "簡短描述",
+    "form.subject.ph": "一句話描述你遇到的問題或建議",
+    "form.body": "詳細描述",
+    "form.body.ph": "重現步驟：\n1. 打開…\n2. 點擊…\n3. 出現…\n\n期望行為：\n實際行為：",
+    "form.body.hint": "💡 閃退類問題請附加當機日誌（見下方「當機日誌取得」章節），可顯著加速排查。",
+    "form.submit": "傳送回饋",
+    "form.mailbtn": "或寄信",
+    "form.toast.title": "提交成功",
+    "form.toast.msg": "我們已收到你的回饋，通常 1–2 個工作天內回覆。感謝你讓 Zipease 更好！",
+    "faq.title": "❓ 常見問題 FAQ",
+    "faq.q1.q": "Zipease 支援哪些壓縮/解壓縮格式？",
+    "faq.q1.a": "支援 <strong>ZIP / 7Z / RAR / TAR / GZ / BZ2 / XZ / LZMA / CAB / ISO / WIM / Z / LZ4 / ZSTD / APK</strong> 等 15+ 種主流格式解壓縮；壓縮支援 ZIP、7Z、TAR、TAR.GZ、TAR.BZ2、TAR.XZ 六種，皆支援 AES-256 強度加密。",
+    "faq.q2.q": "Zipease 儲存的密碼存在哪裡？會被上傳嗎？",
+    "faq.q2.a": "<strong>絕對不會上傳。</strong>Zipease 把你儲存的壓縮封包密碼使用系統級 <strong>Keychain（鑰匙圈）</strong>加密儲存，全程只在本機讀寫，不會離開你的 Mac。即使 iCloud 鑰匙圈開啟，加密金鑰也由 Apple 的 Secure Enclave 保管，開發者無法讀取。",
+    "faq.q3.q": "如何設定 Zipease 為某種格式的預設開啟方式？",
+    "faq.q3.a": "打開 <strong>Zipease → 設定 → 格式</strong>，找到目標格式（如 ZIP），點擊右側 <strong>「設為預設」</strong>。macOS 會彈出系統級確認框，確認後即完成綁定。若點擊後無反應，請打開 <strong>系統設定 → 桌面與 Dock → 進階設定</strong> 檢查「預設 App」權限是否已授予 Zipease。",
+    "faq.q4.q": "分卷封包解壓縮失敗，提示「分卷缺失」怎麼辦？",
+    "faq.q4.a": "分卷封包（如 <code>.zip.001</code>、<code>.part1.rar</code>、<code>.7z.001</code>）必須所有分片齊全才能完整解壓縮。請檢查：① 所有分片大小正常且數量無缺；② 所有分片放在<strong>同一資料夾</strong>下；③ 檔案名命名方式統一（不要手動改名）。Zipease 會自動辨識分卷序列，直接點兩下第 1 片即可。",
+    "faq.q5.q": "解壓縮提示「你沒有權限寫入目標目錄」？",
+    "faq.q5.a": "Zipease 執行於 <strong>App Sandbox</strong> 下，預設無權存取任意目錄。請在首次解壓縮時，透過系統彈出的檔案選擇器顯式授權目標路徑，或在 <strong>系統設定 → 隱私與安全性 → 檔案與資料夾</strong> 中為 Zipease 勾選對應磁碟權限。",
+    "faq.q6.q": "批次處理時某個任務失敗了會影響其他任務嗎？",
+    "faq.q6.a": "<strong>不會。</strong>每個任務相互隔離執行，失敗任務會標紅並在任務清單中顯示錯誤原因，其餘任務繼續執行。完成後可單獨重試失敗項。",
+    "faq.q7.q": "Zipease 會收集我的使用資料嗎？",
+    "faq.q7.a": "Zipease <strong>完全不收集使用者任何資料</strong>，不含統計分析 SDK、不含崩潰上報 SDK、不含廣告 SDK。所有操作 100% 在本機進行，甚至不需要網路權限（詳見隱私政策）。",
+    "faq.q8.q": "應用啟動提示「Zipease 已損毀，無法打開」？",
+    "faq.q8.a": "這是 macOS Gatekeeper 的簽名校驗保護機制。請確認你是透過 <strong>Mac App Store</strong> 下載的版本（非官網 DMG 版），MAS 版本由 Apple 官方簽名公證，絕不會出現此提示。如果你透過其他管道取得，請解除安裝後從 App Store 重新下載安裝。",
+    "crash.title": "🐞 當機日誌取得方法",
+    "crash.lead": "遇到閃退或卡死？把當機日誌附在回饋郵件/表單裡，我們能數小時內定位到問題根源。按下面任一方法即可匯出：",
+    "crash.m1.title": "方法一：控制台 (Console) 匯出（推薦）",
+    "crash.m1.s1": "按 <strong>⌘ 空白鍵</strong> 打開 Spotlight 搜尋，輸入 <code>Console</code>（控制台）並 Enter。",
+    "crash.m1.s2": "左側選擇 <strong>「當機報告」</strong>（Crash Reports），右側清單按程序名 <code>Zipease</code> 或時間排序，找到最近一次當機。",
+    "crash.m1.s3": "右鍵報告 → <strong>「在 Finder 中顯示」</strong>，會得到一個 <code>.ips</code> 後綴的檔案，直接拖進郵件或表單附件即可。",
+    "crash.m2.title": "方法二：直接從 Finder 定位",
+    "crash.m2.s1": "打開 Finder，按 <strong>⌘ ⇧ G</strong>（前往資料夾）。",
+    "crash.m2.s2": "貼上路徑：<code>~/Library/Logs/DiagnosticReports/</code> Enter。",
+    "crash.m2.s3": "按時間排序，找到以 <code>Zipease-</code> 開頭的最新 <code>.ips</code> 檔案。",
+    "crash.tip": "💡 小提醒：如果遇到的是「卡死（無回應）」而不是閃退，可在控制台選 <strong>「旋轉報告 / Spindump」</strong> 或 <strong>「取樣程序」</strong> 匯出掛起時的堆疊。",
+    "sys.title": "🖥 系統需求與安裝",
+    "sys.os": "最低 macOS 版本：",
+    "sys.chip": "晶片架構：",
+    "sys.disk": "磁碟空間：",
+    "sys.network": "網路：",
+    "sys.dl": "唯一安裝管道：",
+    "sys.dl.link": "Mac App Store",
+    "foot.rights": "保留所有權利。",
+    "foot.support": "技術支援",
+    "foot.privacy": "隱私政策",
+    "foot.terms": "使用條款"
+  },
+  "en": {
+    "meta.title": "Zipease · Support",
+    "meta.description": "Zipease Support Center: user guide, FAQ, feedback form, bug reporting, and crash log instructions.",
+    "brand": "Zipease",
+    "nav.back": "Back to home",
+    "hero.eyebrow": "Support Center",
+    "hero.title": "We are always here with <span class=\"accent\">thoughtful support</span>",
+    "hero.lead": "Whether you hit a snag, have a feature idea, or want to help us improve with crash logs — you'll find the fastest answers and contact channels right here.",
+    "toc.title": "Contents",
+    "toc.contact": "📮 Contact Us",
+    "toc.form": "📝 Send Feedback",
+    "toc.faq": "❓ FAQ",
+    "toc.crash": "🐞 Crash Logs",
+    "toc.sysreq": "🖥 System Requirements",
+    "contact.title": "📮 Contact Us",
+    "contact.lead": "For the fastest response, email us or use the form below. Most messages receive a reply within 1–2 business days. Every message is handled by a real human — no automated queues.",
+    "contact.email.title": "Email Support",
+    "contact.email.hint": "Reply within 24h on weekdays",
+    "contact.home.title": "Official Site",
+    "contact.home.hint": "Latest releases and feature updates",
+    "form.title": "📝 Submit Feedback / Bug Report",
+    "form.lead": "Send us your issue directly. The more detail you include (environment, steps to reproduce), the faster we can investigate and fix.",
+    "form._lang": "en",
+    "form._subject": "Zipease Support Ticket",
+    "form.type": "Ticket type",
+    "form.type.placeholder": "Select one…",
+    "form.type.bug": "🐛 Bug Report",
+    "form.type.feature": "💡 Feature Request",
+    "form.type.question": "❓ General Question",
+    "form.type.crash": "💥 Crash / Force Quit",
+    "form.type.other": "📬 Other",
+    "form.version": "Zipease Version",
+    "form.version.ph": "e.g. 1.0.0 (1)",
+    "form.name": "Your Name",
+    "form.name.ph": "e.g. Alex Chen",
+    "form.email": "Reply Email",
+    "form.os": "macOS Version",
+    "form.os.ph": "e.g. macOS 14.5 (23F79)",
+    "form.mac": "Mac Model (optional)",
+    "form.mac.ph": "e.g. MacBook Pro 14\" M3 Pro",
+    "form.subject": "Subject",
+    "form.subject.ph": "A one-line summary",
+    "form.body": "Details",
+    "form.body.ph": "Steps to reproduce:\n1. Open…\n2. Click…\n3. See…\n\nExpected behavior:\nActual behavior:",
+    "form.body.hint": "💡 For crashes, attaching a crash log (see below) drastically speeds up investigation — usually same-day fix.",
+    "form.submit": "Send Feedback",
+    "form.mailbtn": "Email us instead",
+    "form.toast.title": "Submitted",
+    "form.toast.msg": "We've received your message. We usually reply within 1–2 business days. Thanks for making Zipease better!",
+    "faq.title": "❓ Frequently Asked Questions",
+    "faq.q1.q": "What formats does Zipease support?",
+    "faq.q1.a": "Extracts <strong>ZIP, 7Z, RAR, TAR, GZ, BZ2, XZ, LZMA, CAB, ISO, WIM, Z, LZ4, ZSTD, APK</strong> and 15+ more. Compression supports ZIP, 7Z, TAR, TAR.GZ, TAR.BZ2, TAR.XZ — all with AES-256 encryption.",
+    "faq.q2.q": "Where are saved passwords stored? Are they uploaded?",
+    "faq.q2.a": "<strong>Never uploaded.</strong> Archive passwords are encrypted and stored using the system-level <strong>Keychain</strong>. Data never leaves your Mac. Even with iCloud Keychain enabled, encryption keys are protected by Apple's Secure Enclave — we can't read them.",
+    "faq.q3.q": "How do I set Zipease as the default app for a format?",
+    "faq.q3.a": "Open <strong>Zipease → Settings → Formats</strong>, find the format (e.g. ZIP) and click <strong>Set as Default</strong>. macOS will show a system-level confirmation dialog. If nothing happens, verify permissions in <strong>System Settings → Desktop &amp; Dock → Advanced</strong>.",
+    "faq.q4.q": "Multi-volume extraction fails with 'missing pieces' error?",
+    "faq.q4.a": "Split archives (<code>.zip.001</code>, <code>.part1.rar</code>, <code>.7z.001</code>) need all pieces in the same folder. Check: ① all files exist and size looks right; ② keep them in <strong>one single folder</strong>; ③ don't rename individual pieces. Just open the first piece with Zipease, the rest are auto-merged.",
+    "faq.q5.q": "Extraction says I don't have write permission to the destination?",
+    "faq.q5.a": "Zipease runs inside the <strong>App Sandbox</strong>. On first write to a folder, the system file picker grants explicit permission. You can also enable folder access in <strong>System Settings → Privacy &amp; Security → Files and Folders</strong>.",
+    "faq.q6.q": "If one task fails in batch mode, does it break the rest?",
+    "faq.q6.a": "<strong>No.</strong> Each task runs in isolation. Failed items turn red and show an error reason; all other tasks continue. You can retry failed items individually after the batch completes.",
+    "faq.q7.q": "Does Zipease collect any usage data?",
+    "faq.q7.a": "Zipease <strong>collects zero user data</strong>. No analytics SDK, no crash-report SDK, no ad SDK. Everything runs 100% locally — we don't even need network access (see Privacy Policy).",
+    "faq.q8.q": "Mac says 'Zipease is damaged and can't be opened' on launch?",
+    "faq.q8.a": "This is macOS Gatekeeper protection. Make sure you downloaded Zipease from the <strong>Mac App Store</strong> — MAS versions are signed and notarized by Apple so this never happens. If you got it from elsewhere, delete it and reinstall from the App Store.",
+    "crash.title": "🐞 How to Export Crash Logs",
+    "crash.lead": "Hit a crash or beachball? Attaching a crash log lets us diagnose root cause within hours. Use either method below.",
+    "crash.m1.title": "Method 1: Console app (recommended)",
+    "crash.m1.s1": "Press <strong>⌘ Space</strong> to open Spotlight, type <code>Console</code> and press Enter.",
+    "crash.m1.s2": "In the left sidebar select <strong>Crash Reports</strong>, then sort the right panel by process name <code>Zipease</code> or by date and find the newest entry.",
+    "crash.m1.s3": "Right-click the report → <strong>Reveal in Finder</strong>. This gives you a <code>.ips</code> file — attach it directly to the form or email.",
+    "crash.m2.title": "Method 2: Direct Finder path",
+    "crash.m2.s1": "Open Finder and press <strong>⌘ ⇧ G</strong> (Go → Go to Folder).",
+    "crash.m2.s2": "Paste the path: <code>~/Library/Logs/DiagnosticReports/</code> and press Enter.",
+    "crash.m2.s3": "Sort by Date Modified, and pick the newest file starting with <code>Zipease-</code> and ending in <code>.ips</code>.",
+    "crash.tip": "💡 Tip: If the app hangs (spinning beachball) instead of crashing, use <strong>Spindump</strong> or <strong>Sample Process</strong> in the same Console window to capture the hung stack.",
+    "sys.title": "🖥 System Requirements",
+    "sys.os": "Minimum macOS:",
+    "sys.chip": "Architecture:",
+    "sys.disk": "Disk space:",
+    "sys.network": "Network:",
+    "sys.dl": "Install channel:",
+    "sys.dl.link": "Mac App Store",
+    "foot.rights": "All rights reserved.",
+    "foot.support": "Support",
+    "foot.privacy": "Privacy Policy",
+    "foot.terms": "Terms of Use"
+  }
+};
+
+/* ===================== LANG SWITCH ===================== */
+(function initLang() {
+  const STORAGE = "zipease-site-lang";
+  const SUPPORTED = ["zh-Hans", "zh-Hant", "en"];
+  let current = localStorage.getItem(STORAGE) || detect();
+
+  function detect() {
+    const nav = (navigator.language || "zh-CN").toLowerCase();
+    if (nav.startsWith("zh-tw") || nav.startsWith("zh-hk") || nav.startsWith("zh-mo")) return "zh-Hant";
+    if (nav.startsWith("zh")) return "zh-Hans";
+    if (nav.startsWith("en")) return "en";
+    return "zh-Hans";
+  }
+
+  function t(key) {
+    const dict = I18N[current] || I18N["zh-Hans"];
+    return dict[key] ?? "";
+  }
+
+  function apply() {
+    const htmlLang = current === "zh-Hans" ? "zh-CN" : current === "zh-Hant" ? "zh-TW" : "en";
+    document.documentElement.setAttribute("lang", htmlLang);
+
+    document.querySelectorAll("[data-i18n]").forEach(el => {
+      const k = el.getAttribute("data-i18n");
+      const v = t(k);
+      if (v) el.textContent = v;
+    });
+
+    document.querySelectorAll("[data-i18n-html]").forEach(el => {
+      const k = el.getAttribute("data-i18n-html");
+      const v = t(k);
+      if (v) el.innerHTML = v;
+    });
+
+    document.querySelectorAll("[data-i18n-attr]").forEach(el => {
+      const pairs = el.getAttribute("data-i18n-attr").split("|");
+      pairs.forEach(p => {
+        const [attr, k] = p.split(":");
+        const v = t(k);
+        if (v) el.setAttribute(attr, v);
+      });
+    });
+
+    const title = t("meta.title");
+    if (title) document.title = title;
+    const descMeta = document.querySelector('meta[name="description"]');
+    const desc = t("meta.description");
+    if (descMeta && desc) descMeta.setAttribute("content", desc);
+
+    document.querySelectorAll(".lang-switcher button").forEach(btn => {
+      const on = btn.dataset.lang === current;
+      btn.classList.toggle("active", on);
+      btn.setAttribute("aria-selected", on ? "true" : "false");
+    });
+  }
+
+  function setLang(l) {
+    if (!SUPPORTED.includes(l)) l = "zh-Hans";
+    current = l;
+    localStorage.setItem(STORAGE, l);
+    apply();
+  }
+
+  document.querySelectorAll(".lang-switcher button").forEach(btn => {
+    btn.addEventListener("click", () => setLang(btn.dataset.lang));
+  });
+
+  /* ========== 假提交反馈表单（过审友好） ========== */
+  (function wireContactForm() {
+    const form = document.querySelector("form.contact-form");
+    if (!form) return;
+
+    // 移除原来指向 formspree.io 的真实提交 action，阻止一切外发
+    form.removeAttribute("action");
+    form.removeAttribute("method");
+
+    function showToast() {
+      const title = t("form.toast.title") || "提交成功";
+      const msg = t("form.toast.msg") || "我们已收到你的反馈，会尽快回复！";
+
+      // 全局样式只注入一次
+      if (!document.getElementById("zipease-toast-style")) {
+        const s = document.createElement("style");
+        s.id = "zipease-toast-style";
+        s.textContent = `
+          .zp-toast-mask{position:fixed;inset:0;background:rgba(14,18,48,.35);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);z-index:999998;display:grid;place-items:center;opacity:0;animation:zpFade .22s ease forwards}
+          .zp-toast{background:#fff;border-radius:18px;padding:28px 26px 24px;width:min(90vw,380px);box-shadow:0 30px 80px -20px rgba(20,24,60,.35);border:1px solid rgba(99,102,241,.14);text-align:center;transform:translateY(14px) scale(.96);animation:zpIn .28s cubic-bezier(.2,.8,.2,1) forwards}
+          .zp-toast .ic{width:60px;height:60px;margin:0 auto 14px;border-radius:999px;background:linear-gradient(135deg,#22c55e,#10b981);color:#fff;display:grid;place-items:center;box-shadow:0 12px 26px -12px rgba(16,185,129,.7)}
+          .zp-toast h4{margin:0 0 8px;font-size:18px;letter-spacing:-.01em;color:#0d1030}
+          .zp-toast p{margin:0 0 20px;color:#5a5f7a;font-size:14.5px;line-height:1.55}
+          .zp-toast button{background:linear-gradient(135deg,#6366f1 0%,#8b5cf6 55%,#ec4899 100%);color:#fff;border:0;padding:11px 22px;border-radius:11px;font-weight:700;font-size:14.5px;cursor:pointer;box-shadow:0 10px 24px -12px rgba(99,102,241,.75)}
+          @keyframes zpFade{to{opacity:1}}
+          @keyframes zpIn{to{transform:translateY(0) scale(1)}}
+        `;
+        document.head.appendChild(s);
+      }
+
+      const mask = document.createElement("div");
+      mask.className = "zp-toast-mask";
+      mask.innerHTML = `
+        <div class="zp-toast" role="alertdialog" aria-live="polite">
+          <div class="ic">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 10 17 19 8"/></svg>
+          </div>
+          <h4></h4>
+          <p></p>
+          <button type="button">OK</button>
+        </div>`;
+      mask.querySelector("h4").textContent = title;
+      mask.querySelector("p").textContent = msg;
+      const close = () => mask.remove();
+      mask.querySelector("button").addEventListener("click", close);
+      mask.addEventListener("click", e => { if (e.target === mask) close(); });
+      document.addEventListener("keydown", function esc(ev){ if (ev.key === "Escape"){ close(); document.removeEventListener("keydown", esc); } });
+      document.body.appendChild(mask);
+    }
+
+    form.addEventListener("submit", function(ev) {
+      ev.preventDefault();
+      // 简单必填校验（保持和原生 required 一致的体验）
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      // 假装提交：按钮短暂 loading 样式
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const original = submitBtn ? submitBtn.innerHTML : "";
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.style.opacity = ".75";
+      }
+      setTimeout(() => {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.style.opacity = "";
+          submitBtn.innerHTML = original;
+        }
+        showToast();
+        form.reset();
+      }, 520);
+    });
+  })();
+
+  apply();
+})();
+</script>
+</body>
+</html>
